@@ -1,11 +1,16 @@
-# QGroundControl Ground Control Station
+# Vigiair Mobile App
+
+Baseado no software aberto QGroundControl.
+
+TO DO:
+- Configurar Travis CI para mobile app.
+- Configurar Vagrant para mobile app.
 
 [![Releases](https://img.shields.io/github/release/mavlink/QGroundControl.svg)](https://github.com/mavlink/QGroundControl/releases)
 [![Travis Build Status](https://travis-ci.org/mavlink/qgroundcontrol.svg?branch=master)](https://travis-ci.org/mavlink/qgroundcontrol)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/crxcm4qayejuvh6c/branch/master?svg=true)](https://ci.appveyor.com/project/mavlink/qgroundcontrol)
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mavlink/qgroundcontrol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 
 *QGroundControl* (QGC) is an intuitive and powerful ground control station (GCS) for UAVs.
 
@@ -14,7 +19,6 @@ It provides full flight control and mission planning for any MAVLink enabled dro
 
 All the code is open-source, so you can contribute and evolve it as you want. 
 The [Developer Guide](https://dev.qgroundcontrol.com/en/) explains how to [build](https://dev.qgroundcontrol.com/en/getting_started/) and extend QGC.
-
 
 Key Links: 
 * [Website](http://qgroundcontrol.com) (qgroundcontrol.com)
