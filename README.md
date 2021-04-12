@@ -3,6 +3,7 @@
 Baseado no software aberto QGroundControl.
 
 TO DO:
+- Test TCI
 - Configurar Travis CI para mobile app.
 - Configurar Vagrant para mobile app.
 
