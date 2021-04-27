@@ -15,7 +15,7 @@ exists($$PWD/custom/android) {
     android_source_dir_target.commands = $$QMAKE_MKDIR $$ANDROID_PACKAGE_SOURCE_DIR && \
             $$QMAKE_COPY_DIR $$PWD/android/* $$OUT_PWD/ANDROID_PACKAGE_SOURCE_DIR && \
             $$QMAKE_COPY_DIR $$PWD/custom/android/* $$OUT_PWD/ANDROID_PACKAGE_SOURCE_DIR && \
-            $$QMAKE_STREAM_EDITOR -i \"s/package=\\\"org.mavlink.qgroundcontrol\\\"/package=\\\"$$QGC_ANDROID_PACKAGE\\\"/\" $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
+            $$QMAKE_STREAM_EDITOR -i \"s/package=\\\"com.vigiair.vigiapp\\\"/package=\\\"$$QGC_ANDROID_PACKAGE\\\"/\" $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
     android_source_dir_target.depends = FORCE
 }
 
@@ -57,11 +57,17 @@ DISTFILES += \
     $$PWD/android/libs/d2xx.jar \
     $$PWD/android/res/activity_usbserial.xml \
     $$PWD/android/res/drawable-hdpi/icon.png \
+    $$PWD/android/res/drawable-hdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-ldpi/icon.png \
+    $$PWD/android/res/drawable-ldpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-mdpi/icon.png \
+    $$PWD/android/res/drawable-mdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-xhdpi/icon.png \
+    $$PWD/android/res/drawable-xhdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-xxhdpi/icon.png \
+    $$PWD/android/res/drawable-xxhdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-xxxhdpi/icon.png \
+    $$PWD/android/res/drawable-xxxhdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/layout/activity_usbserial.xml \
     $$PWD/android/res/values/libs.xml \
     $$PWD/android/build.gradle \

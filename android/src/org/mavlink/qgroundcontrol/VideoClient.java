@@ -1,4 +1,4 @@
-package org.mavlink.qgroundcontrol;
+package com.vigiair.vigiapp;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

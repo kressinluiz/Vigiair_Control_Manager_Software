@@ -1,4 +1,4 @@
-package org.mavlink.qgroundcontrol;
+package com.vigiair.vigiapp;
 
 public class CircularByteBuffer {
   private final byte[] buffer;

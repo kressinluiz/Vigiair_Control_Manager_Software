@@ -130,7 +130,7 @@ gst_android_init(JNIEnv* env, jobject context)
 }
 
 //-----------------------------------------------------------------------------
-static const char kJniClassName[] {"org/mavlink/qgroundcontrol/QGCActivity"};
+static const char kJniClassName[] {"com/vigiair/vigiapp/QGCActivity"};
 
 void setNativeMethods(void)
 {

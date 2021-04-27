@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<manifest package="org.mavlink.qgroundcontrol" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="3.0.0-243-gd759437" android:versionCode="300243" android:installLocation="auto">
+<manifest package="com.vigiair.vigiapp" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.9.0" android:versionCode="211209064" android:installLocation="auto">
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="-- %%INSERT_APP_NAME%% --" android:icon="@drawable/icon">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.mavlink.qgroundcontrol.QGCActivity" android:label="-- %%INSERT_APP_NAME%% --" android:screenOrientation="sensorLandscape" android:launchMode="singleTask" android:keepScreenOn="true">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="com.vigiair.vigiapp.QGCActivity" android:label="-- %%INSERT_APP_NAME%% --" android:screenOrientation="sensorLandscape" android:launchMode="singleTask" android:keepScreenOn="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -36,9 +36,6 @@
             <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
             <!--  Messages maps -->
             <!-- Splash screen -->
-            <!--
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/logo"/>
-            -->
             <!-- Splash screen -->
             <!-- Background running -->
             <!-- Warning: changing this value to true may cause unexpected crashes if the
@@ -47,6 +44,7 @@
                           signal is sent! -->
             <meta-data android:name="android.app.background_running" android:value="false"/>
             <!-- Background running -->
+            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/vigiair_splashscreen_landscape"/>
         </activity>
     </application>
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>

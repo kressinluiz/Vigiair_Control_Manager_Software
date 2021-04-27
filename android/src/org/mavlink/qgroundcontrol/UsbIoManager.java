@@ -1,4 +1,4 @@
-package org.mavlink.qgroundcontrol;
+package com.vigiair.vigiapp;
 
 /* Copyright 2011 Google Inc.
 *

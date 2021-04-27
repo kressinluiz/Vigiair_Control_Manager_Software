@@ -46,7 +46,7 @@ QGC_APP_NAME        = "Custom QGroundControl"
 QGC_BINARY_NAME     = "VigiApp"
 QGC_ORG_NAME        = "Vigiair"
 QGC_ORG_DOMAIN      = "com.vigiair"
-QGC_ANDROID_PACKAGE = "org.mavlink.qgroundcontrol"
+QGC_ANDROID_PACKAGE = "com.vigiair.vigiapp"
 QGC_APP_DESCRIPTION = "VigiApp"
 QGC_APP_COPYRIGHT   = "Copyright (C) 2021 Vigiair Development Team. All rights reserved."
 

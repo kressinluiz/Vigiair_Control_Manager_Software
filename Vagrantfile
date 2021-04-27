@@ -78,7 +78,7 @@ set -x
 cd %{shadow_build_dir}
 export LD_LIBRARY_PATH=%{qt_deps_lib_unpack_dir}
 export PATH=%{qt_deps_bin_unpack_dir}:\$PATH
-qmake -r %{pro} CONFIG+=\${CONFIG} CONFIG+=WarningsAsErrorsOn -spec %{spec}
+qmake -r %{pro} CONFIG+=\${CONFIG} -spec %{spec}
 QMAKE
 "
 
