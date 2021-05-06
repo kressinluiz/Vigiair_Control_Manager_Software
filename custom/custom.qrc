@@ -13,7 +13,7 @@
         <file alias="PairingIndicator.qml">res/PairingIndicator.qml</file>
         <file alias="PreFlightCheckList.qml">res/PreFlightCheckList.qml</file>
     </qresource>
-    <qresource prefix="custom/img">
+    <qresource prefix="/custom/img">
         <file alias="altitude.svg">res/Images/altitude.svg</file>
         <file alias="attitude_crosshair.svg">res/Images/attitude_crosshair.svg</file>
         <file alias="attitude_dial.svg">res/Images/attitude_dial.svg</file>
@@ -43,7 +43,7 @@
         <file alias="vertical_speed.svg">res/Images/vertical_speed.svg</file>
         <file alias="void.png">res/Images/void.png</file>
     </qresource>
-    <qresource prefix="Custom/Widgets">
+    <qresource prefix="/Custom/Widgets">
         <file alias="Custom/Widgets/CustomArtificialHorizon.qml">res/Custom/Widgets/CustomArtificialHorizon.qml</file>
         <file alias="Custom/Widgets/CustomAttitudeWidget.qml">res/Custom/Widgets/CustomAttitudeWidget.qml</file>
         <file alias="Custom/Widgets/CustomIconButton.qml">res/Custom/Widgets/CustomIconButton.qml</file>
@@ -54,7 +54,7 @@
         <file alias="Custom/Widgets/CustomVehicleButton.qml">res/Custom/Widgets/CustomVehicleButton.qml</file>
         <file alias="Custom/Widgets/qmldir">res/Custom/Widgets/qmldir</file>
     </qresource>
-    <qresource prefix="Custom/Camera">
+    <qresource prefix="/Custom/Camera">
         <file alias="Custom/Camera/qmldir">res/Custom/Camera/qmldir</file>
         <file alias="Custom/Camera/ZoomControl.qml">res/Custom/Camera/ZoomControl.qml</file>
     </qresource>

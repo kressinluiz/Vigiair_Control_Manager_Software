@@ -90,3 +90,6 @@ SOURCES += \
     $$QGCROOT/custom/src/FirmwarePlugin/CustomFirmwarePlugin.cc \
     $$QGCROOT/custom/src/FirmwarePlugin/CustomFirmwarePluginFactory.cc \
 
+DISTFILES += \
+    $$PWD/qgcresources.exclusion
+
