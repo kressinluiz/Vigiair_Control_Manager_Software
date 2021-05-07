@@ -201,7 +201,7 @@ Item {
             }
             CustomToolBarButton {
                 id:                         planButton
-                text:                       qsTr("Plan")
+                text:                       qsTr("Rotas")
                 icon.source:                "/qmlimages/Plan.svg"
                 Layout.fillWidth:           true
                 onClicked: {
@@ -269,7 +269,7 @@ Item {
             }
             CustomToolBarButton {
                 id:                         settingsButton
-                text:                       qsTr("Settings")
+                text:                       qsTr("Configurações")
                 icon.source:                "/qmlimages/Gears.svg"
                 Layout.fillWidth:           true
                 onClicked: {
