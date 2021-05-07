@@ -342,6 +342,7 @@ ApplicationWindow {
     /// Fly View
     FlightDisplayView {
         id:             flightView
+        visible: false
         anchors.fill:   parent
         //-----------------------------------------------------------------
         //-- Loader helper for any child, no matter how deep, to display
@@ -357,7 +358,7 @@ ApplicationWindow {
     Loader {
         id:             planViewLoader
         anchors.fill:   parent
-        visible:        false
+        visible:        true
         source:         "PlanView.qml"
     }
 
