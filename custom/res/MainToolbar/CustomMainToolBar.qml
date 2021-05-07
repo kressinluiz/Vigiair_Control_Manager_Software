@@ -239,6 +239,7 @@ Item {
                 text:                       qsTr("Vehicle Setup")
                 icon.source:                "/qmlimages/Gears.svg"
                 Layout.fillWidth:           true
+                visible: false
                 onClicked: {
                     checked = true
                     drawer.close()
