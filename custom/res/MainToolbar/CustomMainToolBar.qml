@@ -220,6 +220,7 @@ Item {
                 text:                       qsTr("Analyze")
                 icon.source:                "/qmlimages/Analyze.svg"
                 Layout.fillWidth:           true
+                visible: false
                 onClicked: {
                     checked = true
                     drawer.close()
