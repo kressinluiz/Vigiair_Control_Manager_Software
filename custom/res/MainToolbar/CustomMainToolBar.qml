@@ -185,6 +185,7 @@ Item {
                 text:                       qsTr("Fly")
                 icon.source:                "/qmlimages/PaperPlane.svg"
                 Layout.fillWidth:           true
+                visible: false
                 onClicked: {
                     checked = true
                     drawer.close()
