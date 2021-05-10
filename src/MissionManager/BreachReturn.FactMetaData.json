@@ -1,19 +1,19 @@
 [
 {
     "name":             "Latitude",
-    "shortDescription": "Latitude of breach return point position",
+    "shortDescription": "Latitude do ponto de retorno após violação",
     "type":             "double",
     "decimalPlaces":    7
 },
 {
     "name":             "Longitude",
-    "shortDescription": "Longitude of breach return point position",
+    "shortDescription": "Longitude do ponto de retorno após violação",
     "type":             "double",
     "decimalPlaces":    7
 },
 {
     "name":             "Altitude",
-    "shortDescription": "Altitude of breach return point position (Rel)",
+    "shortDescription": "Altitude relativa do ponto de retorno após violação",
     "type":             "double",
     "decimalPlaces":    2,
     "units":            "m"

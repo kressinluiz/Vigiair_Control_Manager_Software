@@ -601,13 +601,13 @@ Item {
                     dropPanelComponent: syncDropPanel
                 },
                 {
-                    name:               qsTr("Partir"),
+                    name:               qsTr("Decolar"),
                     iconSource:         "/res/takeoff.svg",
                     buttonEnabled:      _missionController.isInsertTakeoffValid,
                     buttonVisible:      _isMissionLayer
                 },
                 {
-                    name:               _editingLayer == _layerRallyPoints ? qsTr("Rally Point") : qsTr("Parar"),
+                    name:               _editingLayer == _layerRallyPoints ? qsTr("Ponto Rally") : qsTr("Parar"),
                     iconSource:         "/qmlimages/MapAddMission.svg",
                     buttonEnabled:      _isRallyLayer ? true : _missionController.flyThroughCommandsAllowed,
                     buttonVisible:      _isRallyLayer || _isMissionLayer,
@@ -802,10 +802,10 @@ Item {
                                 currentIndex = 0
                             }
                             QGCTabButton {
-                                text:       qsTr("Mission")
+                                text:       qsTr("Rota")
                             }
                             QGCTabButton {
-                                text:       qsTr("Fence")
+                                text:       qsTr("Cerca")
                                 enabled:    _geoFenceController.supported
                             }
                             QGCTabButton {

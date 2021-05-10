@@ -1,7 +1,7 @@
 [
 {
     "name":             "FlightSpeed",
-    "shortDescription": "Set the current flight speed",
+    "shortDescription": "Define a velocidade de vôo atual",
     "type":             "double",
     "units":            "m/s",
     "min":              0,

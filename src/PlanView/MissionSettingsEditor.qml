@@ -41,7 +41,7 @@ Rectangle {
     property bool   _showFlightSpeed:               !_missionVehicle.vtol && !_simpleMissionStart && !_missionVehicle.apmFirmware
 
     readonly property string _firmwareLabel:    qsTr("Firmware")
-    readonly property string _vehicleLabel:     qsTr("Vehicle")
+    readonly property string _vehicleLabel:     qsTr("Drone")
     readonly property real  _margin:            ScreenTools.defaultFontPixelWidth / 2
 
     QGCPalette { id: qgcPal }
@@ -63,7 +63,7 @@ Rectangle {
             columns:        2
 
             QGCLabel {
-                text:       qsTr("Waypoint alt")
+                text:       qsTr("Altitude Padrão")
             }
             FactTextField {
                 fact:               QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
@@ -72,7 +72,7 @@ Rectangle {
 
             QGCCheckBox {
                 id:         flightSpeedCheckBox
-                text:       qsTr("Flight speed")
+                text:       qsTr("Velocidade do vôo")
                 visible:    _showFlightSpeed
                 checked:    missionItem.speedSection.specifyFlightSpeed
                 onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
@@ -111,7 +111,7 @@ Rectangle {
                 id:             vehicleInfoSectionHeader
                 anchors.left:   parent.left
                 anchors.right:  parent.right
-                text:           qsTr("Vehicle Info")
+                text:           qsTr("Informações Drone")
                 visible:        _offlineEditing && !_waypointsOnlyMode
                 checked:        false
             }
@@ -140,13 +140,15 @@ Rectangle {
                 QGCLabel {
                     text:               _vehicleLabel
                     Layout.fillWidth:   true
-                    visible:            _multipleVehicleTypes
+                    //visible:            _multipleVehicleTypes
+                    visible: false
                 }
                 FactComboBox {
                     fact:                   QGroundControl.settingsManager.appSettings.offlineEditingVehicleType
                     indexModel:             false
                     Layout.preferredWidth:  _fieldWidth
-                    visible:                _multipleVehicleTypes
+                    //visible:                _multipleVehicleTypes
+                    visible:                false
                     enabled:                _enableOfflineVehicleCombos
                 }
 
@@ -162,7 +164,7 @@ Rectangle {
                 }
 
                 QGCLabel {
-                    text:               qsTr("Hover speed")
+                    text:               qsTr("Velocidade")
                     visible:            _showHoverSpeed
                     Layout.fillWidth:   true
                 }
@@ -177,7 +179,7 @@ Rectangle {
                 id:             plannedHomePositionSection
                 anchors.left:   parent.left
                 anchors.right:  parent.right
-                text:           qsTr("Launch Position")
+                text:           qsTr("Posição de Lançamento")
                 visible:        !_vehicleHasHomePosition
                 checked:        false
             }
@@ -208,12 +210,12 @@ Rectangle {
                     width:                  parent.width
                     wrapMode:               Text.WordWrap
                     font.pointSize:         ScreenTools.smallFontPointSize
-                    text:                   qsTr("Actual position set by vehicle at flight time.")
+                    text:                   qsTr("A posição é redefinida pelo drone no momento do vôo.")
                     horizontalAlignment:    Text.AlignHCenter
                 }
 
                 QGCButton {
-                    text:                       qsTr("Set To Map Center")
+                    text:                       qsTr("Definir no Centro do Mapa")
                     onClicked:                  missionItem.coordinate = map.center
                     anchors.horizontalCenter:   parent.horizontalCenter
                 }

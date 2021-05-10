@@ -48,7 +48,7 @@ Rectangle {
             anchors.leftMargin:     _margin
             anchors.left:           indicator.right
             anchors.verticalCenter: parent.verticalCenter
-            text:                   qsTr("Rally Point")
+            text:                   qsTr("Ponto Rally")
             color:                  _outerTextColor
         }
 

@@ -28,7 +28,7 @@
 {
     "name":             "offlineEditingHoverSpeed",
     "shortDescription": "Offline editing hover speed",
-    "longDescription":  "This value defines the default cruising speed for multi-rotor vehicles for use in calculating mission statistics. It does not modify the flight speed for a specific flight plan.",
+    "longDescription": "Esse valor define a velocidade de vôo do drone utilizada para calcular as estatísticas da rota. Não modifica a velocidade do vôo.",
     "type":             "double",
     "defaultValue":     5.0,
     "min":              1.0,
@@ -68,7 +68,7 @@
 {
     "name":             "defaultMissionItemAltitude",
     "shortDescription": "Default value for altitude",
-    "longDescription":  "This value specifies the default altitude for new items added to a mission.",
+    "longDescription":  "Esse valor determina a altitude padrão para novos itens adicionados a rota.",
     "type":             "double",
     "defaultValue":     50.0,
     "min":              0.0,

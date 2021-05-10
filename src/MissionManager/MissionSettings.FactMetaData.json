@@ -1,7 +1,7 @@
 [
 {
     "name":             "PlannedHomePositionAltitude",
-    "shortDescription": "Launch position altitude",
+    "shortDescription": "Altitude da posição de lançamento",
     "type":             "double",
     "units":            "m",
     "decimalPlaces":    1,

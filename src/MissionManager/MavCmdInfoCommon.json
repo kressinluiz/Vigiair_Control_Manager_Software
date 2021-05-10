@@ -27,31 +27,31 @@
         {
             "id":                   16,
             "rawName":              "MAV_CMD_NAV_WAYPOINT",
-            "friendlyName":         "Waypoint",
-            "description":          "Travel to a position in 3D space.",
+            "friendlyName":         "Parar",
+            "description":          "Voa para uma posição especificada.",
             "specifiesCoordinate":  true,
             "friendlyEdit":         true,
             "category":             "Basic",
             "param1": {
-                "label":            "Hold",
+                "label":            "Aguarde",
                 "units":            "secs",
                 "default":          0,
                 "decimalPlaces":    0
             },
             "param2": {
-                "label":            "Acceptance",
+                "label":            "Aceitação",
                 "units":            "m",
                 "default":          3,
                 "decimalPlaces":    2
             },
             "param3": {
-                "label":            "PassThru",
+                "label":            "Atravessar",
                 "units":            "m",
                 "default":          0,
                 "decimalPlaces":    2
             },
             "param4": {
-                "label":            "Heading",
+                "label":            "Direção",
                 "units":            "deg",
                 "nanUnchanged":     true,
                 "default":          null,
@@ -138,8 +138,8 @@
         {
             "id":           20,
             "rawName":      "MAV_CMD_NAV_RETURN_TO_LAUNCH",
-            "friendlyName": "Return To Launch",
-            "description":  "Send the vehicle back to the launch position.",
+            "friendlyName": "Retorna para Casa",
+            "description":  "Envia o drone para o local de lançamento.",
             "friendlyEdit": true,
             "category":     "Basic"
         },
@@ -168,8 +168,8 @@
         {
             "id":                   22,
             "rawName":              "MAV_CMD_NAV_TAKEOFF",
-            "friendlyName":         "Takeoff",
-            "description":          "Take off from the ground and travel towards the specified position.",
+            "friendlyName":         "Decolar",
+            "description":          "Decola do chão e viaja até a posição especificada.",
             "specifiesCoordinate":  true,
             "friendlyEdit":         true,
             "category":             "Basic",
@@ -180,7 +180,7 @@
                 "decimalPlaces":    2
             },
             "param4": {
-                "label":            "Heading",
+                "label":            "Direção",
                 "units":            "deg",
                 "nanUnchanged":     true,
                 "default":          null,

@@ -1,19 +1,19 @@
 [
 {
     "name":             "Latitude",
-    "shortDescription": "Latitude of rally point position",
+    "shortDescription": "Latitude do ponto de rally",
     "type":             "double",
     "decimalPlaces":    7
 },
 {
     "name":             "Longitude",
-    "shortDescription": "Longitude of rally point position",
+    "shortDescription": "Longitude do ponto de rally",
     "type":             "double",
     "decimalPlaces":    7
 },
 {
-    "name":             "Relative Altitude",
-    "shortDescription": "Altitude of rally point position (home relative)",
+    "name":             "Altitude Relativa",
+    "shortDescription": "Altitude do ponto de rally (relativa ao ponto de decolagem)",
     "type":             "double",
     "decimalPlaces":    2,
     "units":            "m",

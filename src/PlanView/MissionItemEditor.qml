@@ -108,7 +108,7 @@ Rectangle {
         visible:                _currentItem && !_readyForSave
         text:                   missionItem.readyForSaveState === VisualMissionItem.NotReadyForSaveTerrain ?
                                     qsTr("Incomplete: Waiting on terrain data.") :
-                                    qsTr("Incomplete: Item not fully specified.")
+                                    qsTr("Incompleto: Elemento configurado parcialmente.")
         wrapMode:               Text.WordWrap
         horizontalAlignment:    Text.AlignHCenter
         color:                  qgcPal.warningText

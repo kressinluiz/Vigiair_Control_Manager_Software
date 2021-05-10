@@ -1,4 +1,4 @@
-import QtQuick                      2.11
+﻿import QtQuick                      2.11
 import QtQuick.Controls             2.4
 import QtQuick.Controls.Styles      1.4
 import QtQuick.Layouts              1.11
@@ -21,9 +21,9 @@ Rectangle {
     property real _margin:                  ScreenTools.defaultFontPixelHeight / 2
     property bool _supportsTerrainFrame:    missionItem
 
-    property string _altModeRelativeHelpText:       qsTr("Altitude relative to launch altitude")
-    property string _altModeAbsoluteHelpText:       qsTr("Altitude above mean sea level")
-    property string _altModeAboveTerrainHelpText:   qsTr("Altitude above terrain\nActual AMSL altitude: %1 %2").arg(missionItem.amslAltAboveTerrain.valueString).arg(missionItem.amslAltAboveTerrain.units)
+    property string _altModeRelativeHelpText:       qsTr("Altitude relativa a altitude de lançamento")
+    property string _altModeAbsoluteHelpText:       qsTr("Altitude acima do nível do mar")
+    property string _altModeAboveTerrainHelpText:   qsTr("Altitude acima do terreno\nAltitude ASML atual: %1 %2").arg(missionItem.amslAltAboveTerrain.valueString).arg(missionItem.amslAltAboveTerrain.units)
     property string _altModeTerrainFrameHelpText:   qsTr("Using terrain reference frame")
 
     function updateAltitudeModeText() {
@@ -31,10 +31,10 @@ Rectangle {
             altModeLabel.text = qsTr("Altitude")
             altModeHelp.text = _altModeRelativeHelpText
         } else if (missionItem.altitudeMode === QGroundControl.AltitudeModeAbsolute) {
-            altModeLabel.text = qsTr("Above Mean Sea Level")
+            altModeLabel.text = qsTr("Acima do Nível do Mar")
             altModeHelp.text = _altModeAbsoluteHelpText
         } else if (missionItem.altitudeMode === QGroundControl.AltitudeModeAboveTerrain) {
-            altModeLabel.text = qsTr("Above Terrain")
+            altModeLabel.text = qsTr("Acima do Terreno")
             altModeHelp.text = Qt.binding(function() { return _altModeAboveTerrainHelpText })
         } else if (missionItem.altitudeMode === QGroundControl.AltitudeModeTerrainFrame) {
             altModeLabel.text = qsTr("Terrain Frame")
@@ -92,8 +92,8 @@ Rectangle {
             QGCLabel {
                 id:                 initialClickLabel
                 text:               missionItem.launchTakeoffAtSameLocation ?
-                                        qsTr("Click in map to set planned Takeoff location.") :
-                                        qsTr("Click in map to set planned Launch location.")
+                                        qsTr("Clique no mapa para definir a localização planejada de decolagem.") :
+                                        qsTr("Clique no mapa para definir a localização planejada de lançamento.")
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
                 visible:            missionItem.isTakeoffItem && !missionItem.launchCoordinate.isValid
@@ -188,14 +188,14 @@ Rectangle {
                             id: altHamburgerMenu
 
                             QGCMenuItem {
-                                text:           qsTr("Altitude Relative To Launch")
+                                text:           qsTr("Altitude relativa ao lançamento")
                                 checkable:      true
                                 checked:        missionItem.altitudeMode === QGroundControl.AltitudeModeRelative
                                 onTriggered:    missionItem.altitudeMode = QGroundControl.AltitudeModeRelative
                             }
 
                             QGCMenuItem {
-                                text:           qsTr("Altitude Above Mean Sea Level")
+                                text:           qsTr("Altitude acima do nível do mar")
                                 checkable:      true
                                 checked:        missionItem.altitudeMode === QGroundControl.AltitudeModeAbsolute
                                 visible:        QGroundControl.corePlugin.options.showMissionAbsoluteAltitude
@@ -203,7 +203,7 @@ Rectangle {
                             }
 
                             QGCMenuItem {
-                                text:           qsTr("Altitude Above Terrain")
+                                text:           qsTr("Altitude acima do terreno")
                                 checkable:      true
                                 checked:        missionItem.altitudeMode === QGroundControl.AltitudeModeAboveTerrain
                                 onTriggered:    missionItem.altitudeMode = QGroundControl.AltitudeModeAboveTerrain
@@ -265,7 +265,7 @@ Rectangle {
 
                 QGCCheckBox {
                     id:         flightSpeedCheckbox
-                    text:       qsTr("Flight Speed")
+                    text:       qsTr("Velocidade")
                     checked:    missionItem.speedSection.specifyFlightSpeed
                     onClicked:  missionItem.speedSection.specifyFlightSpeed = checked
                     visible:    missionItem.speedSection.available
@@ -304,7 +304,8 @@ Rectangle {
 
             CameraSection {
                 checked:    missionItem.cameraSection.settingsSpecified
-                visible:    missionItem.cameraSection.available
+                //visible:    missionItem.cameraSection.available
+                visible:    false
             }
         }
     }
