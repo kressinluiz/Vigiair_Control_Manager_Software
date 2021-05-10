@@ -218,7 +218,7 @@ Item {
         }
 
         function loadFromSelectedFile() {
-            fileDialog.title =          qsTr("Select Plan File")
+            fileDialog.title =          qsTr("Selecione Arquivo de Rota")
             fileDialog.planFiles =      true
             fileDialog.selectExisting = true
             fileDialog.nameFilters =    _planMasterController.loadNameFilters
@@ -592,7 +592,7 @@ Item {
                     buttonVisible:      true,
                 },*/
                 {
-                    name:               qsTr("File"),
+                    name:               qsTr("Arquivo"),
                     iconSource:         "/qmlimages/MapSync.svg",
                     buttonEnabled:      !_planMasterController.syncInProgress,
                     buttonVisible:      true,
@@ -601,13 +601,13 @@ Item {
                     dropPanelComponent: syncDropPanel
                 },
                 {
-                    name:               qsTr("Takeoff"),
+                    name:               qsTr("Partir"),
                     iconSource:         "/res/takeoff.svg",
                     buttonEnabled:      _missionController.isInsertTakeoffValid,
                     buttonVisible:      _isMissionLayer
                 },
                 {
-                    name:               _editingLayer == _layerRallyPoints ? qsTr("Rally Point") : qsTr("Waypoint"),
+                    name:               _editingLayer == _layerRallyPoints ? qsTr("Rally Point") : qsTr("Parar"),
                     iconSource:         "/qmlimages/MapAddMission.svg",
                     buttonEnabled:      _isRallyLayer ? true : _missionController.flyThroughCommandsAllowed,
                     buttonVisible:      _isRallyLayer || _isMissionLayer,
@@ -622,20 +622,20 @@ Item {
                     toggle:             !_missionController.isROIActive
                 },
                 {
-                    name:               _singleComplexItem ? _missionController.complexMissionItemNames[0] : qsTr("Pattern"),
+                    name:               _singleComplexItem ? _missionController.complexMissionItemNames[0] : qsTr("Modelo"),
                     iconSource:         "/qmlimages/MapDrawShape.svg",
                     buttonEnabled:      _missionController.flyThroughCommandsAllowed,
                     buttonVisible:      _isMissionLayer,
                     dropPanelComponent: _singleComplexItem ? undefined : patternDropPanel
                 },
                 {
-                    name:               _planMasterController.controllerVehicle.fixedWing ? qsTr("Land") : qsTr("Return"),
+                    name:               _planMasterController.controllerVehicle.fixedWing ? qsTr("Pousar") : qsTr("Retornar"),
                     iconSource:         "/res/rtl.svg",
                     buttonEnabled:      _missionController.isInsertLandValid,
                     buttonVisible:      _isMissionLayer
                 },
                 {
-                    name:               qsTr("Center"),
+                    name:               qsTr("Centralizar"),
                     iconSource:         "/qmlimages/MapCenter.svg",
                     buttonEnabled:      true,
                     buttonVisible:      true,
@@ -990,7 +990,7 @@ Item {
         ColumnLayout {
             spacing:    ScreenTools.defaultFontPixelWidth * 0.5
 
-            QGCLabel { text: qsTr("Create complex pattern:") }
+            QGCLabel { text: qsTr("Cria padrão:") }
 
             Repeater {
                 model: _missionController.complexMissionItemNames
@@ -1023,14 +1023,14 @@ Item {
                 wrapMode:           Text.WordWrap
                 text:               activeVehicle ?
                                         qsTr("You have unsaved changes. You should upload to your vehicle, or save to a file.") :
-                                        qsTr("You have unsaved changes.")
+                                        qsTr("Existem alterações não salvas.")
                 visible:            _planMasterController.dirty
             }
 
             SectionHeader {
                 id:                 createSection
                 Layout.fillWidth:   true
-                text:               qsTr("Create Plan")
+                text:               qsTr("Criar Rota")
                 showSpacer:         false
             }
 
@@ -1101,7 +1101,7 @@ Item {
             SectionHeader {
                 id:                 storageSection
                 Layout.fillWidth:   true
-                text:               qsTr("Storage")
+                text:               qsTr("Arquivos")
             }
 
             GridLayout {
@@ -1122,7 +1122,7 @@ Item {
                 }*/
 
                 QGCButton {
-                    text:               qsTr("Open...")
+                    text:               qsTr("Abrir...")
                     Layout.fillWidth:   true
                     enabled:            !_planMasterController.syncInProgress
                     onClicked: {
@@ -1136,7 +1136,7 @@ Item {
                 }
 
                 QGCButton {
-                    text:               qsTr("Save")
+                    text:               qsTr("Salvar")
                     Layout.fillWidth:   true
                     enabled:            !_planMasterController.syncInProgress && _planMasterController.currentPlanFile !== ""
                     onClicked: {
@@ -1150,7 +1150,7 @@ Item {
                 }
 
                 QGCButton {
-                    text:               qsTr("Save As...")
+                    text:               qsTr("Salvar Como...")
                     Layout.fillWidth:   true
                     enabled:            !_planMasterController.syncInProgress && _planMasterController.containsItems
                     onClicked: {
@@ -1164,6 +1164,7 @@ Item {
                     Layout.fillWidth:   true
                     text:               qsTr("Save Mission Waypoints As KML...")
                     enabled:            !_planMasterController.syncInProgress && _visualItems.count > 1
+                    visible: false
                     onClicked: {
                         // First point does not count
                         if (_visualItems.count < 2) {
@@ -1180,6 +1181,7 @@ Item {
                 id:                 vehicleSection
                 Layout.fillWidth:   true
                 text:               qsTr("Vehicle")
+                visible: false
             }
 
             RowLayout {
