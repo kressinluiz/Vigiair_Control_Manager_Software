@@ -61,6 +61,7 @@ Item {
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+        visible:                false
         QGCColoredImage {
             id:                 pairingIcon
             height:             parent.height

@@ -269,7 +269,7 @@ Item {
             }
             CustomToolBarButton {
                 id:                         settingsButton
-                text:                       qsTr("Configurações")
+                text:                       qsTr("Menu")
                 icon.source:                "/qmlimages/Gears.svg"
                 Layout.fillWidth:           true
                 onClicked: {

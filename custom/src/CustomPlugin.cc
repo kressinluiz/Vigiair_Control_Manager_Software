@@ -134,9 +134,9 @@ QVariantList&
 CustomPlugin::settingsPages()
 {
     if(_customSettingsList.isEmpty()) {
-        addSettingsEntry(tr("General"),     "qrc:/qml/GeneralSettings.qml", "qrc:/res/gear-white.svg");
-        addSettingsEntry(tr("Comm Links"),  "qrc:/qml/LinkSettings.qml",    "qrc:/res/waves.svg");
-        addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",      "qrc:/res/waves.svg");
+        addSettingsEntry(tr("Configurações"),     "qrc:/qml/GeneralSettings.qml", "qrc:/res/gear-white.svg");
+        //ddSettingsEntry(tr("Comm Links"),  "qrc:/qml/LinkSettings.qml",    "qrc:/res/waves.svg");
+        //addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",      "qrc:/res/waves.svg");
 #if defined(QGC_GST_MICROHARD_ENABLED)
         addSettingsEntry(tr("Microhard"),   "qrc:/qml/MicrohardSettings.qml");
 #endif
@@ -146,7 +146,7 @@ CustomPlugin::settingsPages()
 #if defined(QGC_AIRMAP_ENABLED)
         addSettingsEntry(tr("AirMap"),      "qrc:/qml/AirmapSettings.qml");
 #endif
-        addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml", "    qrc:/res/waves.svg");
+        //addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml", "    qrc:/res/waves.svg");
         addSettingsEntry(tr("Console"),     "qrc:/qml/QGroundControl/Controls/AppMessages.qml");
 #if defined(QGC_ENABLE_QZXING)
         addSettingsEntry(tr("Barcode Test"),"qrc:/custom/BarcodeReader.qml");

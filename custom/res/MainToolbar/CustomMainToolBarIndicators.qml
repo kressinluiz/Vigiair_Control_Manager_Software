@@ -55,6 +55,7 @@ Item {
         anchors.top:                parent.top
         anchors.bottom:             parent.bottom
         anchors.left:               parent.left
+        visible:                    false
         QGCColoredImage {
             id:                     menuEdge
             anchors.verticalCenter: parent.verticalCenter

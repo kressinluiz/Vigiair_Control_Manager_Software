@@ -79,14 +79,16 @@ Rectangle {
                     QGCLabel {
                         id:         unitsSectionLabel
                         text:       qsTr("Units")
-                        visible:    QGroundControl.settingsManager.unitsSettings.visible
+                        //visible:    QGroundControl.settingsManager.unitsSettings.visible
+                        visible: false
                     }
                     Rectangle {
                         Layout.preferredHeight: unitsGrid.height + (_margins * 2)
                         Layout.preferredWidth:  unitsGrid.width + (_margins * 2)
                         color:                  qgcPal.windowShade
-                        visible:                miscSectionLabel.visible
+                        //visible:                miscSectionLabel.visible
                         Layout.fillWidth:       true
+                        visible:                false
 
                         GridLayout {
                             id:                         unitsGrid
@@ -116,7 +118,7 @@ Rectangle {
 
                     QGCLabel {
                         id:         miscSectionLabel
-                        text:       qsTr("Miscellaneous")
+                        text:       qsTr("Geral")
                         visible:    QGroundControl.settingsManager.appSettings.visible
                     }
                     Rectangle {
@@ -141,28 +143,32 @@ Rectangle {
 
                                 QGCLabel {
                                     text:           qsTr("Language")
-                                    visible: QGroundControl.settingsManager.appSettings.language.visible
+                                    //visible: QGroundControl.settingsManager.appSettings.language.visible
+                                    visible:        false
                                 }
                                 FactComboBox {
                                     Layout.preferredWidth:  _comboFieldWidth
                                     fact:                   QGroundControl.settingsManager.appSettings.language
                                     indexModel:             false
-                                    visible:                QGroundControl.settingsManager.appSettings.language.visible
+                                    //visible:                QGroundControl.settingsManager.appSettings.language.visible
+                                    visible:        false
                                 }
 
                                 QGCLabel {
                                     text:           qsTr("Color Scheme")
-                                    visible: QGroundControl.settingsManager.appSettings.indoorPalette.visible
+                                    //visible: QGroundControl.settingsManager.appSettings.indoorPalette.visible
+                                     visible:        false
                                 }
                                 FactComboBox {
                                     Layout.preferredWidth:  _comboFieldWidth
                                     fact:                   QGroundControl.settingsManager.appSettings.indoorPalette
                                     indexModel:             false
-                                    visible:                QGroundControl.settingsManager.appSettings.indoorPalette.visible
+                                    //visible:                QGroundControl.settingsManager.appSettings.indoorPalette.visible
+                                     visible:        false
                                 }
 
                                 QGCLabel {
-                                    text:       qsTr("Map Provider")
+                                    text:       qsTr("Provedor do Mapa")
                                     width:      _labelWidth
                                 }
                                 
@@ -182,7 +188,7 @@ Rectangle {
                                     }
                                 }
                                 QGCLabel {
-                                    text:       qsTr("Map Type")
+                                    text:       qsTr("Tipo do Mapa")
                                     width:      _labelWidth
                                 }
                                 QGCComboBox {
@@ -202,16 +208,18 @@ Rectangle {
 
                                 QGCLabel {
                                     text:                   qsTr("Stream GCS Position")
-                                    visible:                _followTarget.visible
+                                    //visible:                _followTarget.visible
+                                     visible:        false
                                 }
                                 FactComboBox {
                                     Layout.preferredWidth:  _comboFieldWidth
                                     fact:                   _followTarget
                                     indexModel:             false
-                                    visible:                _followTarget.visible
+                                    //visible:                _followTarget.visible
+                                     visible:        false
                                 }
                                 QGCLabel {
-                                    text:                           qsTr("UI Scaling")
+                                    text:                           qsTr("Escala da tela")
                                     visible:                        _appFontPointSize.visible
                                     Layout.alignment:               Qt.AlignVCenter
                                 }
@@ -285,28 +293,30 @@ Rectangle {
                                 FactCheckBox {
                                     text:       qsTr("Mute all audio output")
                                     fact:       _audioMuted
-                                    visible:    _audioMuted.visible
+                                    //visible:    _audioMuted.visible
+                                    visible:        false
                                     property Fact _audioMuted: QGroundControl.settingsManager.appSettings.audioMuted
                                 }
 
                                 FactCheckBox {
                                     text:       qsTr("Check for Internet connection")
                                     fact:       _checkInternet
-                                    visible:    _checkInternet && _checkInternet.visible
+                                    //visible:    _checkInternet && _checkInternet.visible
+                                     visible:        false
                                     property Fact _checkInternet: QGroundControl.settingsManager.appSettings.checkInternet
                                 }
 
                                 FactCheckBox {
                                     text:       qsTr("AutoLoad Missions")
                                     fact:       _autoLoad
-                                    visible:    _autoLoad && _autoLoad.visible
-
+                                    //visible:    _autoLoad && _autoLoad.visible
+                                     visible:        false
                                     property Fact _autoLoad: QGroundControl.settingsManager.appSettings.autoLoadMissions
                                 }
 
                                 QGCCheckBox {
                                     id:         clearCheck
-                                    text:       qsTr("Clear all settings on next start")
+                                    text:       qsTr("Limpe todas as configurações após reiniciar")
                                     checked:    false
                                     onClicked: {
                                         checked ? clearDialog.visible = true : QGroundControl.clearDeleteAllSettingsNextBoot()
@@ -330,8 +340,8 @@ Rectangle {
                                 }
 
                                 RowLayout {
-                                    visible: QGroundControl.settingsManager.appSettings.batteryPercentRemainingAnnounce.visible
-
+                                    //visible: QGroundControl.settingsManager.appSettings.batteryPercentRemainingAnnounce.visible
+                                     visible:        false
                                     QGCCheckBox {
                                         id:         announcePercentCheckbox
                                         text:       qsTr("Announce battery lower than")
@@ -363,18 +373,18 @@ Rectangle {
                             anchors.top:        miscColItem.bottom
                             visible:            _savePath.visible && !ScreenTools.isMobile
 
-                            QGCLabel { text: qsTr("Application Load/Save Path") }
+                            QGCLabel { text: qsTr("Local de Salvar/Carregar Rotas") }
                             QGCTextField {
                                 Layout.fillWidth:   true
                                 readOnly:           true
                                 text:               _savePath.rawValue === "" ? qsTr("<not set>") : _savePath.value
                             }
                             QGCButton {
-                                text:       qsTr("Browse")
+                                text:       qsTr("Buscar")
                                 onClicked:  savePathBrowseDialog.openForLoad()
                                 QGCFileDialog {
                                     id:             savePathBrowseDialog
-                                    title:          qsTr("Choose the location to save/load files")
+                                    title:          qsTr("Escolha o local para salvar/carregar arquivos")
                                     folder:         _savePath.rawValue
                                     selectExisting: true
                                     selectFolder:   true
@@ -384,16 +394,18 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
                     QGCLabel {
                         id:         loggingSectionLabel
                         text:       qsTr("Data Persistence")
+                        visible:                false
                     }
                     Rectangle {
                         Layout.preferredHeight: dataPersistCol.height + (_margins * 2)
                         Layout.preferredWidth:  dataPersistCol.width + (_margins * 2)
                         color:                  qgcPal.windowShade
                         Layout.fillWidth:       true
+                        visible:                false
                         ColumnLayout {
                             id:                         dataPersistCol
                             anchors.margins:            _margins
@@ -416,10 +428,11 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
                     QGCLabel {
                         text:       qsTr("Telemetry Logs from Vehicle")
-                        visible:    telemetryRect.visible
+                        //visible:    telemetryRect.visible
+                        visible:                false
                     }
                     Rectangle {
                         id:                     telemetryRect
@@ -427,7 +440,8 @@ Rectangle {
                         Layout.preferredWidth:  loggingCol.width + (_margins * 2)
                         color:                  qgcPal.windowShade
                         Layout.fillWidth:       true
-                        visible:                promptSaveLog._telemetrySave.visible || logIfNotArmed._telemetrySaveNotArmed.visible || promptSaveCsv._saveCsvTelemetry.visible
+                        //visible:                promptSaveLog._telemetrySave.visible || logIfNotArmed._telemetrySaveNotArmed.visible || promptSaveCsv._saveCsvTelemetry.visible
+                        visible:                false
                         ColumnLayout {
                             id:                         loggingCol
                             anchors.margins:            _margins
@@ -461,18 +475,20 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
                     QGCLabel {
                         id:         flyViewSectionLabel
                         text:       qsTr("Fly View")
-                        visible:    QGroundControl.settingsManager.flyViewSettings.visible
+                        //visible:    QGroundControl.settingsManager.flyViewSettings.visible
+                        visible:    false
                     }
                     Rectangle {
                         Layout.preferredHeight: flyViewCol.height + (_margins * 2)
                         Layout.preferredWidth:  flyViewCol.width + (_margins * 2)
                         color:                  qgcPal.windowShade
-                        visible:                flyViewSectionLabel.visible
+                        //visible:                flyViewSectionLabel.visible
                         Layout.fillWidth:       true
+                        visible:                false
 
                         ColumnLayout {
                             id:                         flyViewCol
@@ -599,7 +615,7 @@ Rectangle {
 
                     QGCLabel {
                         id:         planViewSectionLabel
-                        text:       qsTr("Plan View")
+                        text:       qsTr("Planejamento de Rotas")
                         visible:    _planViewSettings.visible
                     }
                     Rectangle {
@@ -620,7 +636,7 @@ Rectangle {
                                 spacing:    ScreenTools.defaultFontPixelWidth
                                 visible:    QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude.visible
 
-                                QGCLabel { text: qsTr("Default Mission Altitude") }
+                                QGCLabel { text: qsTr("Altitude padrão") }
                                 FactTextField {
                                     Layout.preferredWidth:  _valueFieldWidth
                                     fact:                   QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
@@ -628,25 +644,27 @@ Rectangle {
                             }
 
                             FactCheckBox {
-                                text:       qsTr("Missions Do Not Require Takeoff Item")
+                                text:       qsTr("Rotas não precisam de item Decolar")
                                 fact:       _planViewSettings.takeoffItemNotRequired
                                 visible:    _planViewSettings.takeoffItemNotRequired.visible
                             }
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
 
                     QGCLabel {
                         id:         autoConnectSectionLabel
                         text:       qsTr("AutoConnect to the following devices")
-                        visible:    QGroundControl.settingsManager.autoConnectSettings.visible
+                        //visible:    QGroundControl.settingsManager.autoConnectSettings.visible
+                        visible:                false
                     }
                     Rectangle {
                         Layout.preferredWidth:  autoConnectCol.width + (_margins * 2)
                         Layout.preferredHeight: autoConnectCol.height + (_margins * 2)
                         color:                  qgcPal.windowShade
-                        visible:                autoConnectSectionLabel.visible
+                        //visible:                autoConnectSectionLabel.visible
+                        visible:                false
                         Layout.fillWidth:       true
 
                         ColumnLayout {
@@ -751,18 +769,20 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
 
                     QGCLabel {
                         id:         rtkSectionLabel
                         text:       qsTr("RTK GPS")
-                        visible:    QGroundControl.settingsManager.rtkSettings.visible
+                        //visible:    QGroundControl.settingsManager.rtkSettings.visible
+                        visible:    false
                     }
                     Rectangle {
                         Layout.preferredHeight: rtkGrid.height + (_margins * 2)
                         Layout.preferredWidth:  rtkGrid.width + (_margins * 2)
                         color:                  qgcPal.windowShade
-                        visible:                rtkSectionLabel.visible
+                        //visible:                rtkSectionLabel.visible
+                        visible:                false
                         Layout.fillWidth:       true
 
                         GridLayout {
@@ -886,18 +906,20 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
 
                     QGCLabel {
                         id:         adsbSectionLabel
                         text:       qsTr("ADSB Server")
-                        visible:    QGroundControl.settingsManager.adsbVehicleManagerSettings.visible
+                        //visible:    QGroundControl.settingsManager.adsbVehicleManagerSettings.visible
+                        visible:       false
                     }
                     Rectangle {
                         Layout.preferredHeight: adsbGrid.y + adsbGrid.height + _margins
                         Layout.preferredWidth:  adsbGrid.width + (_margins * 2)
                         color:                  qgcPal.windowShade
-                        visible:                adsbSectionLabel.visible
+                        //visible:                adsbSectionLabel.visible
+                        visible:                false
                         Layout.fillWidth:       true
 
                         QGCLabel {
@@ -950,20 +972,21 @@ Rectangle {
                         }
                     }
 
-                    Item { width: 1; height: _margins }
+                    //Item { width: 1; height: _margins }
 
                     QGCLabel {
                         id:         videoSectionLabel
                         text:       qsTr("Video")
-                        visible:    QGroundControl.settingsManager.videoSettings.visible && !QGroundControl.videoManager.autoStreamConfigured
+                        //visible:    QGroundControl.settingsManager.videoSettings.visible && !QGroundControl.videoManager.autoStreamConfigured
+                        visible:    false
                     }
                     Rectangle {
                         Layout.preferredWidth:  videoGrid.width + (_margins * 2)
                         Layout.preferredHeight: videoGrid.height + (_margins * 2)
                         Layout.fillWidth:       true
                         color:                  qgcPal.windowShade
-                        visible:                videoSectionLabel.visible
-
+                        //visible:                videoSectionLabel.visible
+                        visible:                false
                         GridLayout {
                             id:                         videoGrid
                             anchors.margins:            _margins
