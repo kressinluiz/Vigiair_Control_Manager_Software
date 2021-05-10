@@ -122,12 +122,12 @@ Item {
             Layout.alignment:       Qt.AlignVCenter | Qt.AlignHCenter
 
             QGCLabel {
-                text:               qsTr("Selected Waypoint")
+                text:               qsTr("Parada Selecionada")
                 Layout.columnSpan:  8
                 font.pointSize:     ScreenTools.smallFontPointSize
             }
 
-            QGCLabel { text: qsTr("Alt diff:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Dif de Alt:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _altDifferenceText
                 font.pointSize:         _dataFontSize
@@ -136,7 +136,7 @@ Item {
 
             Item { width: 1; height: 1 }
 
-            QGCLabel { text: qsTr("Azimuth:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Azimute:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _azimuthText
                 font.pointSize:         _dataFontSize
@@ -145,14 +145,14 @@ Item {
 
             Item { width: 1; height: 1 }
 
-            QGCLabel { text: qsTr("Distance:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Distância:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _distanceText
                 font.pointSize:         _dataFontSize
                 Layout.minimumWidth:    _largeValueWidth
             }
 
-            QGCLabel { text: qsTr("Gradient:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Inclinação:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _gradientText
                 font.pointSize:         _dataFontSize
@@ -161,7 +161,7 @@ Item {
 
             Item { width: 1; height: 1 }
 
-            QGCLabel { text: qsTr("Heading:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Direção:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _headingText
                 font.pointSize:         _dataFontSize
@@ -176,12 +176,12 @@ Item {
             Layout.alignment:       Qt.AlignVCenter | Qt.AlignHCenter
 
             QGCLabel {
-                text:               qsTr("Total Mission")
+                text:               qsTr("Resumo da Rota")
                 Layout.columnSpan:  5
                 font.pointSize:     ScreenTools.smallFontPointSize
             }
 
-            QGCLabel { text: qsTr("Distance:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Distância:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _missionDistanceText
                 font.pointSize:         _dataFontSize
@@ -190,14 +190,14 @@ Item {
 
             Item { width: 1; height: 1 }
 
-            QGCLabel { text: qsTr("Max telem dist:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Maior Distância Controle-Drone:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _missionMaxTelemetryText
                 font.pointSize:         _dataFontSize
                 Layout.minimumWidth:    _largeValueWidth
             }
 
-            QGCLabel { text: qsTr("Time:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Tempo:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   getMissionTime()
                 font.pointSize:         _dataFontSize
