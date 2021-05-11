@@ -12,6 +12,7 @@
         <file alias="CustomRCRSSIIndicator.qml">res/MainToolbar/CustomRCRSSIIndicator.qml</file>
         <file alias="PairingIndicator.qml">res/PairingIndicator.qml</file>
         <file alias="PreFlightCheckList.qml">res/PreFlightCheckList.qml</file>
+        <file alias="Registro.qml">res/Registro.qml</file>
     </qresource>
     <qresource prefix="/custom/img">
         <file alias="altitude.svg">res/Images/altitude.svg</file>

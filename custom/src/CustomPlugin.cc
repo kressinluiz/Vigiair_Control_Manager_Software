@@ -26,6 +26,8 @@
 #include "QmlComponentInfo.h"
 #include "QGCPalette.h"
 
+#include "Registro/registro.h"
+
 QGC_LOGGING_CATEGORY(CustomLog, "CustomLog")
 
 CustomVideoReceiver::CustomVideoReceiver(QObject* parent)
@@ -135,6 +137,7 @@ CustomPlugin::settingsPages()
 {
     if(_customSettingsList.isEmpty()) {
         addSettingsEntry(tr("Configurações"),     "qrc:/qml/GeneralSettings.qml", "qrc:/res/gear-white.svg");
+        addSettingsEntry(tr("Registro"), "qrc:/custom/Registro.qml", "qrc:/res/waves.svg");
         //ddSettingsEntry(tr("Comm Links"),  "qrc:/qml/LinkSettings.qml",    "qrc:/res/waves.svg");
         //addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",      "qrc:/res/waves.svg");
 #if defined(QGC_GST_MICROHARD_ENABLED)
@@ -214,6 +217,7 @@ CustomPlugin::createRootWindow(QObject *parent)
     pEngine->addImportPath("qrc:/qml");
     pEngine->addImportPath("qrc:/Custom/Widgets");
     pEngine->addImportPath("qrc:/Custom/Camera");
+    pEngine->rootContext()->setContextProperty("registro", qgcApp()->toolbox()->registro());
     pEngine->rootContext()->setContextProperty("joystickManager",   qgcApp()->toolbox()->joystickManager());
     pEngine->rootContext()->setContextProperty("debugMessageModel", AppMessages::getModel());
     pEngine->load(QUrl(QStringLiteral("qrc:/qml/MainRootWindow.qml")));

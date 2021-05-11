@@ -7,7 +7,7 @@
  *
  ****************************************************************************/
 
-
+#include "Registro/registro.h"
 #include "FactSystem.h"
 #include "FirmwarePluginManager.h"
 #include "AudioOutput.h"
@@ -52,6 +52,7 @@
 
 QGCToolbox::QGCToolbox(QGCApplication* app)
 {
+    _registro               = new Registro                  (app, this);
     // SettingsManager must be first so settings are available to any subsequent tools
     _settingsManager        = new SettingsManager           (app, this);
     //-- Scan and load plugins

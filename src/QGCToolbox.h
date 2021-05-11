@@ -13,6 +13,7 @@
 
 #include <QObject>
 
+class Registro;
 class FactSystem;
 class FirmwarePluginManager;
 class AudioOutput;
@@ -51,6 +52,7 @@ class QGCToolbox : public QObject {
 public:
     QGCToolbox(QGCApplication* app);
 
+    Registro*                   registro                ()  {return _registro;}
     FirmwarePluginManager*      firmwarePluginManager   () { return _firmwarePluginManager; }
     AudioOutput*                audioOutput             () { return _audioOutput; }
     JoystickManager*            joystickManager         () { return _joystickManager; }
@@ -87,6 +89,7 @@ private:
     void _scanAndLoadPlugins(QGCApplication *app);
 
 
+    Registro*                   _registro               = nullptr;
     AudioOutput*                _audioOutput            = nullptr;
     FactSystem*                 _factSystem             = nullptr;
     FirmwarePluginManager*      _firmwarePluginManager  = nullptr;
