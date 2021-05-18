@@ -124,7 +124,12 @@ find_package(Qt5 ${QT_VERSION}
 include(CompileOptions)
 
 include_directories(
-    ${QGC_ROOT}/src
+    ${QGC_ROOT}/src/
+    ${QGC_ROOT}/src/Settings
+    ${QGC_ROOT}/src/Joystick
+    ${QGC_ROOT}/src/Vehicle
+    ${QGC_ROOT}/src/QtLocationPlugin/qtlocation/include/QtPositioning
+    ${QGC_ROOT}/src/FactSystem
     ${CMAKE_CURRENT_BINARY_DIR}
     ${Qt5Location_PRIVATE_INCLUDE_DIRS}
     VideoReceiver

@@ -17,6 +17,12 @@
 #include <QMetaMethod>
 #include <QMetaObject>
 
+#include <jni.h>
+#include <QtCore/private/qjni_p.h>
+#include <QtCore/private/qjnihelpers_p.h>
+#include <QtAndroidExtras/QtAndroidExtras>
+#include <QtAndroidExtras/QAndroidJniObject>
+
 // These private headers are require to implement the signal compress support below
 #include <private/qthread_p.h>
 #include <private/qobject_p.h>
@@ -110,6 +116,9 @@ public:
     static QString cachedParameterMetaDataFile(void);
     static QString cachedAirframeMetaDataFile(void);
 
+    /// Native methods
+    static void setNativeMethods();
+
 public slots:
     /// You can connect to this slot to show an information message box from a different thread.
     void informationMessageBoxOnMainThread(const QString& title, const QString& msg);
@@ -142,6 +151,8 @@ signals:
 
 public:
     // Although public, these methods are internal and should only be called by UnitTest code
+
+    void _pushVideoData(JNIEnv *envA, jobject thizA, jbyteArray array);
 
     /// @brief Perform initialize which is common to both normal application running and unit tests.
     ///         Although public should only be called by main.

@@ -63,8 +63,38 @@ import com.hoho.android.usbserial.driver.*;
 import org.qtproject.qt5.android.bindings.QtActivity;
 import org.qtproject.qt5.android.bindings.QtApplication;
 
+//------------------------------------------------------------
+//Skydroid SDK
+import com.skydroid.android.usbserial.DeviceFilter;
+import com.skydroid.android.usbserial.USBMonitor;
+import com.skydroid.fpvlibrary.enums.PTZAction;
+import com.skydroid.fpvlibrary.usbserial.UsbSerialConnection;
+import com.skydroid.fpvlibrary.usbserial.UsbSerialControl;
+import com.skydroid.fpvlibrary.utils.BusinessUtils;
+import com.skydroid.fpvlibrary.video.FPVVideoClient;
+import com.skydroid.fpvlibrary.widget.GLHttpVideoSurface;
+import android.os.Handler;
+import android.os.Looper;
+import java.io.File;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+//-------------------------------------------------------------
+
 public class QGCActivity extends QtActivity
 {
+//------------------------------------------------------------
+//Skydroid SDK
+    private Context mContext;
+    private USBMonitor mUSBMonitor;
+    private UsbDevice mUsbDevice;
+    private GLHttpVideoSurface mPreviewDualVideoView;
+    private FPVVideoClient mFPVVideoClient;
+    private VideoClient mVideoClient;
+    private UsbSerialConnection mUsbSerialConnection;
+    private UsbSerialControl mUsbSerialControl;
+    private Handler mainHanlder = new Handler(Looper.getMainLooper());
+//-------------------------------------------------------------
+
     public  static int                                  BAD_DEVICE_ID = 0;
     private static QGCActivity                          _instance = null;
     private static UsbManager                           _usbManager = null;
@@ -214,9 +244,9 @@ public class QGCActivity extends QtActivity
 
         // Register for USB Detach and USB Permission intent
         IntentFilter filter = new IntentFilter();
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        filter.addAction(ACTION_USB_PERMISSION);
+        //filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        //filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        //filter.addAction(ACTION_USB_PERMISSION);
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         _instance.registerReceiver(_instance._usbReceiver, filter);
@@ -254,6 +284,12 @@ public class QGCActivity extends QtActivity
         } catch(Exception e) {
            Log.e(TAG, "Exception: " + e);
         }
+
+        //---------------------------------------------------------------------------------
+        //Skydroid SDK
+        this.mContext = this;
+        init();
+        //---------------------------------------------------------------------------------
     }
 
     @Override
@@ -268,6 +304,7 @@ public class QGCActivity extends QtActivity
     @Override
     protected void onDestroy()
     {
+        disconnected();
         if (probeAccessoriesTimer != null) {
             probeAccessoriesTimer.cancel();
         }
@@ -286,59 +323,303 @@ public class QGCActivity extends QtActivity
         super.onDestroy();
     }
 
+//---------------------------------------------------------------------------------
+//Skydroid SDK
+    private void init(){
+        mUsbSerialConnection = new UsbSerialConnection(mContext);
+        mUsbSerialConnection.setDelegate(new UsbSerialConnection.Delegate() {
+            @Override
+            public void onH264Received(final byte[] bytes, int paySize) {
+                //nativeFeedVideoBuffer(bytes);
+                if(mFPVVideoClient != null){
+                    mVideoClient.received(bytes,4,paySize);
+                //    mFPVVideoClient.received(bytes,4,paySize);
+                    //System.out.println("getting packets!");
+                }
+            }
+
+            @Override
+            public void onGPSReceived(byte[] bytes) {
+                //GPS数据
+            }
+
+            @Override
+            public void onDataReceived(byte[] bytes) {
+                //数传数据
+            }
+
+            @Override
+            public void onDebugReceived(byte[] bytes) {
+                //遥控器数据
+            }
+        });
+
+        //渲染视频相关
+        mFPVVideoClient = new FPVVideoClient();
+        mFPVVideoClient.setDelegate(new FPVVideoClient.Delegate() {
+            @Override
+            public void onStopRecordListener(final String fileName) {
+                //停止录像回调
+                System.out.println("onStopRecordListener!");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendBroadcast(
+                                new Intent(
+                                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                                        Uri.fromFile(new File(fileName))
+                                )
+                        );
+                        MediaScannerConnection.scanFile(
+                                mContext,
+                                fileName.split(" "),
+                                null,
+                                null
+                        );
+                        Toast.makeText(
+                                mContext,
+                                fileName,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onSnapshotListener(final String fileName) {
+                //拍照回调
+
+                System.out.println("onSnapshotListener!");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendBroadcast(
+                                new Intent(
+                                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                                        Uri.fromFile(new File(fileName))
+                                )
+                        );
+                        MediaScannerConnection.scanFile(
+                                mContext,
+                                fileName.split(" "),
+                                null,
+                                null
+                        );
+                        Toast.makeText(
+                                mContext,
+                                fileName,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
+            }
+
+            //视频相关
+            @Override
+            public void renderI420(byte[] frame, int width, int height) {
+                //mPreviewDualVideoView.renderI420(frame,width,height);
+            }
+
+            @Override
+            public void setVideoSize(int picWidth, int picHeight) {
+                //mPreviewDualVideoView.setVideoSize(picWidth,picHeight,mainHanlder);
+            }
+
+            @Override
+            public void resetView() {
+                //mPreviewDualVideoView.resetView(mainHanlder);
+            }
+        });
+
+        mVideoClient = new VideoClient();
+
+        //FPV控制
+        mUsbSerialControl = new UsbSerialControl(mUsbSerialConnection);
+
+        mUSBMonitor = new USBMonitor(mContext,mOnDeviceConnectListener);
+        List<DeviceFilter> deviceFilters = DeviceFilter.getDeviceFilters(mContext, R.xml.device_filter);
+        mUSBMonitor.setDeviceFilter(deviceFilters);
+        mUSBMonitor.register();
+    }
+
+    private USBMonitor.OnDeviceConnectListener mOnDeviceConnectListener = new USBMonitor.OnDeviceConnectListener() {
+        // USB device attach
+        // USB设备插入
+        @Override
+        public void onAttach(final UsbDevice device) {
+            if(deviceHasConnected(device) || mUsbDevice != null){
+                return;
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if(device == null){
+                            List<UsbDevice> devices = mUSBMonitor.getDeviceList();
+                            if(devices.size() == 1){
+                                mUSBMonitor.requestPermission(devices.get(0));
+                            }
+                        }else {
+                            mUSBMonitor.requestPermission(device);
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        // USB device detach
+        // USB设备物理断开
+        @Override
+        public void onDettach(UsbDevice device) {
+            if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
+                return;
+            }
+            if (!deviceHasConnected(device)) {
+                return;
+            }
+            disconnected();
+        }
+
+        // USB device has obtained permission
+        // USB设备获得权限
+        @Override
+        public void onConnect(UsbDevice device, USBMonitor.UsbControlBlock var2, boolean var3) {
+            if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
+                return;
+            }
+            if (deviceHasConnected(device)) {
+                return;
+            }
+
+            synchronized (this){
+                if (BusinessUtils.deviceIsUartVideoDevice(device)) {
+                    try {
+                        //打开串口
+                        mUsbSerialConnection.openConnection(device);
+                        mUsbDevice = device;
+                        //开始渲染视频
+                        mFPVVideoClient.startPlayback();
+    //                    Thread.sleep(5000);
+    //                    boolean tmp = mFPVVideoClient.startRecord(null,null);
+    //                    if(tmp){
+    //                        System.out.println("start record OK");
+    //                    }else{
+    //                        System.out.println("start record NOT OK");
+    //                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        // USB device disconnected
+        // USB设备关闭连接
+        @Override
+        public void onDisconnect(UsbDevice device, USBMonitor.UsbControlBlock var2) {
+            if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
+                return;
+            }
+            if (!deviceHasConnected(device)) {
+                return;
+            }
+            disconnected();
+        }
+
+        // USB device obtained permission failed
+        // USB设备权限获取失败
+        @Override
+        public void onCancel() {
+
+        }
+    };
+
+    private void disconnected(){
+        //mFPVVideoClient.stopRecord();
+        if(mUsbSerialConnection != null){
+            try {
+                mUsbSerialConnection.closeConnection();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(mFPVVideoClient != null){
+            mFPVVideoClient.stopPlayback();
+        }
+
+        mUsbDevice = null;
+
+        if(mUSBMonitor != null){
+            mUSBMonitor.unregister();
+            mUSBMonitor.destroy();
+            mUSBMonitor = null;
+        }
+    }
+
+    private boolean deviceHasConnected(UsbDevice usbDevice){
+        return usbDevice != null && usbDevice == mUsbDevice;
+    }
+
+//---------------------------------------------------------------------------------
+
     public void onInit(int status) {
     }
 
     /// Incrementally updates the list of drivers connected to the device
     private static void updateCurrentDrivers()
     {
-        List<UsbSerialDriver> currentDrivers = UsbSerialProber.findAllDevices(_usbManager);
+//        List<UsbSerialDriver> currentDrivers = UsbSerialProber.findAllDevices(_usbManager);
 
-        // Remove stale drivers
-        for (int i=_drivers.size()-1; i>=0; i--) {
-            boolean found = false;
-            for (UsbSerialDriver currentDriver: currentDrivers) {
-                if (_drivers.get(i).getDevice().getDeviceId() == currentDriver.getDevice().getDeviceId()) {
-                    found = true;
-                    break;
-                }
-            }
+//        // Remove stale drivers
+//        for (int i=_drivers.size()-1; i>=0; i--) {
+//            boolean found = false;
+//            for (UsbSerialDriver currentDriver: currentDrivers) {
+//                if (_drivers.get(i).getDevice().getDeviceId() == currentDriver.getDevice().getDeviceId()) {
+//                    found = true;
+//                    break;
+//                }
+//            }
 
-            if (!found) {
-                qgcLogDebug("Remove stale driver " + _drivers.get(i).getDevice().getDeviceName());
-                _drivers.remove(i);
-            }
-        }
+//            if (!found) {
+//                qgcLogDebug("Remove stale driver " + _drivers.get(i).getDevice().getDeviceName());
+//                _drivers.remove(i);
+//            }
+//        }
 
-        // Add new drivers
-        for (int i=0; i<currentDrivers.size(); i++) {
-            boolean found = false;
-            for (int j=0; j<_drivers.size(); j++) {
-                if (currentDrivers.get(i).getDevice().getDeviceId() == _drivers.get(j).getDevice().getDeviceId()) {
-                    found = true;
-                    break;
-                }
-            }
+//        // Add new drivers
+//        for (int i=0; i<currentDrivers.size(); i++) {
+//            boolean found = false;
+//            for (int j=0; j<_drivers.size(); j++) {
+//                if (currentDrivers.get(i).getDevice().getDeviceId() == _drivers.get(j).getDevice().getDeviceId()) {
+//                    found = true;
+//                    break;
+//                }
+//            }
 
-            if (!found) {
-                UsbSerialDriver newDriver =     currentDrivers.get(i);
-                UsbDevice       device =        newDriver.getDevice();
-                String          deviceName =    device.getDeviceName();
+//            if (!found) {
+//                UsbSerialDriver newDriver =     currentDrivers.get(i);
+//                UsbDevice       device =        newDriver.getDevice();
+//                String          deviceName =    device.getDeviceName();
 
-                _drivers.add(newDriver);
-                qgcLogDebug("Adding new driver " + deviceName);
+//                _drivers.add(newDriver);
+//                qgcLogDebug("Adding new driver " + deviceName);
 
-                // Request permission if needed
-                if (_usbManager.hasPermission(device)) {
-                    qgcLogDebug("Already have permission to use device " + deviceName);
-                    newDriver.setPermissionStatus(UsbSerialDriver.permissionStatusSuccess);
-                } else {
-                    qgcLogDebug("Requesting permission to use device " + deviceName);
-                    newDriver.setPermissionStatus(UsbSerialDriver.permissionStatusRequested);
-                    _usbManager.requestPermission(device, _usbPermissionIntent);
-                }
-            }
-        }
+//                // Request permission if needed
+//                if (_usbManager.hasPermission(device)) {
+//                    qgcLogDebug("Already have permission to use device " + deviceName);
+//                    newDriver.setPermissionStatus(UsbSerialDriver.permissionStatusSuccess);
+//                } else {
+//                    qgcLogDebug("Requesting permission to use device " + deviceName);
+//                    newDriver.setPermissionStatus(UsbSerialDriver.permissionStatusRequested);
+//                    _usbManager.requestPermission(device, _usbPermissionIntent);
+//                }
+//            }
+//        }
     }
 
     /// Returns array of device info for each unopened device.

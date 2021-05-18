@@ -103,6 +103,8 @@ public:
     // Override from QGCTool
     virtual void        setToolbox          (QGCToolbox *toolbox);
 
+    void _feedVideoBufferNow(JNIEnv *envA, jobject thizA, jbyteArray array);
+
     Q_INVOKABLE void startVideo     ();
     Q_INVOKABLE void stopVideo      ();
 

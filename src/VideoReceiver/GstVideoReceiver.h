@@ -96,6 +96,7 @@ public slots:
     virtual void startRecording(const QString& videoFile, FILE_FORMAT format);
     virtual void stopRecording(void);
     virtual void takeScreenshot(const QString& imageFile);
+    virtual void takeVideoPacket(JNIEnv* env, jobject thiz, jbyteArray array);
 
 protected slots:
     virtual void _watchdog(void);
@@ -116,6 +117,9 @@ protected:
     virtual bool _unlinkBranch(GstElement* from);
     virtual void _shutdownDecodingBranch (void);
     virtual void _shutdownRecordingBranch(void);
+
+    virtual void print_pad_templates_information(GstElementFactory * factory);
+    virtual void print_caps(const GstCaps * caps, const gchar * pfx);
 
     bool _needDispatch(void);
     void _dispatchSignal(std::function<void()> emitter);

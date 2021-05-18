@@ -14,6 +14,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+                flatDir{
+            dirs 'libs'
+        }
     }
 }
 
@@ -21,6 +24,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile(name:'armeabi-v7a/fpvlibrary-v1.0.3', ext:'aar')
 }
 
 android {

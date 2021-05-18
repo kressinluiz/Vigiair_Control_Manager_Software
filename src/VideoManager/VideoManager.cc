@@ -115,7 +115,7 @@ VideoManager::setToolbox(QGCToolbox *toolbox)
     qCDebug(VideoManagerLog) << "New Video Source:" << videoSource;
 #if defined(QGC_GST_STREAMING)
     _videoReceiver[0] = toolbox->corePlugin()->createVideoReceiver(this);
-    _videoReceiver[1] = toolbox->corePlugin()->createVideoReceiver(this);
+    //_videoReceiver[1] = toolbox->corePlugin()->createVideoReceiver(this);
 
     connect(_videoReceiver[0], &VideoReceiver::streamingChanged, this, [this](bool active){
         _streaming = active;
@@ -841,4 +841,10 @@ void
 VideoManager::_aspectRatioChanged()
 {
     emit aspectRatioChanged();
+}
+//----------------------------------------------------------------------------------------
+void
+VideoManager::_feedVideoBufferNow(JNIEnv *envA, jobject thizA, jbyteArray array)
+{
+    _videoReceiver[0]->takeVideoPacket(envA, thizA, array);
 }

@@ -704,7 +704,6 @@ GstVideoReceiver::_makeSource(const QString& uri)
     GstElement* parser  = nullptr;
     GstElement* bin     = nullptr;
     GstElement* srcbin  = nullptr;
-
     do {
         QUrl url(uri);
 
@@ -717,13 +716,62 @@ GstVideoReceiver::_makeSource(const QString& uri)
                 g_object_set(static_cast<gpointer>(source), "location", qPrintable(uri), "latency", 17, "udp-reconnect", 1, "timeout", _udpReconnect_us, NULL);
             }
         } else if(isUdp264 || isUdp265 || isUdpMPEGTS || isTaisync) {
-            if ((source = gst_element_factory_make("udpsrc", "source")) != nullptr) {
-                g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
+//            if ((source = gst_element_factory_make("udpsrc", "source")) != nullptr) {
+//                g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
 
+//                GstCaps* caps = nullptr;
+
+//                if(isUdp264) {
+//                    if ((caps = gst_caps_from_string("application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264")) == nullptr) {
+//                        qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
+//                        break;
+//                    }
+//                } else if (isUdp265) {
+//                    if ((caps = gst_caps_from_string("application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H265")) == nullptr) {
+//                        qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
+//                        break;
+//                    }
+//                }
+
+//                if (caps != nullptr) {
+//                    g_object_set(static_cast<gpointer>(source), "caps", caps, nullptr);
+//                    gst_caps_unref(caps);
+//                    caps = nullptr;
+//                }
+//            }
+
+
+
+
+            ///
+            /// Possibilidades de problema:
+            /// Inserir elemento entre appsrc e parser. Pipeline está esperando os pacotes da rede.
+            /// O que é o parsebin?
+            ///GstBin that auto-magically constructs a parsing pipeline using available parsers and demuxers via auto-plugging.
+            ///parsebin unpacks the contents of the input stream to the level of parsed elementary streams,
+            ///but unlike decodebin it doesn't connect decoder elements. The output pads produce packetised encoded data with timestamps where possible,
+            ///or send missing-element messages where not.
+            /// https://gstreamer.freedesktop.org/documentation/gstreamer/gstbin.html?gi-language=c#GstBin
+            /// https://gstreamer.freedesktop.org/documentation/playback/parsebin.html?gi-language=c
+            /// https://gstreamer.freedesktop.org/documentation/app/appsrc.html?gi-language=c#properties
+            ///
+            /// appsrc -> elemento -> parsebin
+            ///
+
+            if ((source = gst_element_factory_make("appsrc", "source")) != nullptr) {
+                //g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
+                g_object_set(static_cast<gpointer>(source), "format", 2, nullptr);
+                g_object_set(static_cast<gpointer>(source), "is-live", TRUE, nullptr);
+                g_object_set(static_cast<gpointer>(source), "do-timestamp", TRUE, nullptr);
+                //g_object_set(static_cast<gpointer>(source), "duration", 40320000, nullptr);
+                g_object_set(static_cast<gpointer>(source), "emit-signals", FALSE, nullptr);
+                //g_object_set(static_cast<gpointer>(source), "max-bytes", 600000, nullptr);
                 GstCaps* caps = nullptr;
 
+
+
                 if(isUdp264) {
-                    if ((caps = gst_caps_from_string("application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264")) == nullptr) {
+                    if ((caps = gst_caps_from_string("video/x-h264, width=640, height=480, stream-format=(string)byte-stream, framerate=24/1")) == nullptr) {
                         qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
                         break;
                     }
@@ -751,6 +799,11 @@ GstVideoReceiver::_makeSource(const QString& uri)
 
         if ((bin = gst_bin_new("sourcebin")) == nullptr) {
             qCCritical(VideoReceiverLog) << "gst_bin_new('sourcebin') failed";
+            break;
+        }
+
+        if ((parser = gst_element_factory_make("parsebin", "parser")) == nullptr) {
+            qCCritical(VideoReceiverLog) << "gst_element_factory_make('parsebin') failed";
             break;
         }
 
@@ -798,7 +851,7 @@ GstVideoReceiver::_makeSource(const QString& uri)
                     break;
                 }
             } else {
-                if (!gst_element_link(source, parser)) {
+                if (!gst_element_link_many(source, parser, nullptr)) {
                     qCCritical(VideoReceiverLog) << "gst_element_link() failed";
                     break;
                 }
@@ -840,8 +893,88 @@ GstVideoReceiver::_makeSource(const QString& uri)
         source = nullptr;
     }
 
+
     return srcbin;
 }
+
+static gboolean print_field (GQuark field, const GValue * value, gpointer pfx) {
+  gchar *str = gst_value_serialize (value);
+
+  g_print ("%s  %15s: %s\n", (gchar *) pfx, g_quark_to_string (field), str);
+  g_free (str);
+  return TRUE;
+}
+
+
+void
+GstVideoReceiver::print_caps (const GstCaps * caps, const gchar * pfx) {
+  guint i;
+
+  g_return_if_fail (caps != NULL);
+
+  if (gst_caps_is_any (caps)) {
+    g_print ("%sANY\n", pfx);
+    return;
+  }
+  if (gst_caps_is_empty (caps)) {
+    g_print ("%sEMPTY\n", pfx);
+    return;
+  }
+
+  for (i = 0; i < gst_caps_get_size (caps); i++) {
+    GstStructure *structure = gst_caps_get_structure (caps, i);
+
+    g_print ("%s%s\n", pfx, gst_structure_get_name (structure));
+    gst_structure_foreach (structure, print_field, (gpointer) pfx);
+  }
+}
+
+/* Prints information about a Pad Template, including its Capabilities */
+void
+GstVideoReceiver::print_pad_templates_information (GstElementFactory * factory) {
+  const GList *pads;
+  GstStaticPadTemplate *padtemplate;
+
+  g_print ("Pad Templates for %s:\n", gst_element_factory_get_longname (factory));
+  if (!gst_element_factory_get_num_pad_templates (factory)) {
+    g_print ("  none\n");
+    return;
+  }
+
+  pads = gst_element_factory_get_static_pad_templates (factory);
+  while (pads) {
+    padtemplate = (GstStaticPadTemplate *) pads->data;
+    pads = g_list_next (pads);
+
+    if (padtemplate->direction == GST_PAD_SRC)
+      g_print ("  SRC template: '%s'\n", padtemplate->name_template);
+    else if (padtemplate->direction == GST_PAD_SINK)
+      g_print ("  SINK template: '%s'\n", padtemplate->name_template);
+    else
+      g_print ("  UNKNOWN!!! template: '%s'\n", padtemplate->name_template);
+
+    if (padtemplate->presence == GST_PAD_ALWAYS)
+      g_print ("    Availability: Always\n");
+    else if (padtemplate->presence == GST_PAD_SOMETIMES)
+      g_print ("    Availability: Sometimes\n");
+    else if (padtemplate->presence == GST_PAD_REQUEST)
+      g_print ("    Availability: On request\n");
+    else
+      g_print ("    Availability: UNKNOWN!!!\n");
+
+    if (padtemplate->static_caps.string) {
+      GstCaps *caps;
+      g_print ("    Capabilities:\n");
+      caps = gst_static_caps_get (&padtemplate->static_caps);
+      print_caps (caps, "      ");
+      gst_caps_unref (caps);
+
+    }
+
+    g_print ("\n");
+  }
+}
+
 
 GstElement*
 GstVideoReceiver::_makeDecoder(GstCaps* caps, GstElement* videoSink)
@@ -1569,4 +1702,37 @@ GstVideoReceiver::_keyframeWatch(GstPad* pad, GstPadProbeInfo* info, gpointer us
     });
 
     return GST_PAD_PROBE_REMOVE;
+}
+
+void
+GstVideoReceiver::takeVideoPacket(JNIEnv* env, jobject thiz, jbyteArray array)
+{
+    Q_UNUSED(thiz);
+    //qCDebug(VideoReceiverLog) << "takeVideoPacket IN!";
+    //CustomData *data = GET_CUSTOM_DATA (env, thiz, custom_data_field_id);
+    ///
+    /// Size 320x240, 640 x 480, 640 x 480 _ 900k, 1280x720_1500k (NÃO SUPORTADO)
+    ///
+    /// size = width * height * bpp = 640 * 480 * 3
+    ///
+    ///
+    ///
+    ///
+    ///
+    jbyte *temp = (*env).GetByteArrayElements(array, NULL);
+    jsize size = (*env).GetArrayLength(array);
+    GstBuffer *buffer = gst_buffer_new_allocate(NULL, size, NULL);
+    gst_buffer_fill(buffer, 0, temp, size);
+
+    //qCDebug(VideoReceiverLog) << "Size: " << size;
+
+    GstElement *source = gst_bin_get_by_name(GST_BIN(_pipeline), "source");
+   // GstFlowReturn res =
+    gst_app_src_push_buffer(GST_APP_SRC(source), buffer);
+    //qCDebug(VideoReceiverLog) << res;
+
+    gst_object_unref(source);
+    gst_object_unref(buffer);
+    (*env).ReleaseByteArrayElements(array, temp, JNI_ABORT);
+    //qCDebug(VideoReceiverLog) << "takeVideoPacket OUT!";
 }

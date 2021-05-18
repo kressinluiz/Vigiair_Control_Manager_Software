@@ -1065,3 +1065,78 @@ bool QGCApplication::compressEvent(QEvent*event, QObject* receiver, QPostEventLi
 
     return false;
 }
+
+//------------------------------------------------------------------------------------------------------------
+
+void QGCApplication::_pushVideoData(JNIEnv *envA, jobject thizA, jbyteArray array){
+    _toolbox->_videoManager->_feedVideoBufferNow(envA, thizA, array);
+
+}
+
+static const char kJniClassName[] {"org/mavlink/qgroundcontrol/VideoClient"};
+
+static void feedVideoBuffer(JNIEnv *envA, jobject thizA, jbyteArray array)
+{
+    //Q_UNUSED(envA);
+    //Q_UNUSED(thizA);
+
+    //qCDebug(VideoManagerLog) << "feedVideoBuffer: call from Java";
+
+    QGCApplication::_app->_pushVideoData(envA, thizA, array);
+
+    //VideoReceiver::takeVideoPacket(envA, thizA, array);
+
+    //VideoManager::_videoReceiver[0]->
+
+//    qDebug("inside gst_native_feed_video_buffer");
+//    int len = envA->GetArrayLength(array);
+//    char* buf = new char[len];
+//    envA->GetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
+//    QByteArray tmp = QByteArray::fromRawData(buf, sizeof(buf));
+
+
+
+//    if (_manager != nullptr) {
+//        qCDebug(JoystickLog) << "jniUpdateAvailableJoysticks triggered";
+//        emit _manager->updateAvailableJoysticksSignal();
+//    }
+}
+
+static void clear_jni_exception()
+{
+    QAndroidJniEnvironment jniEnv;
+    if (jniEnv->ExceptionCheck()) {
+        jniEnv->ExceptionDescribe();
+        jniEnv->ExceptionClear();
+    }
+}
+
+void QGCApplication::setNativeMethods()
+{
+    qCDebug(JoystickLog) << "Registering Native Functions";
+
+    //  REGISTER THE C++ FUNCTION WITH JNI
+    JNINativeMethod javaMethods[] {
+         {"nativeFeedVideoBuffer", "([B)V", reinterpret_cast<void *>(feedVideoBuffer)}
+    };
+
+    clear_jni_exception();
+    QAndroidJniEnvironment jniEnv;
+    jclass objectClass = jniEnv->FindClass(kJniClassName);
+    if(!objectClass) {
+        clear_jni_exception();
+        qWarning() << "Couldn't find class:" << kJniClassName;
+        return;
+    }
+
+    jint val = jniEnv->RegisterNatives(objectClass, javaMethods, sizeof(javaMethods) / sizeof(javaMethods[0]));
+
+    if (val < 0) {
+        qWarning() << "Error registering methods: " << val;
+    } else {
+        qCDebug(VideoManagerLog) << "Native Functions Registered";
+    }
+    clear_jni_exception();
+}
+
+//------------------------------------------------------------------------------------------------------------

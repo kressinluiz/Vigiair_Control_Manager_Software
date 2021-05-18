@@ -185,6 +185,8 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
     QSerialPort::setNativeMethods();
  #endif
 
+    QGCApplication::setNativeMethods();
+
     JoystickAndroid::setNativeMethods();
 
 #if defined(QGC_ENABLE_PAIRING)
