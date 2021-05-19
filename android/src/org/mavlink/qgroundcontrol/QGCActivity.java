@@ -84,14 +84,14 @@ public class QGCActivity extends QtActivity
 {
 //------------------------------------------------------------
 //Skydroid SDK
-    private Context mContext;
-    private USBMonitor mUSBMonitor;
-    private UsbDevice mUsbDevice;
-    private GLHttpVideoSurface mPreviewDualVideoView;
-    private FPVVideoClient mFPVVideoClient;
-    private VideoClient mVideoClient;
-    private UsbSerialConnection mUsbSerialConnection;
-    private UsbSerialControl mUsbSerialControl;
+    private Context mContext = null;
+    private USBMonitor mUSBMonitor = null;
+    private UsbDevice mUsbDevice = null;
+    private GLHttpVideoSurface mPreviewDualVideoView = null;
+    private FPVVideoClient mFPVVideoClient = null;
+    private VideoClient mVideoClient = null;
+    private UsbSerialConnection mUsbSerialConnection = null;
+    private UsbSerialControl mUsbSerialControl = null;
     private Handler mainHanlder = new Handler(Looper.getMainLooper());
 //-------------------------------------------------------------
 
@@ -284,17 +284,18 @@ public class QGCActivity extends QtActivity
         } catch(Exception e) {
            Log.e(TAG, "Exception: " + e);
         }
-
-        //---------------------------------------------------------------------------------
-        //Skydroid SDK
-        this.mContext = this;
-        init();
-        //---------------------------------------------------------------------------------
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        System.out.println("onResume!");
+        //---------------------------------------------------------------------------------
+        //Skydroid SDK
+        this.mContext = this;
+        init();
+        //---------------------------------------------------------------------------------
 
         // Plug in of USB ACCESSORY triggers only onResume event.
         // Then we scan if there is actually anything new
@@ -304,7 +305,12 @@ public class QGCActivity extends QtActivity
     @Override
     protected void onDestroy()
     {
+        //-----------------------------------------------
+        //Skydroid SDK
         disconnected();
+        desconfiguraUsbMonitor();
+        //-----------------------------------------------
+
         if (probeAccessoriesTimer != null) {
             probeAccessoriesTimer.cancel();
         }
@@ -326,40 +332,71 @@ public class QGCActivity extends QtActivity
 //---------------------------------------------------------------------------------
 //Skydroid SDK
     private void init(){
+
+        if(mUsbSerialConnection == null){
+            criaProdutorVideo();
+        }
+
+        if(mFPVVideoClient == null){
+            criaFpvVideoClient();
+        }
+
+        if(mVideoClient == null){
+            criaConsumidorVideo();
+        }
+
+
+        if(mUsbSerialControl == null){
+            configuraUsb();
+        }
+    }
+
+    private void criaProdutorVideo(){
         mUsbSerialConnection = new UsbSerialConnection(mContext);
         mUsbSerialConnection.setDelegate(new UsbSerialConnection.Delegate() {
             @Override
             public void onH264Received(final byte[] bytes, int paySize) {
-                //nativeFeedVideoBuffer(bytes);
                 if(mFPVVideoClient != null){
                     mVideoClient.received(bytes,4,paySize);
                 //    mFPVVideoClient.received(bytes,4,paySize);
-                    //System.out.println("getting packets!");
+                    System.out.println("getting packets!");
                 }
             }
 
             @Override
             public void onGPSReceived(byte[] bytes) {
-                //GPS数据
+                //System.out.println("onGPSReceived!");
             }
 
             @Override
             public void onDataReceived(byte[] bytes) {
-                //数传数据
+                System.out.println("onDataReceived!");
             }
 
             @Override
             public void onDebugReceived(byte[] bytes) {
-                //遥控器数据
+                //System.out.println("onDebugReceived!");
             }
         });
+    }
 
-        //渲染视频相关
+    private void destroiProdutorVideo(){
+        if(mUsbSerialConnection != null){
+            try {
+                mUsbSerialConnection.closeConnection();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //mUsbSerialConnection = null;
+        }
+    }
+
+    private void criaFpvVideoClient(){
+
         mFPVVideoClient = new FPVVideoClient();
         mFPVVideoClient.setDelegate(new FPVVideoClient.Delegate() {
             @Override
             public void onStopRecordListener(final String fileName) {
-                //停止录像回调
                 System.out.println("onStopRecordListener!");
                 runOnUiThread(new Runnable() {
                     @Override
@@ -387,7 +424,6 @@ public class QGCActivity extends QtActivity
 
             @Override
             public void onSnapshotListener(final String fileName) {
-                //拍照回调
 
                 System.out.println("onSnapshotListener!");
                 runOnUiThread(new Runnable() {
@@ -414,7 +450,6 @@ public class QGCActivity extends QtActivity
                 });
             }
 
-            //视频相关
             @Override
             public void renderI420(byte[] frame, int width, int height) {
                 //mPreviewDualVideoView.renderI420(frame,width,height);
@@ -431,20 +466,51 @@ public class QGCActivity extends QtActivity
             }
         });
 
+    }
+
+    private void destroiFpvVideoClient(){
+        if(mFPVVideoClient != null){
+            mFPVVideoClient.stopPlayback();
+            //mFPVVideoClient = null;
+        }
+    }
+
+    private void criaConsumidorVideo(){
         mVideoClient = new VideoClient();
+    }
 
-        //FPV控制
+    private void configuraUsb(){
+
         mUsbSerialControl = new UsbSerialControl(mUsbSerialConnection);
+        configuraUsbMonitor();
 
-        mUSBMonitor = new USBMonitor(mContext,mOnDeviceConnectListener);
-        List<DeviceFilter> deviceFilters = DeviceFilter.getDeviceFilters(mContext, R.xml.device_filter);
-        mUSBMonitor.setDeviceFilter(deviceFilters);
-        mUSBMonitor.register();
+    }
+
+    private void desconfiguraUsb(){
+        if(mUsbSerialControl != null){
+            mUsbSerialControl = null;
+        }
+    }
+
+    private void configuraUsbMonitor(){
+        if(mUSBMonitor == null){
+            mUSBMonitor = new USBMonitor(mContext,mOnDeviceConnectListener);
+            List<DeviceFilter> deviceFilters = DeviceFilter.getDeviceFilters(mContext, R.xml.device_filter);
+            mUSBMonitor.setDeviceFilter(deviceFilters);
+            mUSBMonitor.register();
+        }
+    }
+
+    private void desconfiguraUsbMonitor(){
+        if(mUSBMonitor != null){
+            mUSBMonitor.unregister();
+            mUSBMonitor.destroy();
+            mUSBMonitor = null;
+        }
     }
 
     private USBMonitor.OnDeviceConnectListener mOnDeviceConnectListener = new USBMonitor.OnDeviceConnectListener() {
         // USB device attach
-        // USB设备插入
         @Override
         public void onAttach(final UsbDevice device) {
             if(deviceHasConnected(device) || mUsbDevice != null){
@@ -456,11 +522,13 @@ public class QGCActivity extends QtActivity
                 public void run() {
                     try {
                         if(device == null){
+                            System.out.println("onAttach device==null");
                             List<UsbDevice> devices = mUSBMonitor.getDeviceList();
                             if(devices.size() == 1){
                                 mUSBMonitor.requestPermission(devices.get(0));
                             }
                         }else {
+                            System.out.println("onAttach device!=null");
                             mUSBMonitor.requestPermission(device);
                         }
 
@@ -472,9 +540,9 @@ public class QGCActivity extends QtActivity
         }
 
         // USB device detach
-        // USB设备物理断开
         @Override
         public void onDettach(UsbDevice device) {
+            System.out.println("onDettach");
             if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
                 return;
             }
@@ -485,9 +553,9 @@ public class QGCActivity extends QtActivity
         }
 
         // USB device has obtained permission
-        // USB设备获得权限
         @Override
         public void onConnect(UsbDevice device, USBMonitor.UsbControlBlock var2, boolean var3) {
+
             if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
                 return;
             }
@@ -498,18 +566,10 @@ public class QGCActivity extends QtActivity
             synchronized (this){
                 if (BusinessUtils.deviceIsUartVideoDevice(device)) {
                     try {
-                        //打开串口
                         mUsbSerialConnection.openConnection(device);
                         mUsbDevice = device;
-                        //开始渲染视频
                         mFPVVideoClient.startPlayback();
-    //                    Thread.sleep(5000);
-    //                    boolean tmp = mFPVVideoClient.startRecord(null,null);
-    //                    if(tmp){
-    //                        System.out.println("start record OK");
-    //                    }else{
-    //                        System.out.println("start record NOT OK");
-    //                    }
+                        System.out.println("onConnect!");
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -518,9 +578,9 @@ public class QGCActivity extends QtActivity
         }
 
         // USB device disconnected
-        // USB设备关闭连接
         @Override
         public void onDisconnect(UsbDevice device, USBMonitor.UsbControlBlock var2) {
+            System.out.println("onDisconnect");
             if (!BusinessUtils.deviceIsUartVideoDevice(device)) {
                 return;
             }
@@ -531,7 +591,6 @@ public class QGCActivity extends QtActivity
         }
 
         // USB device obtained permission failed
-        // USB设备权限获取失败
         @Override
         public void onCancel() {
 
@@ -539,26 +598,17 @@ public class QGCActivity extends QtActivity
     };
 
     private void disconnected(){
-        //mFPVVideoClient.stopRecord();
-        if(mUsbSerialConnection != null){
-            try {
-                mUsbSerialConnection.closeConnection();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println("CALL to disconnected()");
 
-        if(mFPVVideoClient != null){
-            mFPVVideoClient.stopPlayback();
-        }
+        destroiFpvVideoClient();
+
+        destroiProdutorVideo();
+
+        desconfiguraUsbMonitor();
+        configuraUsbMonitor();
 
         mUsbDevice = null;
 
-        if(mUSBMonitor != null){
-            mUSBMonitor.unregister();
-            mUSBMonitor.destroy();
-            mUSBMonitor = null;
-        }
     }
 
     private boolean deviceHasConnected(UsbDevice usbDevice){
