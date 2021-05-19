@@ -601,6 +601,34 @@ GstVideoReceiver::stopRecording(void)
     });
 }
 
+/**
+ * @brief GstVideoReceiver::takeVideoPacket
+ *
+ * This function push jbyteArray into the gstreamer pipeline
+ *
+ * @param env
+ * @param thiz
+ * @param array
+ */
+void
+GstVideoReceiver::takeVideoPacket(JNIEnv* env, jobject thiz, jbyteArray array)
+{
+    Q_UNUSED(thiz);
+    qCDebug(VideoReceiverLog) << "takeVideoPacket IN!";
+    //CustomData *data = GET_CUSTOM_DATA (env, thiz, custom_data_field_id);
+    jbyte *temp = (*env).GetByteArrayElements(array, NULL);
+    jsize size = (*env).GetArrayLength(array);
+    GstBuffer *buffer = gst_buffer_new_allocate(NULL, size, NULL);
+    gst_buffer_fill(buffer, 0, temp, size);
+
+    GstElement *source = gst_bin_get_by_name(GST_BIN(_pipeline), "source");
+    gst_app_src_push_buffer(GST_APP_SRC(source), buffer);
+
+    gst_object_unref(source);
+    (*env).ReleaseByteArrayElements(array, temp, JNI_ABORT);
+    qCDebug(VideoReceiverLog) << "takeVideoPacket OUT!";
+}
+
 void
 GstVideoReceiver::takeScreenshot(const QString& imageFile)
 {
@@ -698,7 +726,7 @@ GstVideoReceiver::_makeSource(const QString& uri)
     bool isTcpMPEGTS= uri.contains("tcp://",    Qt::CaseInsensitive);
     bool isUdpMPEGTS= uri.contains("mpegts://", Qt::CaseInsensitive);
 
-    GstElement* source  = nullptr;
+    GstElement *source  = nullptr;
     GstElement* buffer  = nullptr;
     GstElement* tsdemux = nullptr;
     GstElement* parser  = nullptr;
@@ -717,13 +745,43 @@ GstVideoReceiver::_makeSource(const QString& uri)
                 g_object_set(static_cast<gpointer>(source), "location", qPrintable(uri), "latency", 17, "udp-reconnect", 1, "timeout", _udpReconnect_us, NULL);
             }
         } else if(isUdp264 || isUdp265 || isUdpMPEGTS || isTaisync) {
-            if ((source = gst_element_factory_make("udpsrc", "source")) != nullptr) {
-                g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
+//            if ((source = gst_element_factory_make("udpsrc", "source")) != nullptr) {
+//                g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
+
+//                GstCaps* caps = nullptr;
+//                //video/x-h264, width=1920, height=1080, framerate=24/1, stream-format=(string)byte-stream
+//                if(isUdp264) {
+//                    if ((caps = gst_caps_from_string("video/x-h264, width=1920, height=1080, framerate=24/1, stream-format=(string)byte-stream")) == nullptr) {
+//                        qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
+//                        break;
+//                    }
+//                } else if (isUdp265) {
+//                    if ((caps = gst_caps_from_string("application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H265")) == nullptr) {
+//                        qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
+//                        break;
+//                    }
+//                }
+//                //video/x-h264, width=1920, height=1080, framerate=24/1, stream-format=(string)byte-stream
+//                if (caps != nullptr) {
+//                    g_object_set(static_cast<gpointer>(source), "caps", caps, nullptr);
+//                    gst_caps_unref(caps);
+//                    caps = nullptr;
+//                }
+//            }
+            if ((source = gst_element_factory_make("appsrc", "source")) != nullptr) {
+                //qCCritical(VideoReceiverLog) << "inside make appsrc source";
+                g_object_set(static_cast<gpointer>(source), "format", 3, nullptr);
+                g_object_set(static_cast<gpointer>(source), "is-live", TRUE, nullptr);
+                g_object_set(static_cast<gpointer>(source), "do-timestamp", TRUE, nullptr);
+                //g_object_set(static_cast<gpointer>(source), "duration", 40320000, nullptr);
+                g_object_set(static_cast<gpointer>(source), "emit-signals", FALSE, nullptr);
+                //g_object_set(static_cast<gpointer>(source), "max-bytes", 600000, nullptr);
+
 
                 GstCaps* caps = nullptr;
                 //video/x-h264, width=1920, height=1080, framerate=24/1, stream-format=(string)byte-stream
                 if(isUdp264) {
-                    if ((caps = gst_caps_from_string("video/x-h264, width=1920, height=1080, framerate=24/1, stream-format=(string)byte-stream")) == nullptr) {
+                    if ((caps = gst_caps_from_string("video/x-h264, stream-format=(string)byte-stream, width=640, height=360, framerate=15/1")) == nullptr) {
                         qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
                         break;
                     }
@@ -745,6 +803,7 @@ GstVideoReceiver::_makeSource(const QString& uri)
         }
 
         if (!source) {
+            qCCritical(VideoReceiverLog) << source;
             qCCritical(VideoReceiverLog) << "gst_element_factory_make() for data source failed";
             break;
         }

@@ -15,6 +15,10 @@
 
 #pragma once
 
+#include <jni.h>
+
+#include <gst/app/gstappsrc.h>
+
 #include "QGCLoggingCategory.h"
 #include <QTimer>
 #include <QThread>
@@ -96,6 +100,7 @@ public slots:
     virtual void startRecording(const QString& videoFile, FILE_FORMAT format);
     virtual void stopRecording(void);
     virtual void takeScreenshot(const QString& imageFile);
+    virtual void takeVideoPacket(JNIEnv* env, jobject thiz, jbyteArray array);
 
 protected slots:
     virtual void _watchdog(void);

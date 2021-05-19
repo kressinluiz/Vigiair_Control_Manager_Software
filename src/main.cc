@@ -22,6 +22,9 @@
 #include "QGCApplication.h"
 #include "AppMessages.h"
 #include "SerialLink.h"
+#include "VideoReceiver.h"
+#include "VideoManager.h"
+#include "VideoSettings.h"
 
 #ifndef __mobile__
     #include "QGCSerialPortInfo.h"
@@ -190,6 +193,8 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
 #if defined(QGC_ENABLE_PAIRING)
     PairingManager::setNativeMethods();
 #endif
+
+    VideoManager::setNativeMethods();
 
     return JNI_VERSION_1_6;
 }
@@ -391,6 +396,10 @@ int main(int argc, char *argv[])
         if (!app->_initForNormalAppBoot()) {
             return -1;
         }
+
+        //hide splash screen
+        QtAndroid::hideSplashScreen();
+
         exitCode = app->exec();
     }
 

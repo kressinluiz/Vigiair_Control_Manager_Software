@@ -24,6 +24,8 @@ public class VideoClient {
     //private SocketSky mSocketSky;
     private DatagramSocket udpSocket;
 
+    public static native void nativeFeedVideoBuffer(byte[] h264);
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final byte[] H264Header = new byte[] { 0, 0, 0, 1 };
 
@@ -82,10 +84,11 @@ public class VideoClient {
                  //try{
                      //VideoClient.this.udpSocket = new DatagramSocket();
                      //VideoClient.this.serverAddress = InetAddress.getLocalHost();
-                     DatagramPacket packetSend = new DatagramPacket(h264s, h264s.length, InetAddress.getLocalHost(), VideoClient.this.serverPort);
+                     //DatagramPacket packetSend = new DatagramPacket(h264s, h264s.length, InetAddress.getLocalHost(), VideoClient.this.serverPort);
 
                          //try{
-                     udpSocket.send(packetSend);
+                     //udpSocket.send(packetSend
+                                nativeFeedVideoBuffer(h264s);
                          //} catch(IOException e){
                          //    System.out.println("UDPClient send: IOException " + e);
                          //}
@@ -100,10 +103,10 @@ public class VideoClient {
                }
                start = i;
              }
-             //int end = BusinessUtils.FindR(buffer, bufferCount, VideoClient.this.H264Header);
-             //byte[] remainBuf = this.byteArrayOutputStream.toByteArray();
-             //this.byteArrayOutputStream.reset();
-             //this.byteArrayOutputStream.write(remainBuf, end, remainBuf.length - end);
+             int end = BusinessUtils.FindR(buffer, bufferCount, VideoClient.this.H264Header);
+             byte[] remainBuf = this.byteArrayOutputStream.toByteArray();
+             this.byteArrayOutputStream.reset();
+             this.byteArrayOutputStream.write(remainBuf, end, remainBuf.length - end);
            } catch (Exception exception) {Log.d("MyApp", "exception!!!", exception);}
            finally{
                 //udpSocket.close();

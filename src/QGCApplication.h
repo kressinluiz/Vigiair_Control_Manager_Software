@@ -21,6 +21,12 @@
 #include <private/qthread_p.h>
 #include <private/qobject_p.h>
 
+#include <jni.h>
+#include <QtCore/private/qjni_p.h>
+#include <QtCore/private/qjnihelpers_p.h>
+#include <QtAndroidExtras/QtAndroidExtras>
+#include <QtAndroidExtras/QAndroidJniObject>
+
 #include "LinkConfiguration.h"
 #include "MAVLinkProtocol.h"
 #include "FlightMapSettings.h"
@@ -255,6 +261,7 @@ public:
     void addCompressedSignal(const QMetaMethod & method) { m_compressedSignals.add(method); }
     void removeCompressedSignal(const QMetaMethod & method) { m_compressedSignals.remove(method); }
 
+    void _pushVideoData(JNIEnv *envA, jobject thizA, jbyteArray array);
 private:
     struct EventHelper : private QEvent {
         static void clearPostedFlag(QEvent * ev) {

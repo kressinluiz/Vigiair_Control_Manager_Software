@@ -89,6 +89,7 @@ G_BEGIN_DECLS
     GST_PLUGIN_STATIC_DECLARE(tcp);
 #if defined(__android__)
     GST_PLUGIN_STATIC_DECLARE(androidmedia);
+    GST_PLUGIN_STATIC_DECLARE(app);
 #elif defined(__ios__)
     GST_PLUGIN_STATIC_DECLARE(applemedia);
 #endif
@@ -181,6 +182,7 @@ GStreamer::initialize(int argc, char* argv[], int debuglevel)
 
 #if defined(__android__)
     GST_PLUGIN_STATIC_REGISTER(androidmedia);
+    GST_PLUGIN_STATIC_REGISTER(app);
 #elif defined(__ios__)
     GST_PLUGIN_STATIC_REGISTER(applemedia);
 #endif

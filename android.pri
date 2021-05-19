@@ -49,6 +49,7 @@ OTHER_FILES += \
 DISTFILES += \
     $$PWD/android/gradle/wrapper/gradle-wrapper.jar \
     $$PWD/android/gradlew \
+    $$PWD/android/libs/arm64-v8a/fpvlibrary-v1.0.3.aar \
     $$PWD/android/libs/armeabi-v7a/fpvlibrary-v1.0.3.aar \
     $$PWD/android/libs/armeabi-v7a/libh12serial_port.so \
     $$PWD/android/libs/armeabi-v7a/libopenh264.so \
@@ -68,7 +69,10 @@ DISTFILES += \
     $$PWD/android/res/drawable-xxhdpi/vigiair_splashscreen_landscape.png \
     $$PWD/android/res/drawable-xxxhdpi/icon.png \
     $$PWD/android/res/drawable-xxxhdpi/vigiair_splashscreen_landscape.png \
+    $$PWD/android/res/drawable/icon.png \
+    $$PWD/android/res/drawable/splash_screen.xml \
     $$PWD/android/res/layout/activity_usbserial.xml \
+    $$PWD/android/res/values/apptheme.xml \
     $$PWD/android/res/values/libs.xml \
     $$PWD/android/build.gradle \
     $$PWD/android/gradle/wrapper/gradle-wrapper.properties \

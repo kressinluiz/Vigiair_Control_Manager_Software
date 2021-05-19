@@ -18,6 +18,13 @@
 #include <QObject>
 #include <QSize>
 
+
+#include <jni.h>
+#include <QtCore/private/qjni_p.h>
+#include <QtCore/private/qjnihelpers_p.h>
+#include <QtAndroidExtras/QtAndroidExtras>
+#include <QtAndroidExtras/QAndroidJniObject>
+
 class VideoReceiver : public QObject
 {
     Q_OBJECT
@@ -75,4 +82,5 @@ public slots:
     virtual void startRecording(const QString& videoFile, FILE_FORMAT format) = 0;
     virtual void stopRecording(void) = 0;
     virtual void takeScreenshot(const QString& imageFile) = 0;
+    virtual void takeVideoPacket(JNIEnv* env, jobject thiz, jbyteArray array)=0;
 };

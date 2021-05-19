@@ -522,7 +522,7 @@ PairingManager::startNFCScan()
 
 //-----------------------------------------------------------------------------
 #ifdef __android__
-static const char kJniClassName[] {"org/mavlink/qgroundcontrol/QGCActivity"};
+static const char kJniClassName[] {"com/vigiair/vigiapp/QGCActivity"};
 
 //-----------------------------------------------------------------------------
 static void jniNFCTagReceived(JNIEnv *envA, jobject thizA, jstring messageA)

@@ -16,6 +16,13 @@
 #include <QTime>
 #include <QUrl>
 
+
+#include <jni.h>
+#include <QtCore/private/qjni_p.h>
+#include <QtCore/private/qjnihelpers_p.h>
+#include <QtAndroidExtras/QtAndroidExtras>
+#include <QtAndroidExtras/QAndroidJniObject>
+
 #include "QGCMAVLink.h"
 #include "QGCLoggingCategory.h"
 #include "VideoReceiver.h"
@@ -102,6 +109,10 @@ public:
 
     // Override from QGCTool
     virtual void        setToolbox          (QGCToolbox *toolbox);
+
+    static void setNativeMethods();
+
+    void _feedVideoBufferNow(JNIEnv *envA, jobject thizA, jbyteArray array);
 
     Q_INVOKABLE void startVideo     ();
     Q_INVOKABLE void stopVideo      ();

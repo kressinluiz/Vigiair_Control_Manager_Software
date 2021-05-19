@@ -28,6 +28,7 @@
 #include "Vehicle.h"
 #include "QGCCameraManager.h"
 
+
 #if defined(QGC_GST_STREAMING)
 #include "GStreamer.h"
 #else
@@ -839,4 +840,12 @@ void
 VideoManager::_aspectRatioChanged()
 {
     emit aspectRatioChanged();
+}
+
+//----------------------------------------------------------------------------------------
+
+void
+VideoManager::_feedVideoBufferNow(JNIEnv *envA, jobject thizA, jbyteArray array)
+{
+    _videoReceiver[0]->takeVideoPacket(envA, thizA, array);
 }
