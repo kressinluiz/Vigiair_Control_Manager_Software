@@ -1,6 +1,6 @@
-# QGroundControl V4.1.3 - VigiManager
+# QGroundControl V4.0.11 - VigiManager
 
-Esse branch contêm as alterações realizadas ao QGroundControl V4.1.3 para atender aos objetivos do software desktop VigiManager.
+Esse branch contêm as alterações realizadas ao QGroundControl V4.0.11 para atender aos objetivos do software desktop VigiManager.
 O VigiManager tem por objetivo possibilitar a:
 - Criar/editar rotas
 
