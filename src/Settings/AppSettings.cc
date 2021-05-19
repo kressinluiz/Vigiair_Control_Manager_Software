@@ -29,7 +29,7 @@ const char* AppSettings::logFileExtension =         "ulg";
 
 const char* AppSettings::parameterDirectory =       "Parameters";
 const char* AppSettings::telemetryDirectory =       "Telemetry";
-const char* AppSettings::missionDirectory =         "Missions";
+const char* AppSettings::missionDirectory =         "Rotas";
 const char* AppSettings::logDirectory =             "Logs";
 const char* AppSettings::videoDirectory =           "Video";
 const char* AppSettings::crashDirectory =           "CrashLogs";
@@ -140,12 +140,12 @@ void AppSettings::_checkSavePathDirectories(void)
         QDir().mkpath(savePathDir.absolutePath());
     }
     if (savePathDir.exists()) {
-        savePathDir.mkdir(parameterDirectory);
-        savePathDir.mkdir(telemetryDirectory);
+        //savePathDir.mkdir(parameterDirectory);
+        //savePathDir.mkdir(telemetryDirectory);
         savePathDir.mkdir(missionDirectory);
-        savePathDir.mkdir(logDirectory);
-        savePathDir.mkdir(videoDirectory);
-        savePathDir.mkdir(crashDirectory);
+        //savePathDir.mkdir(logDirectory);
+        //savePathDir.mkdir(videoDirectory);
+        //savePathDir.mkdir(crashDirectory);
     }
 }
 

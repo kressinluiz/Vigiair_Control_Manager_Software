@@ -52,7 +52,7 @@ public:
 
     // Overrides from VisualMissionionItem
     QString             commandDescription  (void) const final { return tr("Survey"); }
-    QString             commandName         (void) const final { return tr("Survey"); }
+    QString             commandName         (void) const final { return tr("Varredura"); }
     QString             abbreviation        (void) const final { return tr("S"); }
     ReadyForSaveState   readyForSaveState    (void) const final;
     double              additionalTimeDelay (void) const final;

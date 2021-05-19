@@ -46,8 +46,8 @@ Item {
     property real _zorderSplitHandle:   QGroundControl.zOrderMapItems + 2
     property real _zorderCenterHandle:  QGroundControl.zOrderMapItems + 1   // Lowest such that drag or split takes precedence
 
-    readonly property string _polygonToolsText: qsTr("Polygon Tools")
-    readonly property string _traceText:        qsTr("Click in the map to add vertices. Click 'Done Tracing' when finished.")
+    readonly property string _polygonToolsText: qsTr("Ferramentas")
+    readonly property string _traceText:        qsTr("Clique no mapa para adicionar vértices. Clique em 'Pronto!' quando terminar.")
 
     function addCommonVisuals() {
         if (_objMgrCommonVisuals.empty) {
@@ -528,7 +528,7 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Basic")
+                text:               qsTr("Básico")
                 visible:            !mapPolygon.traceMode
                 onClicked:          _resetPolygon()
             }
@@ -542,7 +542,7 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               mapPolygon.traceMode ? qsTr("Done Tracing") : qsTr("Trace")
+                text:               mapPolygon.traceMode ? qsTr("Pronto!") : qsTr("Traço")
                 onClicked: {
                     if (mapPolygon.traceMode) {
                         if (mapPolygon.count < 3) {
@@ -562,7 +562,8 @@ Item {
                 _horizontalPadding: 0
                 text:               qsTr("Load KML/SHP...")
                 onClicked:          kmlOrSHPLoadDialog.openForLoad()
-                visible:            !mapPolygon.traceMode
+                //visible:            !mapPolygon.traceMode
+                visible:            false
             }
         }
     }

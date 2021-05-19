@@ -137,7 +137,7 @@ CustomPlugin::settingsPages()
 {
     if(_customSettingsList.isEmpty()) {
         addSettingsEntry(tr("Configurações"),     "qrc:/qml/GeneralSettings.qml", "qrc:/res/gear-white.svg");
-        addSettingsEntry(tr("Registro"), "qrc:/custom/Registro.qml", "qrc:/res/waves.svg");
+        //addSettingsEntry(tr("Registro"), "qrc:/custom/Registro.qml", "qrc:/res/waves.svg");
         //ddSettingsEntry(tr("Comm Links"),  "qrc:/qml/LinkSettings.qml",    "qrc:/res/waves.svg");
         //addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",      "qrc:/res/waves.svg");
 #if defined(QGC_GST_MICROHARD_ENABLED)

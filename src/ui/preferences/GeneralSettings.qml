@@ -1202,11 +1202,15 @@ Rectangle {
                     Item { width: 1; height: _margins }
 
                     QGCLabel {
-                        text:               qsTr("%1 Version").arg(QGroundControl.appName)
+                        text:               qsTr("%1 Versão").arg(QGroundControl.appName)
                         Layout.alignment:   Qt.AlignHCenter
                     }
                     QGCLabel {
                         text:               QGroundControl.qgcVersion
+                        Layout.alignment:   Qt.AlignHCenter
+                    }
+                    QGCLabel {
+                        text:               "Baseado no software aberto QGroundControl Versão 4.0.0"
                         Layout.alignment:   Qt.AlignHCenter
                     }
                 } // settingsColumn

@@ -65,11 +65,11 @@ Rectangle {
             QGCLabel {
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
-                text:               qsTr("Use the Polyline Tools to create the polyline which defines the corridor.")
+                text:               qsTr("Use as ferramentas de desenho para criar o formato da varredura.")
             }
 
             QGCButton {
-                text:               qsTr("Done With Polyline")
+                text:               qsTr("Pronto!")
                 Layout.fillWidth:   true
                 enabled:            missionItem.corridorPolyline.isValid && !missionItem.corridorPolyline.traceMode
                 onClicked: {
@@ -93,7 +93,8 @@ Rectangle {
                 Component.onCompleted: currentIndex = 0
 
                 QGCTabButton { text: qsTr("Grid") }
-                QGCTabButton { text: qsTr("Camera") }
+                QGCTabButton { text: qsTr("Camera")
+                               visible: false}
             }
 
             Column {

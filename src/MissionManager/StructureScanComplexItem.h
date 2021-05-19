@@ -76,7 +76,7 @@ public:
     bool            specifiesCoordinate     (void) const final { return true; }
     bool            specifiesAltitudeOnly   (void) const final { return false; }
     QString         commandDescription      (void) const final { return tr("Structure Scan"); }
-    QString         commandName             (void) const final { return tr("Structure Scan"); }
+    QString         commandName             (void) const final { return tr("Varredura Estrutura"); }
     QString         abbreviation            (void) const final { return "S"; }
     QGeoCoordinate  coordinate              (void) const final;
     QGeoCoordinate  exitCoordinate          (void) const final;

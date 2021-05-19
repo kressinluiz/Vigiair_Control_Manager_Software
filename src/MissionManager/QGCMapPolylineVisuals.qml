@@ -37,8 +37,8 @@ Item {
     property real   _zorderSplitHandle:     QGroundControl.zOrderMapItems + 2
     property var    _savedVertices:         [ ]
 
-    readonly property string _corridorToolsText:    qsTr("Polyline Tools")
-    readonly property string _traceText:            qsTr("Click in the map to add vertices. Click 'Done Tracing' when finished.")
+    readonly property string _corridorToolsText:    qsTr("Ferramentas")
+    readonly property string _traceText:            qsTr("Clique no mapa para adicionar vértices. Clique em 'Pronto!' quando terminar.")
 
     function _addCommonVisuals() {
         if (_objMgrCommonVisuals.empty) {
@@ -325,14 +325,14 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Basic")
+                text:               qsTr("Básico")
                 visible:            !mapPolyline.traceMode
                 onClicked:          _resetPolyline()
             }
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               mapPolyline.traceMode ? qsTr("Done Tracing") : qsTr("Trace")
+                text:               mapPolyline.traceMode ? qsTr("Pronto!") : qsTr("Traço")
                 onClicked: {
                     if (mapPolyline.traceMode) {
                         if (mapPolyline.count < 2) {
@@ -351,7 +351,8 @@ Item {
                 _horizontalPadding: 0
                 text:               qsTr("Load KML...")
                 onClicked:          kmlLoadDialog.openForLoad()
-                visible:            !mapPolyline.traceMode
+                //visible:            !mapPolyline.traceMode
+                visible:            false
             }
         }
     }

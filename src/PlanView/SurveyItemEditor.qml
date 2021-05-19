@@ -29,7 +29,7 @@ Rectangle {
     property var    _vehicle:                   QGroundControl.multiVehicleManager.activeVehicle ? QGroundControl.multiVehicleManager.activeVehicle : QGroundControl.multiVehicleManager.offlineEditingVehicle
     property real   _cameraMinTriggerInterval:  missionItem.cameraCalc.minTriggerInterval.rawValue
     property bool   _polygonDone:               false
-    property string _doneAdjusting:             qsTr("Done Adjusting")
+    property string _doneAdjusting:             qsTr("Ajuste Pronto!")
     property bool   _presetsAvailable:          missionItem.presetNames.length !== 0
 
     function polygonCaptureStarted() {
@@ -74,11 +74,11 @@ Rectangle {
                     Layout.fillWidth:       true
                     wrapMode:               Text.WordWrap
                     horizontalAlignment:    Text.AlignHCenter
-                    text:                   qsTr("Use the Polygon Tools to create the polygon which outlines your survey area.")
+                    text:                   qsTr("Use as ferramentas para criar a varredura.")
                 }
 
                 QGCButton {
-                    text:               qsTr("Done With Polygon")
+                    text:               qsTr("Pronto!")
                     Layout.fillWidth:   true
                     enabled:            missionItem.surveyAreaPolygon.isValid && !missionItem.surveyAreaPolygon.traceMode
                     onClicked: {
@@ -185,8 +185,9 @@ Rectangle {
 
                 Component.onCompleted: currentIndex = QGroundControl.settingsManager.planViewSettings.displayPresetsTabFirst.rawValue ? 2 : 0
 
-                QGCTabButton { text: qsTr("Grid") }
-                QGCTabButton { text: qsTr("Camera") }
+                QGCTabButton { text:    qsTr("Grid") }
+                QGCTabButton { text:    qsTr("Camera")
+                               visible: false}
                 QGCTabButton { text: qsTr("Presets") }
             }
 

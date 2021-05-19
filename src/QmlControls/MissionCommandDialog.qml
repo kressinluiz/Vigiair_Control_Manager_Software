@@ -31,6 +31,7 @@ QGCViewDialog {
         id:                 categoryLabel
         anchors.baseline:   categoryCombo.baseline
         text:               qsTr("Category:")
+        visible: false
     }
 
     QGCComboBox {
@@ -39,6 +40,7 @@ QGCViewDialog {
         anchors.left:       categoryLabel.right
         anchors.right:      parent.right
         model:              QGroundControl.missionCommandTree.categoriesForVehicle(_vehicle)
+        visible:            false
 
         function categorySelected(category) {
             commandList.model = QGroundControl.missionCommandTree.getCommandsForCategory(_vehicle, category, flyThroughCommandsAllowed)

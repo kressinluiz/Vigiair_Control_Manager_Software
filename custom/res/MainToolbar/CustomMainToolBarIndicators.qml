@@ -51,7 +51,7 @@ Item {
     Row {
         id:                         waitForVehicle
         spacing:                    ScreenTools.defaultFontPixelWidth
-        visible:                    !activeVehicle
+        //visible:                    !activeVehicle
         anchors.top:                parent.top
         anchors.bottom:             parent.bottom
         anchors.left:               parent.left

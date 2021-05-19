@@ -249,8 +249,9 @@ ApplicationWindow {
 
     MessageDialog {
         id:                 unsavedMissionCloseDialog
-        title:              qsTr("%1 close").arg(QGroundControl.appName)
-        text:               qsTr("You have a mission edit in progress which has not been saved/sent. If you close you will lose changes. Are you sure you want to close?")
+        title:              qsTr("%1").arg(QGroundControl.appName)
+        text:               qsTr("Existe uma rota em edição que não foi salva. Se fechar as alterações serão perdidas. Tem certeza que deseja fechar?")
+        //text:               qsTr("You have a mission edit in progress which has not been saved/sent. If you close you will lose changes. Are you sure you want to close?")
         standardButtons:    StandardButton.Yes | StandardButton.No
         modality:           Qt.ApplicationModal
         visible:            false

@@ -123,7 +123,8 @@ Rectangle {
         height:                 _hamburgerSize
         sourceSize.height:      _hamburgerSize
         source:                 "qrc:/qmlimages/Hamburger.svg"
-        visible:                missionItem.isCurrentItem && missionItem.sequenceNumber !== 0
+        //visible:                missionItem.isCurrentItem && missionItem.sequenceNumber !== 0
+        visible:                false
         color:                  qgcPal.text
     }
 
@@ -245,7 +246,7 @@ Rectangle {
 
         QGCMouseArea {
             fillItem:   parent
-            onClicked:  mainWindow.showComponentDialog(commandDialog, qsTr("Select Mission Command"), mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
+            onClicked:  mainWindow.showComponentDialog(commandDialog, qsTr("Selecione o comando"), mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
         }
 
         Component {

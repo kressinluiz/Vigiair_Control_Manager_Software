@@ -66,11 +66,11 @@ Rectangle {
             QGCLabel {
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
-                text:               qsTr("Use the Polygon Tools to create the polygon which outlines the structure.")
+                text:               qsTr("Use as ferramentas de desenho par criar o formato da varredura.")
             }
 
             QGCButton {
-                text:               qsTr("Done With Polygon")
+                text:               qsTr("Pronto!")
                 Layout.fillWidth:   true
                 enabled:            missionItem.structurePolygon.isValid && !missionItem.structurePolygon.traceMode
                 onClicked: {
@@ -93,8 +93,9 @@ Rectangle {
 
                 Component.onCompleted: currentIndex = 0
 
-                QGCTabButton { text: qsTr("Grid") }
-                QGCTabButton { text: qsTr("Camera") }
+                QGCTabButton { text:    qsTr("Grid") }
+                QGCTabButton { text:    qsTr("Camera")
+                               visible: false}
             }
 
             Column {
@@ -106,7 +107,7 @@ Rectangle {
                 QGCLabel {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Note: Polygon respresents structure surface not vehicle flight path.")
+                    text:           qsTr("Nota: A estrutura não representa o caminho de vôo do drone.")
                     wrapMode:       Text.WordWrap
                     font.pointSize: ScreenTools.smallFontPointSize
                 }
@@ -123,9 +124,9 @@ Rectangle {
                 CameraCalcGrid {
                     cameraCalc:                     missionItem.cameraCalc
                     vehicleFlightIsFrontal:         false
-                    distanceToSurfaceLabel:         qsTr("Scan Distance")
+                    distanceToSurfaceLabel:         qsTr("Distância")
                     distanceToSurfaceAltitudeMode:  QGroundControl.AltitudeModeNone
-                    frontalDistanceLabel:           qsTr("Layer Height")
+                    frontalDistanceLabel:           qsTr("Altura da Camada")
                     sideDistanceLabel:              qsTr("Trigger Distance")
                 }
 

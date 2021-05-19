@@ -570,7 +570,7 @@ Item {
             anchors.top:        parent.top
             z:                  QGroundControl.zOrderWidgets
             maxHeight:          parent.height - toolStrip.y
-            title:              qsTr("Plan")
+            title:              qsTr("Rotas")
 
             //readonly property int flyButtonIndex:       0
             readonly property int fileButtonIndex:      0
@@ -940,7 +940,7 @@ Item {
         id: syncLoadFromFileOverwrite
         QGCViewMessage {
             id:         syncLoadFromVehicleCheck
-            message:   qsTr("You have unsaved/unsent changes. Loading from a file will lose these changes. Are you sure you want to load from a file?")
+            message:   qsTr("Existem alterações não salvas. Carregar outro arquivo irá apagar as alterações no arquivo atual. Tem certeza que deseja carregar de um arquivo?")
             function accept() {
                 hideDialog()
                 _planMasterController.loadFromSelectedFile()
@@ -953,7 +953,7 @@ Item {
     Component {
         id: createPlanRemoveAllPromptDialog
         QGCViewMessage {
-            message: qsTr("Are you sure you want to remove current plan and create a new plan? ")
+            message: qsTr("Tem certeza que deseja remover a rota atual e criar uma nova rota?")
             function accept() {
                 createPlanRemoveAllPromptDialogPlanCreator.createPlan(createPlanRemoveAllPromptDialogMapCenter)
                 hideDialog()
@@ -1015,7 +1015,7 @@ Item {
             id:         columnHolder
             spacing:    _margin
 
-            property string _overwriteText: (_editingLayer == _layerMission) ? qsTr("Mission overwrite") : ((_editingLayer == _layerGeoFence) ? qsTr("GeoFence overwrite") : qsTr("Rally Points overwrite"))
+            property string _overwriteText: (_editingLayer == _layerMission) ? qsTr("Alterações não salvas") : ((_editingLayer == _layerGeoFence) ? qsTr("GeoFence overwrite") : qsTr("Rally Points overwrite"))
 
             QGCLabel {
                 id:                 unsavedChangedLabel
@@ -1082,7 +1082,7 @@ Item {
                                 if (_planMasterController.containsItems) {
                                     createPlanRemoveAllPromptDialogMapCenter = _mapCenter()
                                     createPlanRemoveAllPromptDialogPlanCreator = object
-                                    mainWindow.showComponentDialog(createPlanRemoveAllPromptDialog, qsTr("Create Plan"), mainWindow.showDialogDefaultWidth, StandardButton.Yes | StandardButton.No)
+                                    mainWindow.showComponentDialog(createPlanRemoveAllPromptDialog, qsTr("Criar Rota"), mainWindow.showDialogDefaultWidth, StandardButton.Yes | StandardButton.No)
                                 } else {
                                     object.createPlan(_mapCenter())
                                 }

@@ -4,7 +4,7 @@ message("Adding Custom Plugin")
 #   Major and minor versions are defined here (manually)
 
 CUSTOM_QGC_VER_MAJOR = 0
-CUSTOM_QGC_VER_MINOR = 0
+CUSTOM_QGC_VER_MINOR = 1
 CUSTOM_QGC_VER_FIRST_BUILD = 0
 
 # Build number is automatic
@@ -36,7 +36,7 @@ DEFINES += CUSTOMHEADER=\"\\\"CustomPlugin.h\\\"\"
 DEFINES += CUSTOMCLASS=CustomPlugin
 
 TARGET   = CustomQGC
-DEFINES += QGC_APPLICATION_NAME=\"\\\"CustomQGC\\\"\"
+DEFINES += QGC_APPLICATION_NAME=\"\\\"VigiManager\\\"\"
 
 DEFINES += QGC_ORG_NAME=\"\\\"qgroundcontrol.org\\\"\"
 DEFINES += QGC_ORG_DOMAIN=\"\\\"org.qgroundcontrol\\\"\"

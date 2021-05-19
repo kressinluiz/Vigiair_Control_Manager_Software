@@ -45,15 +45,73 @@ Rectangle {
                 id:                         settingsColumn
                 anchors.horizontalCenter:   parent.horizontalCenter
 
-            QGCButton {
-                width:                  height
-                height:                 baseFontEdit.height * 1.5
-                text:                   "Connect to DB"
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: {
-                    registro.doSomething();
+                QGCLabel {
+                    id:                     nomeLabel
+                    Layout.alignment:       Qt.AlignVCenter
+                    color:                  qgcPal.text
+                    text:                   "Nome"
+                    visible:                true
                 }
-            }
+                QGCTextField {
+                    id:                     nomeInput
+                    text:                   "Digite seu nome"
+                    enabled:                true
+                    inputMethodHints:       Qt.ImhNone
+                }
+
+                QGCLabel {
+                    id:                     passwordLabel
+                    Layout.alignment:       Qt.AlignVCenter
+                    color:                  qgcPal.text
+                    text:                   "Senha"
+                    visible:                true
+                }
+                QGCTextField {
+                    id:                     passwordInput
+                    text:                   "Digite sua senha"
+                    enabled:                true
+                    inputMethodHints:       Qt.ImhHiddenText
+                }
+
+                QGCLabel {
+                    id:                     emailLabel
+                    Layout.alignment:       Qt.AlignVCenter
+                    color:                  qgcPal.text
+                    text:                   "Email"
+                    visible:                true
+                }
+                QGCTextField {
+                    id:                     emailInput
+                    text:                   "Digite seu email"
+                    enabled:                true
+                    inputMethodHints:       Qt.ImhNone
+                }
+
+                QGCLabel {
+                    id:                     phoneLabel
+                    Layout.alignment:       Qt.AlignVCenter
+                    color:                  qgcPal.text
+                    text:                   "Telefone"
+                    visible:                true
+                }
+                QGCTextField {
+                    id:             phoneInput
+                    text:           "Digite seu telefone"
+                    enabled:        true
+                    inputMethodHints:    Qt.ImhNone
+                    onEditingFinished: {
+                        //registro.setPhone();
+                    }
+                }
+
+                QGCButton {
+                    width:                  height
+                    height:                 baseFontEdit.height * 1.5
+                    text:                   "Registrar"
+                    onClicked: {
+                        registro.doSomething();
+                    }
+                }
       }
      }
     }

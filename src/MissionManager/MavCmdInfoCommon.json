@@ -146,8 +146,8 @@
         {
             "id":                   21,
             "rawName":              "MAV_CMD_NAV_LAND",
-            "friendlyName":         "Land",
-            "description":          "Land vehicle at the specified location.",
+            "friendlyName":         "Pousa",
+            "description":          "Pousa drone na posição especificada.",
             "specifiesCoordinate":  true,
             "friendlyEdit":         true,
             "category":             "Basic",
@@ -628,8 +628,8 @@
         {
             "id":                   195,
             "rawName":              "MAV_CMD_DO_SET_ROI_LOCATION",
-            "friendlyName":         "Region of interest (ROI)" ,
-            "description":          "Sets the region of interest for cameras.",
+            "friendlyName":         "Região de Interesse (ROI)" ,
+            "description":          "Define a região de interesse para câmeras.",
             "specifiesCoordinate":  true,
             "standaloneCoordinate": true,
             "friendlyEdit":         true,
@@ -666,8 +666,8 @@
         {
             "id":                   197,
             "rawName":              "MAV_CMD_DO_SET_ROI_NONE",
-            "friendlyName":         "Cancel ROI" ,
-            "description":          "Cancels the region of interest.",
+            "friendlyName":         "Cancela ROI" ,
+            "description":          "Cancela a região de interesse.",
             "specifiesCoordinate":  false,
             "friendlyEdit":         true,
             "category":             "Camera"
