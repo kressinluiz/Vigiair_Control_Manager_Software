@@ -760,7 +760,7 @@ GstVideoReceiver::_makeSource(const QString& uri)
 
             if ((source = gst_element_factory_make("appsrc", "source")) != nullptr) {
                 //g_object_set(static_cast<gpointer>(source), "uri", QString("udp://%1:%2").arg(qPrintable(url.host()), QString::number(url.port())).toUtf8().data(), nullptr);
-                g_object_set(static_cast<gpointer>(source), "format", 2, nullptr);
+                g_object_set(static_cast<gpointer>(source), "format", 3, nullptr);
                 g_object_set(static_cast<gpointer>(source), "is-live", TRUE, nullptr);
                 g_object_set(static_cast<gpointer>(source), "do-timestamp", TRUE, nullptr);
                 //g_object_set(static_cast<gpointer>(source), "duration", 40320000, nullptr);
@@ -771,7 +771,7 @@ GstVideoReceiver::_makeSource(const QString& uri)
 
 
                 if(isUdp264) {
-                    if ((caps = gst_caps_from_string("video/x-h264, width=640, height=480, stream-format=(string)byte-stream, framerate=24/1")) == nullptr) {
+                    if ((caps = gst_caps_from_string("video/x-h264, width=640, height=384, stream-format=(string)byte-stream, framerate=15/1")) == nullptr) {
                         qCCritical(VideoReceiverLog) << "gst_caps_from_string() failed";
                         break;
                     }
