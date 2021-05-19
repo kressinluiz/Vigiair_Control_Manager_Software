@@ -73,17 +73,22 @@ import com.skydroid.fpvlibrary.usbserial.UsbSerialControl;
 import com.skydroid.fpvlibrary.utils.BusinessUtils;
 import com.skydroid.fpvlibrary.video.FPVVideoClient;
 import com.skydroid.fpvlibrary.widget.GLHttpVideoSurface;
+import com.skydroid.fpvlibrary.enums.Sizes;
 import android.os.Handler;
 import android.os.Looper;
 import java.io.File;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+
 //-------------------------------------------------------------
 
 public class QGCActivity extends QtActivity
 {
 //------------------------------------------------------------
 //Skydroid SDK
+    private Sizes size_lq = Sizes.Size_320x240;
+    private Sizes size_mq = Sizes.Size_640x480;
+    private Sizes size_hq = Sizes.Size_640x480_900k;
     private Context mContext = null;
     private USBMonitor mUSBMonitor = null;
     private UsbDevice mUsbDevice = null;
@@ -295,6 +300,18 @@ public class QGCActivity extends QtActivity
         //Skydroid SDK
         this.mContext = this;
         init();
+
+
+        if(mUsbDevice != null){
+            try {
+                mUsbSerialConnection.openConnection(mUsbDevice);
+                mFPVVideoClient.startPlayback();
+                mUsbSerialControl.setResolution(size_hq);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
         //---------------------------------------------------------------------------------
 
         // Plug in of USB ACCESSORY triggers only onResume event.
@@ -345,7 +362,6 @@ public class QGCActivity extends QtActivity
             criaConsumidorVideo();
         }
 
-
         if(mUsbSerialControl == null){
             configuraUsb();
         }
@@ -387,7 +403,7 @@ public class QGCActivity extends QtActivity
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //mUsbSerialConnection = null;
+            mUsbSerialConnection = null;
         }
     }
 
@@ -565,14 +581,25 @@ public class QGCActivity extends QtActivity
 
             synchronized (this){
                 if (BusinessUtils.deviceIsUartVideoDevice(device)) {
-                    try {
-                        mUsbSerialConnection.openConnection(device);
-                        mUsbDevice = device;
-                        mFPVVideoClient.startPlayback();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(mUsbSerialControl == null){
+                                configuraUsb();
+                            }
+                        }
+                    });
+
+//                    try {
+//                        mUsbSerialConnection.openConnection(device);
+                          mUsbDevice = device;
+//                        mFPVVideoClient.startPlayback();
+//                        mUsbSerialControl.setResolution(size_hq);
                         System.out.println("onConnect!");
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
                 }
             }
         }
