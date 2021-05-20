@@ -181,8 +181,8 @@ before_script:
 
   # insert QGC version in AndroidManifest.xml
   - if [ "${SPEC}" = "android-clang" ]; then
-        git remote set-branches origin 'master' &&
-        git fetch --tags origin master &&
+        git remote set-branches origin 'Stable_V4.1' &&
+        git fetch --tags origin Stable_V4.1 &&
         ./tools/update_android_version.sh ${BITNESS} ${TRAVIS_BRANCH};
     fi
     
