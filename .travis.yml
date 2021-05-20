@@ -180,11 +180,11 @@ before_script:
     fi
 
   # insert QGC version in AndroidManifest.xml
-  - if [ "${SPEC}" = "android-clang" ]; then
-        git remote set-branches origin 'Stable_V4.1' &&
-        git fetch --tags origin Stable_V4.1 &&
-        ./tools/update_android_version.sh ${BITNESS} ${TRAVIS_BRANCH};
-    fi
+  #- if [ "${SPEC}" = "android-clang" ]; then
+  #      git remote set-branches origin 'Stable_V4.1' &&
+  #      git fetch --tags origin Stable_V4.1 &&
+  #      ./tools/update_android_version.sh ${BITNESS} ${TRAVIS_BRANCH};
+  #  fi
     
   # Install signing cert into OSX keychain
   - if [[ "${SPEC}" = "macx-clang" && "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
