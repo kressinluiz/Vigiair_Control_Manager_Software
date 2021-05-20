@@ -50,8 +50,8 @@ jobs:
 #          env: SPEC=google-play-upload
 #          sudo: false
           before_install: skip
-          install: "Install"
-          before_script: "Before Script"
+          install: skip
+          before_script: skip
           before_deploy: skip
           after_deploy: skip
           script: echo "Google Play Upload"
