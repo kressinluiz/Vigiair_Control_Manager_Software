@@ -24,25 +24,20 @@ public class VideoClient {
     //private SocketSky mSocketSky;
     private DatagramSocket udpSocket;
 
+    private boolean isAppReadyForVideo;
+
     public static native void nativeFeedVideoBuffer(byte[] h264);
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final byte[] H264Header = new byte[] { 0, 0, 0, 1 };
 
     public VideoClient(){
-        try{
-            //InetAddress serverAddr = InetAddress.getByName(null);
-            //this.serverAddress = InetAddress.getByName("192.168.1.183");
-            //this.localPort = 6000;
-            //this.serverPort = 5600;
-            //this.udpSocket = new DatagramSocket();
-            //this.mSocketConnection = new SocketConnection(this.localPort, this.serverAddress, this.serverPort);
-            //this.mSocketSky = new SocketSky(this.mSocketConnection);
-        } catch(Exception e){
-
-       }
+        isAppReadyForVideo = false;
     }
 
+    public void setAppReadyForVideo(){
+        isAppReadyForVideo = true;
+    }
     //public CircularByteBuffer(int capacity) {
     //    this.capacity = capacity;
     //    this.buffer = new byte[this.capacity];
@@ -64,11 +59,13 @@ public class VideoClient {
         //System.out.printf("Size: %d --- Off: %d", size, off);
 
         // 504 1008 1512 2016 2520
-        this.circularByteBuffer.put(buffer, off, size);
-        try {
-          if (this.circularByteBuffer.available() > 2048)
-            this.executor.execute(this.runnable);
-        } catch (Exception exception) {}
+        if(isAppReadyForVideo == true){
+            this.circularByteBuffer.put(buffer, off, size);
+            try {
+              if (this.circularByteBuffer.available() > 2048)
+                this.executor.execute(this.runnable);
+            } catch (Exception exception) {}
+        }
       }
 
   private Runnable runnable = new Runnable() {

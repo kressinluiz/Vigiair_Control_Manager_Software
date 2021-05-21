@@ -301,8 +301,7 @@ public class QGCActivity extends QtActivity
         this.mContext = this;
         init();
 
-
-        if(mUsbDevice != null){
+        if(mUsbDevice != null && mFPVVideoClient.isPlaying() == false){
             try {
                 mUsbSerialConnection.openConnection(mUsbDevice);
                 mFPVVideoClient.startPlayback();
@@ -310,6 +309,8 @@ public class QGCActivity extends QtActivity
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }else {
+
         }
 
         //---------------------------------------------------------------------------------
@@ -373,9 +374,12 @@ public class QGCActivity extends QtActivity
             @Override
             public void onH264Received(final byte[] bytes, int paySize) {
                 if(mFPVVideoClient != null){
-                    mVideoClient.received(bytes,4,paySize);
-                //    mFPVVideoClient.received(bytes,4,paySize);
-                    System.out.println("getting packets!");
+
+
+                        mVideoClient.received(bytes,4,paySize);
+                    //    mFPVVideoClient.received(bytes,4,paySize);
+                        System.out.println("getting packets!");
+
                 }
             }
 
@@ -591,9 +595,22 @@ public class QGCActivity extends QtActivity
                         }
                     });
 
+
+                    mUsbDevice = device;
+
+                    if(mFPVVideoClient.isPlaying() == false){
+                        try {
+                            mUsbSerialConnection.openConnection(mUsbDevice);
+                            mFPVVideoClient.startPlayback();
+                            mUsbSerialControl.setResolution(size_hq);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
 //                    try {
 //                        mUsbSerialConnection.openConnection(device);
-                          mUsbDevice = device;
+
 //                        mFPVVideoClient.startPlayback();
 //                        mUsbSerialControl.setResolution(size_hq);
                         System.out.println("onConnect!");
