@@ -31,29 +31,29 @@ jobs:
           language: android
           env: SPEC=android-clang CONFIG=installer BITNESS=32 GSTREAMER_NAME=armv7
           sudo: false
-#        - stage: "Build"
-#          name: "Android 64 bit"
-#          dist: xenial
-#          language: android
-#          env: SPEC=android-clang CONFIG=installer BITNESS=64 GSTREAMER_NAME=arm64
-#          sudo: false
+        - stage: "Build"
+          name: "Android 64 bit"
+          dist: xenial
+          language: android
+          env: SPEC=android-clang CONFIG=installer BITNESS=64 GSTREAMER_NAME=arm64
+          sudo: false
 #        - stage: "Build"
 #          name: "OSX Installer"
 #          os: osx
 #          osx_image: xcode11.3
 #          env: SPEC=macx-clang CONFIG=installer
 #          sudo: required
-        - stage: "Google Play Upload"
-          name: "Google Play Upload"
-          dist: trusty
-          language: android
-          env: SPEC=google-play-upload
-          sudo: false
-          before_install: echo "Before Install!"
-          install: echo "Install!"
-          before_script: echo "Before Script"
-          before_deploy: echo "Before Deploy"
-          after_deploy: echo "After Deploy"
+#        - stage: "Google Play Upload"
+#          name: "Google Play Upload"
+#          dist: trusty
+#          language: android
+#          env: SPEC=google-play-upload
+#          sudo: false
+          before_install: skip
+          install: skip
+          before_script: skip
+          before_deploy: skip
+          after_deploy: skip
           script: echo "Google Play Upload"
         
 # iOS build needs updating Qt to > 5.10
@@ -85,9 +85,9 @@ addons:
 
 before_install:
   # fetch entire git repo to properly determine the version
-  - if [ "${CONFIG}" = "installer" ]; then
-        cd ${TRAVIS_BUILD_DIR} && git fetch --unshallow && git fetch --all --tags;
-    fi
+  - cd ${TRAVIS_BUILD_DIR}
+  - git fetch --unshallow
+  - git fetch --all --tags
 
   # compile threads
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
@@ -112,7 +112,7 @@ install:
 
   # android dependencies: qt, gstreamer, android-ndk
   - if [ "${SPEC}" = "android-clang" ]; then
-        wget --quiet https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/dependencies/gstreamer-1.0-android-universal-1.18.1.tar.xz &&
+        wget --quiet https://qgroundcontrol.s3-us-west-2.amazonaws.com/dependencies/gstreamer-1.0-android-universal-1.18.1.tar.xz &&
         mkdir gstreamer-1.0-android-universal-1.18.1 &&
         tar xf gstreamer-1.0-android-universal-1.18.1.tar.xz -C gstreamer-1.0-android-universal-1.18.1 &&
         wget --quiet https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip &&
@@ -145,8 +145,8 @@ install:
     fi
 
   - if [[ "${SPEC}" = "macx-clang" ]]; then
-        wget --quiet https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/dependencies/gstreamer-1.18.1.tar.gz &&
-        sudo tar zxf gstreamer-1.18.1.tar.gz -C /Library/Frameworks
+        wget --quiet https://qgroundcontrol.s3-us-west-2.amazonaws.com/dependencies/gstreamer-osx-1.18.1.tar.bz2 &&
+        sudo tar zxf gstreamer-osx-1.18.1.tar.bz2 -C /Library/Frameworks
         ;
     fi
 
@@ -181,8 +181,8 @@ before_script:
 
   # insert QGC version in AndroidManifest.xml
   #- if [ "${SPEC}" = "android-clang" ]; then
-  #      git remote set-branches origin 'master' &&
-  #      git fetch --tags origin master &&
+  #      git remote set-branches origin 'Stable_V4.1' &&
+  #      git fetch --tags origin Stable_V4.1 &&
   #      ./tools/update_android_version.sh ${BITNESS} ${TRAVIS_BRANCH};
   #  fi
     
@@ -225,24 +225,25 @@ script:
         ./staging/qgroundcontrol-start.sh --unittest;
     fi
 
+
 after_success:
-  # This is only used to upload android builds to Google Play
-  #- cd ${TRAVIS_BUILD_DIR}
-  #- if [ "${TRAVIS_TAG}" ]; then
-  #      GOOGLE_PLAY_PKG=org.mavlink.qgroundcontrol;
-  #  elif [ "${TRAVIS_BRANCH}" = "master" ]; then
-  #      GOOGLE_PLAY_PKG=org.mavlink.qgroundcontrolbeta;
-  #  else
-  #      GOOGLE_PLAY_PKG=none;
-  #  fi
-  #- if [[ "${SPEC}" = "google-play-upload" && "${TRAVIS_PULL_REQUEST}" = "false" && "${GOOGLE_PLAY_PKG}" != "none" ]]; then
-  #      wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/builds/${TRAVIS_BRANCH}/QGroundControl32.apk &&
-  #      wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/builds/${TRAVIS_BRANCH}/QGroundControl64.apk &&
-  #      pip install --user --upgrade oauth2client &&
-  #      pip install --user google-api-python-client pyopenssl ndg-httpsclient pyasn1 &&
-  #      openssl aes-256-cbc -K $encrypted_25db6eb7c3fd_key -iv $encrypted_25db6eb7c3fd_iv -in android/Google_Play_Android_Developer-4432a3c4f5d1.json.enc -out android/Google_Play_Android_Developer-4432a3c4f5d1.json -d &&
-  #      ./deploy/GooglePlayUpload.py ${GOOGLE_PLAY_PKG};
-  #  fi
+#  # This is only used to upload android builds to Google Play
+#  - cd ${TRAVIS_BUILD_DIR}
+#  - if [ "${TRAVIS_TAG}" ]; then
+#        GOOGLE_PLAY_PKG=org.mavlink.qgroundcontrol;
+#    elif [ "${TRAVIS_BRANCH}" = "master" ]; then
+#        GOOGLE_PLAY_PKG=org.mavlink.qgroundcontrolbeta;
+#    else
+#        GOOGLE_PLAY_PKG=none;
+#    fi
+#  - if [[ "${SPEC}" = "google-play-upload" && "${TRAVIS_PULL_REQUEST}" = "false" && "${GOOGLE_PLAY_PKG}" != "none" ]]; then
+#        wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/builds/${TRAVIS_BRANCH}/QGroundControl32.apk &&
+#        wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/builds/${TRAVIS_BRANCH}/QGroundControl64.apk &&
+#        pip install --user --upgrade oauth2client &&
+#        pip install --user google-api-python-client pyopenssl ndg-httpsclient pyasn1 &&
+#        openssl aes-256-cbc -K $encrypted_25db6eb7c3fd_key -iv $encrypted_25db6eb7c3fd_iv -in android/Google_Play_Android_Developer-4432a3c4f5d1.json.enc -out android/Google_Play_Android_Developer-4432a3c4f5d1.json -d &&
+#        ./deploy/GooglePlayUpload.py ${GOOGLE_PLAY_PKG};
+#    fi
 
 before_deploy:
   # create linux appimage
@@ -252,7 +253,7 @@ before_deploy:
     fi
 
 deploy:
-  # deploy installers to s3 builds/ if on a branch
+#  # deploy installers to s3 builds/ if on a branch
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -268,7 +269,7 @@ deploy:
 #      all_branches: true
 #      condition: $CONFIG = installer
 
-  # deploy tagged installers to s3 latest/
+#  # deploy tagged installers to s3 latest/
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -284,7 +285,7 @@ deploy:
 #      tags: true
 #      condition: $CONFIG = installer
 
-  # deploy tagged installers to s3 version folder
+#  # deploy tagged installers to s3 version folder
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -300,20 +301,21 @@ deploy:
 #      tags: true
 #      condition: $CONFIG = installer
 
-  # deploy installers to Github releases if on a tag
- # - provider: releases
- #   edge: true # Use V2 provider to work around V1 bug
- #   api-key:
- #     secure: K/Zqr/FCC7QvzFxYvBtCinPkacQq2ubJ2qm982+38Zf/KjibVOF1dEbVdrGZmII6Tg5DaQzNXGYkg5PvYmJgT9xRsqeQjeYIUYqYZpAt+HYWA38AVfMU8jip/1P1wmwqD469nzJOBBa8yfsMs6Ca7tBaNl/zTxCRGnAgEzqtkdQ=
- #   file_glob: true
- #   file:
- #     - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
- #     - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
- #   skip_cleanup: true
- #   on:
- #     tags: true
- #     condition: $CONFIG = installer
- #     condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
+ # deploy installers to Github releases if on a tag
+ - provider: releases
+   edge: true # Use V2 provider to work around V1 bug
+   api-key:
+     secure: "lq10S4UuJDEA//EyJoPC/gIACDCkBMiXR8KZREJAUHLZUppg7ruMr6s47T1gtzld0LYiQYFEBhb9avf0KTVnPJVYR76Bxwp0psT3+WkQXroCN1Pe5sUYUrZ5WO3CfuX41APhV1UMetbWZkz6x84UBdJjsvH/cwI4A7/b7S7bfTF1rBkZJhByG3I6S4vj5geLjsZUwfsOd90i6WXIcmUbP+tTIpQWf3WtzV4JRFwhhNPkQ+D6H9CTq3ErP4I21r+m3NT5l/Nghb6gJ7PY9ocInwAMeEA0Jd8TWwWp+ywh8GjhnyQqHaFSTdNRnrUhDJZURKQflgBNJjlwLBUC9t7HCr1o6EPdneoIi7gHAssAT1uzPeU9jPXQISOi9mAze3Brt9QvmzYw3fCEOvpQK8vAciVZe2GNLZsly5DnMkgsUCnRBgY26Eg6ZVzRsbGaugExuaSnilxsPfqgmHPf4azAAhRusdpsni1ED0gLibxSoqRw9lXgRp/TDlploP3Kh2i2L6ne5TJ/A+RNHqLSjCZFP4MxqSga2QVBKn74i/QGJAC1P79kWFpv4dbEp+lko6cr0KtSPMRAt515tedNRxQ1cjkJkFC3ERSt62B04ymTBq+2zENQox2A6SOkxvZEUg68uFkZ984AcP5BUbLsbvSqDlY7+HHvcBO2BKGDkra3S34="
+
+   file_glob: true
+   file:
+     - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
+     - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
+   skip_cleanup: true
+   on:
+     tags: true
+     condition: $CONFIG = installer
+     condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
 
 #notifications:
 #  webhooks:
