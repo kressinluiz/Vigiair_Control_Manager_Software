@@ -349,6 +349,12 @@ public class QGCActivity extends QtActivity
 
 //---------------------------------------------------------------------------------
 //Skydroid SDK
+    public void setAppReadyForVideo() {
+
+        mVideoClient.setAppReadyForVideo();
+
+    }
+
     private void init(){
 
         if(mUsbSerialConnection == null){
@@ -374,8 +380,6 @@ public class QGCActivity extends QtActivity
             @Override
             public void onH264Received(final byte[] bytes, int paySize) {
                 if(mFPVVideoClient != null){
-
-
                         mVideoClient.received(bytes,4,paySize);
                     //    mFPVVideoClient.received(bytes,4,paySize);
                         System.out.println("getting packets!");

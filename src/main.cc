@@ -400,13 +400,20 @@ int main(int argc, char *argv[])
         if (!app->_initForNormalAppBoot()) {
             return -1;
         }
+
+        // main window is up
         //------------------------------------------------------------------------------------------
         //Skydroid SDK
         QAndroidJniEnvironment jniEnv;
-        jclass objectClass = jniEnv->FindClass("org/mavlink/qgroundcontrol/VideoClient");
-        jmethodID setRun = jniEnv->GetMethodID(objectClass, "setAppReadyForVideo", "()V");
-        jniEnv->CallVoidMethod(objectClass, setRun);
+        if (jniEnv->ExceptionCheck()) {
+            jniEnv->ExceptionDescribe();
+            jniEnv->ExceptionClear();
+        }
+        jclass tentativa = jniEnv->GetObjectClass(_context);
+        jmethodID setRun = jniEnv->GetMethodID(tentativa, "setAppReadyForVideo", "()V");
+        jniEnv->CallVoidMethod(_context, setRun);
         //------------------------------------------------------------------------------------------
+
         exitCode = app->exec();
     }
 
