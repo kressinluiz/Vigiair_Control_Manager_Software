@@ -346,21 +346,23 @@ public class QGCActivity extends QtActivity
         init();
 
 
-        if(mUsbDevice != null){
-            try {
-                mUsbSerialConnection.openConnection(mUsbDevice);
-                mFPVVideoClient.startPlayback();
-                mUsbSerialControl.setResolution(size_hq);
-            }catch (Exception e){
-                e.printStackTrace();
+            if(mUsbDevice != null && mFPVVideoClient.isPlaying() == false){
+                try {
+                    mUsbSerialConnection.openConnection(mUsbDevice);
+                    mFPVVideoClient.startPlayback();
+                    mUsbSerialControl.setResolution(size_hq);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else {
+
             }
-        }
 
         //---------------------------------------------------------------------------------
 
         // Plug in of USB ACCESSORY triggers only onResume event.
         // Then we scan if there is actually anything new
-        probeAccessories();
+        //probeAccessories();
     }
 
     @Override
@@ -392,6 +394,12 @@ public class QGCActivity extends QtActivity
 
 //---------------------------------------------------------------------------------
 //Skydroid SDK
+    public void setAppReadyForVideo() {
+
+        mVideoClient.setAppReadyForVideo();
+
+    }
+
     private void init(){
 
         if(mUsbSerialConnection == null){
@@ -417,9 +425,10 @@ public class QGCActivity extends QtActivity
             @Override
             public void onH264Received(final byte[] bytes, int paySize) {
                 if(mFPVVideoClient != null){
-                    mVideoClient.received(bytes,4,paySize);
-                //    mFPVVideoClient.received(bytes,4,paySize);
-                    System.out.println("getting packets!");
+                        mVideoClient.received(bytes,4,paySize);
+                    //    mFPVVideoClient.received(bytes,4,paySize);
+                        System.out.println("getting packets!");
+
                 }
             }
 
@@ -635,9 +644,22 @@ public class QGCActivity extends QtActivity
                         }
                     });
 
+
+                    mUsbDevice = device;
+
+                    if(mFPVVideoClient.isPlaying() == false){
+                        try {
+                            mUsbSerialConnection.openConnection(mUsbDevice);
+                            mFPVVideoClient.startPlayback();
+                            mUsbSerialControl.setResolution(size_hq);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
 //                    try {
 //                        mUsbSerialConnection.openConnection(device);
-                          mUsbDevice = device;
+
 //                        mFPVVideoClient.startPlayback();
 //                        mUsbSerialControl.setResolution(size_hq);
                         System.out.println("onConnect!");

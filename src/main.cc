@@ -397,6 +397,19 @@ int main(int argc, char *argv[])
             return -1;
         }
 
+        // main window is up
+        //------------------------------------------------------------------------------------------
+        //Skydroid SDK
+        QAndroidJniEnvironment jniEnv;
+        if (jniEnv->ExceptionCheck()) {
+            jniEnv->ExceptionDescribe();
+            jniEnv->ExceptionClear();
+        }
+        jclass VideoClientClass = jniEnv->GetObjectClass(_context);
+        jmethodID setAppReadyForVideoMethod = jniEnv->GetMethodID(VideoClientClass, "setAppReadyForVideo", "()V");
+        jniEnv->CallVoidMethod(_context, setAppReadyForVideoMethod);
+        //------------------------------------------------------------------------------------------
+
         //hide splash screen
         QtAndroid::hideSplashScreen();
 
