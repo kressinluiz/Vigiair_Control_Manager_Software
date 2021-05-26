@@ -174,7 +174,9 @@ Rectangle {
                                 
                                 QGCComboBox {
                                     id:             mapCombo
-                                    model:          QGroundControl.mapEngineManager.mapProviderList
+                                    property variant mapProviderVigiair: ["Google"]
+                                    //model:          QGroundControl.mapEngineManager.mapProviderList
+                                    model:          mapProviderVigiair
                                     Layout.preferredWidth:  _comboFieldWidth
                                     onActivated: {
                                         _mapProvider = textAt(index)
