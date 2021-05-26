@@ -129,7 +129,7 @@ Rectangle {
                     columns:            2
                     visible:            wizardPresectsTransectsHeader.checked
 
-                    QGCLabel { text: qsTr("Angle") }
+                    QGCLabel { text: qsTr("Ângulo") }
                     FactTextField {
                         fact:                   missionItem.gridAngle
                         Layout.fillWidth:       true
@@ -153,7 +153,7 @@ Rectangle {
                     QGCButton {
                         Layout.columnSpan:  2
                         Layout.fillWidth:   true
-                        text:               qsTr("Rotate Entry Point")
+                        text:               qsTr("Rotacionar Ponto de Entrada")
                         onClicked:          missionItem.rotateEntryPoint();
                     }
                 }
@@ -185,10 +185,11 @@ Rectangle {
 
                 Component.onCompleted: currentIndex = QGroundControl.settingsManager.planViewSettings.displayPresetsTabFirst.rawValue ? 2 : 0
 
-                QGCTabButton { text:    qsTr("Grid") }
+                QGCTabButton { text:    qsTr("Opções") }
                 QGCTabButton { text:    qsTr("Camera")
-                               visible: false}
-                QGCTabButton { text: qsTr("Presets") }
+                               visible: false        }
+                QGCTabButton { text:    qsTr("Presets")
+                               visible:  false       }
             }
 
             Column {
@@ -213,15 +214,15 @@ Rectangle {
                     distanceToSurfaceAltitudeMode:  missionItem.followTerrain ?
                                                         QGroundControl.AltitudeModeAboveTerrain :
                                                         (missionItem.cameraCalc.distanceToSurfaceRelative ? QGroundControl.AltitudeModeRelative : QGroundControl.AltitudeModeAbsolute)
-                    frontalDistanceLabel:           qsTr("Trigger Dist")
-                    sideDistanceLabel:              qsTr("Spacing")
+                    //frontalDistanceLabel:           qsTr("Trigger Dist")
+                    sideDistanceLabel:              qsTr("Espaçamento")
                 }
 
                 SectionHeader {
                     id:             transectsHeader
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Transects")
+                    text:           qsTr("Configurações do Modelo")
                 }
 
                 GridLayout {
@@ -232,7 +233,7 @@ Rectangle {
                     columns:        2
                     visible:        transectsHeader.checked
 
-                    QGCLabel { text: qsTr("Angle") }
+                    QGCLabel { text: qsTr("Ângulo") }
                     FactTextField {
                         fact:                   missionItem.gridAngle
                         Layout.fillWidth:       true
@@ -254,7 +255,7 @@ Rectangle {
                     }
 
                     QGCLabel {
-                        text:       qsTr("Turnaround dist")
+                        text:       qsTr("Distância para Curva")
                     }
                     FactTextField {
                         fact:               missionItem.turnAroundDistance
@@ -263,7 +264,7 @@ Rectangle {
                 }
 
                 QGCButton {
-                    text:               qsTr("Rotate Entry Point")
+                    text:               qsTr("Rotacionar Ponto de Entrada")
                     onClicked:          missionItem.rotateEntryPoint();
                 }
 
@@ -271,7 +272,8 @@ Rectangle {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
                     spacing:        _margin
-                    visible:        transectsHeader.checked
+                    //visible:        transectsHeader.checked
+                    visible:        false
 
                     /*
               Temporarily removed due to bug https://github.com/mavlink/qgroundcontrol/issues/7005
@@ -334,6 +336,7 @@ Rectangle {
                     anchors.right:  parent.right
                     text:           qsTr("Terrain")
                     checked:        missionItem.followTerrain
+                    visible:        false
                 }
 
                 ColumnLayout {
@@ -381,7 +384,7 @@ Rectangle {
                     id:             statsHeader
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Statistics")
+                    text:           qsTr("Estatísticas")
                 }
 
                 TransectStyleComplexItemStats {
@@ -404,8 +407,8 @@ Rectangle {
                     distanceToSurfaceAltitudeMode:  missionItem.followTerrain ?
                                                         QGroundControl.AltitudeModeAboveTerrain :
                                                         missionItem.cameraCalc.distanceToSurfaceRelative
-                    frontalDistanceLabel:           qsTr("Trigger Dist")
-                    sideDistanceLabel:              qsTr("Spacing")
+                    //frontalDistanceLabel:           qsTr("Trigger Dist")
+                    sideDistanceLabel:              qsTr("Espaçamento")
                 }
             } // Camera Column
 
@@ -470,7 +473,7 @@ Rectangle {
                 SectionHeader {
                     id:                 presectsTransectsHeader
                     Layout.fillWidth:   true
-                    text:               qsTr("Transects")
+                    text:               qsTr("Modelo")
                 }
 
                 GridLayout {
@@ -480,7 +483,7 @@ Rectangle {
                     columns:            2
                     visible:            presectsTransectsHeader.checked
 
-                    QGCLabel { text: qsTr("Angle") }
+                    QGCLabel { text: qsTr("Ângulo") }
                     FactTextField {
                         fact:                   missionItem.gridAngle
                         Layout.fillWidth:       true
@@ -504,7 +507,7 @@ Rectangle {
                     QGCButton {
                         Layout.columnSpan:  2
                         Layout.fillWidth:   true
-                        text:               qsTr("Rotate Entry Point")
+                        text:               qsTr("Rotacionar Ponto de Entrada")
                         onClicked:          missionItem.rotateEntryPoint();
                     }
                 }
@@ -512,7 +515,7 @@ Rectangle {
                 SectionHeader {
                     id:                 presetsStatsHeader
                     Layout.fillWidth:   true
-                    text:               qsTr("Statistics")
+                    text:               qsTr("Estatísticas")
                 }
 
                 TransectStyleComplexItemStats {

@@ -92,7 +92,7 @@ Rectangle {
 
                 Component.onCompleted: currentIndex = 0
 
-                QGCTabButton { text: qsTr("Grid") }
+                QGCTabButton { text: qsTr("Opções") }
                 QGCTabButton { text: qsTr("Camera")
                                visible: false}
             }
@@ -121,14 +121,14 @@ Rectangle {
                                                         QGroundControl.AltitudeModeAboveTerrain :
                                                         (missionItem.cameraCalc.distanceToSurfaceRelative ? QGroundControl.AltitudeModeRelative : QGroundControl.AltitudeModeAbsolute)
                     frontalDistanceLabel:           qsTr("Trigger Dist")
-                    sideDistanceLabel:              qsTr("Spacing")
+                    sideDistanceLabel:              qsTr("Espaçamento")
                 }
 
                 SectionHeader {
                     id:             corridorHeader
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Corridor")
+                    text:           qsTr("Configurações do Corredor")
                 }
 
                 GridLayout {
@@ -139,13 +139,13 @@ Rectangle {
                     columns:        2
                     visible:        corridorHeader.checked
 
-                    QGCLabel { text: qsTr("Width") }
+                    QGCLabel { text: qsTr("Comprimento") }
                     FactTextField {
                         fact:                   missionItem.corridorWidth
                         Layout.fillWidth:       true
                     }
 
-                    QGCLabel { text: qsTr("Turnaround dist") }
+                    QGCLabel { text: qsTr("Distância da Curva") }
                     FactTextField {
                         fact:                   missionItem.turnAroundDistance
                         Layout.fillWidth:       true
@@ -156,14 +156,14 @@ Rectangle {
                         Layout.fillWidth:   true
 
                         model: [
+//                            {
+//                                text:       qsTr("Images in turnarounds"),
+//                                fact:       missionItem.cameraTriggerInTurnAround,
+//                                enabled:    missionItem.hoverAndCaptureAllowed ? !missionItem.hoverAndCapture.rawValue : true,
+//                                visible:    true
+//                            },
                             {
-                                text:       qsTr("Images in turnarounds"),
-                                fact:       missionItem.cameraTriggerInTurnAround,
-                                enabled:    missionItem.hoverAndCaptureAllowed ? !missionItem.hoverAndCapture.rawValue : true,
-                                visible:    true
-                            },
-                            {
-                                text:       qsTr("Relative altitude"),
+                                text:       qsTr("Altitude relativa"),
                                 enabled:    missionItem.cameraCalc.isManualCamera && !missionItem.followTerrain,
                                 visible:    QGroundControl.corePlugin.options.showMissionAbsoluteAltitude || (!missionItem.cameraCalc.distanceToSurfaceRelative && !missionItem.followTerrain),
                                 checked:    missionItem.cameraCalc.distanceToSurfaceRelative
@@ -180,7 +180,7 @@ Rectangle {
                 }
 
                 QGCButton {
-                    text:       qsTr("Rotate Entry Point")
+                    text:       qsTr("Rotacionar Ponto de Entrada")
                     onClicked:  missionItem.rotateEntryPoint()
                 }
 
@@ -190,6 +190,7 @@ Rectangle {
                     anchors.right:  parent.right
                     text:           qsTr("Terrain")
                     checked:        missionItem.followTerrain
+                    visible:        false
                 }
 
                 ColumnLayout {
@@ -236,7 +237,7 @@ Rectangle {
                     id:             statsHeader
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Statistics")
+                    text:           qsTr("Estatísticas")
                 }
 
                 TransectStyleComplexItemStats { }

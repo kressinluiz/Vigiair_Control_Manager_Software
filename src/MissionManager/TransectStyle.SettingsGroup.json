@@ -1,7 +1,7 @@
 [
 {
     "name":             "TurnAroundDistance",
-    "shortDescription": "Amount of additional distance to add outside the survey area for vehicle turn around.",
+    "shortDescription": "Quantidade de distância adicional a ser adicionada na área para o drone dar a volta.",
     "type":             "double",
     "decimalPlaces":    2,
     "min":              0,
@@ -10,7 +10,7 @@
 },
 {
     "name":             "TurnAroundDistanceMultiRotor",
-    "shortDescription": "Amount of additional distance to add outside the survey area for vehicle turn around.",
+    "shortDescription": "Quantidade de distância adicional a ser adicionada na área para o drone dar a volta.",
     "type":             "double",
     "decimalPlaces":    2,
     "min":              0,

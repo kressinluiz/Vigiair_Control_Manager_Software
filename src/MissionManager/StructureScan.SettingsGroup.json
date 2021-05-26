@@ -11,7 +11,7 @@
 },
 {
     "name":             "EntranceAltitude",
-    "shortDescription": "Vehicle will fly to/from the structure at this altitude.",
+    "shortDescription": "Drone irá voar da/para estrutura nessa altitude.",
     "type":             "double",
     "units":            "m",
     "decimalPlaces":    1,
@@ -19,7 +19,7 @@
 },
 {
     "name":             "ScanBottomAlt",
-    "shortDescription": "Altitude for the bottomost covered area of the scan. You can adjust this value such that the Bottom Layer Alt will fly above obstacles on the ground.",
+    "shortDescription": "Altitude mais baixa da varredura. Ajuste de forma que esse valor seja maior do que a altura de qualquer obstáculo no chão.",
     "type":             "double",
     "units":            "m",
     "decimalPlaces":    1,
@@ -34,7 +34,7 @@
 },
 {
     "name":             "StructureHeight",
-    "shortDescription": "Height of structure being scanned.",
+    "shortDescription": "Altura da estrutura sendo vistoriada.",
     "type":             "double",
     "decimalPlaces":    2,
     "units":            "m",
