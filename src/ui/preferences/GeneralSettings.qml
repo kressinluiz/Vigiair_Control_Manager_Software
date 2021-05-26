@@ -194,8 +194,6 @@ Rectangle {
                                 QGCComboBox {
                                     id:             mapTypeCombo
                                     property variant mapTypeListPTBR: ["Híbrido", "Satélite", "Street Map"]
-                                    //QStringList
-                                    //model:          QGroundControl.mapEngineManager.mapTypeList(_mapProvider)
                                     model:            mapTypeListPTBR
                                     Layout.preferredWidth:  _comboFieldWidth
                                     onActivated: {
@@ -210,12 +208,8 @@ Rectangle {
                                             _mapType = "Street Map"
                                             QGroundControl.settingsManager.flightMapSettings.mapType.value="Street Map"
                                         }
-
-                                        //_mapType = textAt(index)
-                                        //QGroundControl.settingsManager.flightMapSettings.mapType.value=textAt(index)
                                     }
                                     Component.onCompleted: {
-                                        //conversion
                                         var index;
                                         if(_mapType === "Satellite"){
                                             index = mapTypeCombo.find("Satélite")
