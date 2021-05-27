@@ -236,6 +236,16 @@ QGCMapEngineManager::mapTypeList(QString provider)
     mapList = mapList.filter(QRegularExpression(provider));
     mapList.replaceInStrings(QRegExp("^([^\\ ]*) (.*)$"),"\\2");
     mapList.removeDuplicates();
+
+//    for (int i = 0; i < mapList.size(); ++i){
+//         qCDebug(QGCMapEngineManagerLog) << mapList.at(i).toLocal8Bit().constData() << endl;
+//    }
+    mapList.removeOne("Labels");
+    mapList.removeOne("Terrain");
+
+//    for (int i = 0; i < mapList.size(); ++i){
+//         qCDebug(QGCMapEngineManagerLog) << mapList.at(i).toLocal8Bit().constData() << endl;
+//    }
     return mapList;
 }
 

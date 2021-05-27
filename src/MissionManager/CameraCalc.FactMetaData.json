@@ -13,7 +13,7 @@
 },
 {
     "name":             "DistanceToSurface",
-    "shortDescription": "Distance vehicle is away from surface.",
+    "shortDescription": "Distância do veículo do terreno.",
     "type":             "double",
     "min":              0.1,
     "units":            "m",

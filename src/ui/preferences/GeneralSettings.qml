@@ -174,7 +174,9 @@ Rectangle {
                                 
                                 QGCComboBox {
                                     id:             mapCombo
-                                    model:          QGroundControl.mapEngineManager.mapProviderList
+                                    property variant mapProviderVigiair: ["Google"]
+                                    //model:          QGroundControl.mapEngineManager.mapProviderList
+                                    model:          mapProviderVigiair
                                     Layout.preferredWidth:  _comboFieldWidth
                                     onActivated: {
                                         _mapProvider = textAt(index)
@@ -193,14 +195,32 @@ Rectangle {
                                 }
                                 QGCComboBox {
                                     id:             mapTypeCombo
-                                    model:          QGroundControl.mapEngineManager.mapTypeList(_mapProvider)
+                                    property variant mapTypeListPTBR: ["Híbrido", "Satélite", "Street Map"]
+                                    model:            mapTypeListPTBR
                                     Layout.preferredWidth:  _comboFieldWidth
                                     onActivated: {
-                                        _mapType = textAt(index)
-                                        QGroundControl.settingsManager.flightMapSettings.mapType.value=textAt(index)
+
+                                        if(textAt(index) === "Satélite"){
+                                            _mapType = "Satellite"
+                                            QGroundControl.settingsManager.flightMapSettings.mapType.value="Satellite"
+                                        } else if(textAt(index) === "Híbrido"){
+                                            _mapType = "Hybrid"
+                                            QGroundControl.settingsManager.flightMapSettings.mapType.value="Hybrid"
+                                        }else if(textAt(index) === "Street Map"){
+                                            _mapType = "Street Map"
+                                            QGroundControl.settingsManager.flightMapSettings.mapType.value="Street Map"
+                                        }
                                     }
                                     Component.onCompleted: {
-                                        var index = mapTypeCombo.find(_mapType)
+                                        var index;
+                                        if(_mapType === "Satellite"){
+                                            index = mapTypeCombo.find("Satélite")
+                                        }else if(_mapType === "Hybrid"){
+                                            index = mapTypeCombo.find("Híbrido")
+                                        }else if(_mapType === "Street Map"){
+                                            index = mapTypeCombo.find("Street Map")
+                                        }
+
                                         if(index < 0) index = 0
                                         mapTypeCombo.currentIndex = index
                                     }

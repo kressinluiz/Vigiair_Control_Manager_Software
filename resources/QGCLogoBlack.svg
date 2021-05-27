@@ -1,76 +1,164 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg204"
    version="1.1"
-   id="Layer_1"
-   x="0px"
-   y="0px"
-   viewBox="0 0 215 215"
-   style="enable-background:new 0 0 215 215;"
-   xml:space="preserve"
-   sodipodi:docname="QGCLogoBlack.svg"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><metadata
-   id="metadata981"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-   id="defs979" /><sodipodi:namedview
-   pagecolor="#ffffff"
-   bordercolor="#666666"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="960"
-   inkscape:window-height="1016"
-   id="namedview977"
-   showgrid="false"
-   inkscape:zoom="1.855814"
-   inkscape:cx="108.46088"
-   inkscape:cy="83.841132"
-   inkscape:window-x="0"
-   inkscape:window-y="27"
-   inkscape:window-maximized="0"
-   inkscape:current-layer="Layer_1" />
-<style
-   type="text/css"
-   id="style962">
-	.st0{fill:#231F20;}
-	.st1{fill:#5ECBF1;}
-	.st2{fill:none;stroke:#231F20;stroke-width:8;stroke-miterlimit:10;}
-</style>
-
-
-
-
-<g
-   id="g974"
-   style="fill:#000000;fill-opacity:0">
-	<path
-   class="st2"
-   d="M211.5,151.5c0,33-27,60-60,60h-88c-33,0-60-27-60-60v-88c0-33,27-60,60-60h88c33,0,60,27,60,60V151.5z"
-   id="path972"
-   style="fill:#000000;fill-opacity:0" />
-</g>
-<text
-   xml:space="preserve"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.33333206px;line-height:1.25;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;letter-spacing:0px;word-spacing:0px;fill:#231f20;fill-opacity:1;stroke:none;"
-   x="16.05744"
-   y="126.57218"
-   id="text3728"><tspan
-     sodipodi:role="line"
-     id="tspan3726"
-     x="16.05744"
-     y="126.57218">VIGI<tspan
-   style="fill:#5ecbf1;fill-opacity:1"
-   id="tspan4785">AIR</tspan></tspan></text>
+   viewBox="0 0 56.885415 56.885415"
+   height="215"
+   width="215">
+  <defs
+     id="defs198">
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4921">
+      <stop
+         id="stop4919"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+  </defs>
+  <metadata
+     id="metadata201">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-240.1146)"
+     id="layer1">
+    <g
+       transform="matrix(0.95902732,0,0,0.95902732,1.1658188,11.003379)"
+       id="g4958">
+      <rect
+         style="opacity:0.98999999;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4911"
+         width="56.861427"
+         height="56.875286"
+         x="0.023387618"
+         y="240.1239"
+         rx="16"
+         ry="16" />
+      <g
+         transform="matrix(0.26458333,0,0,0.26458333,-0.20793064,239.69565)"
+         id="g4351">
+        <g
+           id="g586"
+           transform="matrix(0.2894468,0,0,0.29310913,-105.94994,45.667453)">
+          <text
+             xml:space="preserve"
+             id="text15"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30px;line-height:1.25;font-family:Cabin;-inkscape-font-specification:'Cabin Bold';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect17);fill:#009cdb;fill-opacity:1;stroke:none"
+             transform="matrix(2.9888643,0,0,2.9540893,291.72099,-1466.4128)"><tspan
+               x="40.505859"
+               y="584.22571"
+               id="tspan208"><tspan
+                 style="font-size:51.69139862px;fill:#000000"
+                 id="tspan204">VIGI</tspan><tspan
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:51.69139862px;font-family:Cabin;-inkscape-font-specification:'Cabin Bold';fill:#009cdb;fill-opacity:1"
+                 id="tspan206">AIR</tspan></tspan></text>
+          <path
+             style="fill:#009cdb;fill-opacity:1;stroke:none;stroke-width:0.0378191"
+             id="path2-7"
+             d="m 912.58323,131.83308 v 9.77561 h 9.70047 9.70043 v -9.77561 -9.77558 h -9.70043 -9.70047 z" />
+        </g>
+        <g
+           transform="matrix(0.36684634,0,0,0.37917093,-586.60077,-2.2399503)"
+           id="g3986-36-7"
+           style="fill:#000000">
+          <text
+             xml:space="preserve"
+             style="font-size:33.97579956px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;stroke-width:2.12348008"
+             x="1894.6771"
+             y="360.85422"
+             id="text63-4-8"><tspan
+               x="1894.6771"
+               y="360.85422"
+               style="font-size:27.51049995px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:2.12348008"
+               id="tspan48">Sistemas de Vigilância Aérea</tspan></text>
+          <g
+             transform="matrix(0.21808481,0,0,0.23265835,1482.3044,938.08476)"
+             id="g3572-29-9-6"
+             style="fill:#000000" />
+          <text
+             id="text135-0"
+             y="443.69467"
+             x="1388.3169"
+             style="font-style:normal;font-weight:normal;font-size:84.93890381px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.12347007"
+             xml:space="preserve" />
+          <flowRoot
+             transform="matrix(2.1234737,0,0,2.1234737,1440.8702,-112.03404)"
+             style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+             id="flowRoot157-4"
+             xml:space="preserve"><flowRegion
+               id="flowRegion159-1"
+               style="fill:#000000"><rect
+                 y="276.47638"
+                 x="254.64285"
+                 height="49.642857"
+                 width="37.857143"
+                 id="rect161-3"
+                 style="fill:#000000" /></flowRegion><flowPara
+               id="flowPara163-2" /></flowRoot>          <flowRoot
+             style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+             id="flowRoot149-4"
+             xml:space="preserve"><flowRegion
+               id="flowRegion151-7"
+               style="fill:#000000"><rect
+                 y="121.47638"
+                 x="202.5"
+                 height="75"
+                 width="120"
+                 id="rect153-4"
+                 style="fill:#000000" /></flowRegion><flowPara
+               id="flowPara155-1" /></flowRoot>          <flowRoot
+             style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+             id="flowRoot194-4"
+             xml:space="preserve"><flowRegion
+               id="flowRegion196-9"
+               style="fill:#000000"><rect
+                 y="-26.737907"
+                 x="-73.571426"
+                 height="226.42857"
+                 width="480.71429"
+                 id="rect198-4"
+                 style="fill:#000000" /></flowRegion><flowPara
+               id="flowPara200-0" /></flowRoot>          <flowRoot
+             style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+             id="flowRoot202-8"
+             xml:space="preserve"><flowRegion
+               id="flowRegion204-9"
+               style="fill:#000000"><rect
+                 y="-33.166477"
+                 x="-116.42857"
+                 height="253.57143"
+                 width="517.85712"
+                 id="rect206-1"
+                 style="fill:#000000" /></flowRegion><flowPara
+               id="flowPara208-1" /></flowRoot>          <flowRoot
+             style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+             id="flowRoot210-0"
+             xml:space="preserve"><flowRegion
+               id="flowRegion212-9"
+               style="fill:#000000"><rect
+                 y="-48.166477"
+                 x="-95.714287"
+                 height="246.42857"
+                 width="432.85715"
+                 id="rect214-8"
+                 style="fill:#000000" /></flowRegion><flowPara
+               id="flowPara216-7" /></flowRoot>        </g>
+      </g>
+    </g>
+  </g>
 </svg>

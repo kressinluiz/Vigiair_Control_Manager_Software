@@ -145,7 +145,7 @@ Item {
                 anchors.bottom:  parent.bottom
                 anchors.left:    parent.left
                 onClicked:       writeDialog.openForSave()
-                text:            qsTr("Save App Log")
+                text:            qsTr("Salvar App Log")
             }
 
             QGCLabel {
@@ -162,8 +162,8 @@ Item {
                 anchors.left:       gstLabel.right
                 anchors.leftMargin: ScreenTools.defaultFontPixelWidth / 2
                 anchors.bottom:     parent.bottom
-                width:              ScreenTools.defaultFontPixelWidth * 10
-                model:              ["Disabled", "1", "2", "3", "4", "5", "6", "7", "8"]
+                width:              ScreenTools.defaultFontPixelWidth * 14
+                model:              ["Desabilitado", "1", "2", "3", "4", "5", "6", "7", "8"]
                 fact:               QGroundControl.settingsManager.appSettings.gstDebugLevel
                 visible:            QGroundControl.settingsManager.appSettings.gstDebugLevel.visible
             }
@@ -173,7 +173,7 @@ Item {
                 anchors.right:          filterButton.left
                 anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
                 anchors.bottom:         parent.bottom
-                text:                   qsTr("Show Latest")
+                text:                   qsTr("Mais Recentes")
                 checkable:              true
                 checked:                true
 
@@ -188,8 +188,8 @@ Item {
                 id:             filterButton
                 anchors.bottom: parent.bottom
                 anchors.right:  parent.right
-                text:           qsTr("Set Logging")
-                onClicked:      mainWindow.showComponentDialog(filtersDialogComponent, qsTr("Turn on logging categories"), mainWindow.showDialogDefaultWidth, StandardButton.Close)
+                text:           qsTr("Selecionar Fontes")
+                onClicked:      mainWindow.showComponentDialog(filtersDialogComponent, qsTr("Selecione fontes de log"), mainWindow.showDialogDefaultWidth, StandardButton.Close)
             }
         }
     }

@@ -241,13 +241,14 @@ Rectangle {
                 antialiasing:       true
                 color:              qgcPal.text
                 source:             "/qmlimages/arrow-down.png"
+                visible:            false
             }
         }
 
-        QGCMouseArea {
-            fillItem:   parent
-            onClicked:  mainWindow.showComponentDialog(commandDialog, qsTr("Selecione o comando"), mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
-        }
+//        QGCMouseArea {
+//            fillItem:   parent
+//            onClicked:  mainWindow.showComponentDialog(commandDialog, qsTr("Selecione o comando"), mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
+//        }
 
         Component {
             id: commandDialog

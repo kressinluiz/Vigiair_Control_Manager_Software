@@ -9,7 +9,7 @@
 },
 {
     "name":             "CorridorWidth",
-    "shortDescription": "Corridor width. Specify 0 width for a single pass scan.",
+    "shortDescription": "Largura do corredor. Coloque 0 para uma varredura com uma única ida-volta.",
     "type":             "double",
     "units":            "m",
     "min":              0,
@@ -36,7 +36,7 @@
 },
 {
     "name":             "TurnaroundDistance",
-    "shortDescription": "Amount of additional distance to add outside the survey area for vehicle turnaround.",
+    "shortDescription": "Quantidade de distância adicional a ser adicionada na área para o drone dar a volta.",
     "type":             "double",
     "decimalPlaces":    2,
     "min":              0,
