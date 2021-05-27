@@ -25,6 +25,7 @@ linux {
         DEFINES += QGC_GST_TAISYNC_ENABLED
         DEFINES += QGC_GST_MICROHARD_ENABLED 
         DEFINES += QGC_ENABLE_MAVLINK_INSPECTOR
+        DEFINES += NO_SERIAL_LINK
         linux-clang {
             message("Linux clang")
             QMAKE_CXXFLAGS += -Qunused-arguments -fcolor-diagnostics
@@ -108,7 +109,6 @@ linux {
     CONFIG  -= bitcode
     DEFINES += __ios__
     DEFINES += QGC_NO_GOOGLE_MAPS
-    DEFINES += NO_SERIAL_LINK
     DEFINES += QGC_DISABLE_UVC
     DEFINES += QGC_GST_TAISYNC_ENABLED
     QMAKE_IOS_DEPLOYMENT_TARGET = 11.0

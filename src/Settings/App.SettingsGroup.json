@@ -94,7 +94,7 @@
     "shortDescription": "Mute audio output",
     "longDescription":  "If this option is enabled all audio output will be muted.",
     "type":             "bool",
-    "defaultValue":     false
+    "defaultValue":     true
 },
 {
     "name":             "checkInternet",
