@@ -25,35 +25,35 @@ jobs:
          env: SPEC=linux-g++-64 CONFIG=debug
          services: xvfb
          sudo: required
-        # - stage: "Build"
-        #   name: "Android 32 bit"
-        #   dist: xenial
-        #   language: android
-        #   env: SPEC=android-clang CONFIG=installer BITNESS=32 GSTREAMER_NAME=armv7
-        #   sudo: false
-        # - stage: "Build"
-        #   name: "Android 64 bit"
-        #   dist: xenial
-        #   language: android
+         - stage: "Build"
+           name: "Android 32 bit"
+           dist: xenial
+           language: android
+           env: SPEC=android-clang CONFIG=installer BITNESS=32 GSTREAMER_NAME=armv7
+           sudo: false
+         - stage: "Build"
+           name: "Android 64 bit"
+           dist: xenial
+           language: android
         #   env: SPEC=android-clang CONFIG=installer BITNESS=64 GSTREAMER_NAME=arm64
-        #   sudo: false
-#        - stage: "Build"
-#          name: "OSX Installer"
-#          os: osx
-#          osx_image: xcode11.3
-#          env: SPEC=macx-clang CONFIG=installer
-#          sudo: required
+           sudo: false
+        - stage: "Build"
+          name: "OSX Installer"
+          os: osx
+          osx_image: xcode11.3
+          env: SPEC=macx-clang CONFIG=installer
+          sudo: required
 #        - stage: "Google Play Upload"
 #          name: "Google Play Upload"
 #          dist: trusty
 #          language: android
 #          env: SPEC=google-play-upload
 #          sudo: false
-          before_install: skip
-          install: skip
-          before_script: skip
-          before_deploy: skip
-          after_deploy: skip
+          before_install: echo "before install"
+          install: echo "install"
+          before_script: echo "before script"
+          before_deploy: echo "before deploy"
+          after_deploy: echo "after deploy"
           script: echo "Google Play Upload"
         
 # iOS build needs updating Qt to > 5.10
