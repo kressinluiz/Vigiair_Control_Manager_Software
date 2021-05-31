@@ -60,7 +60,7 @@ test_script:
   - if "%CONFIG%" EQU "debug" ( %SHADOW_BUILD_DIR%\debug\qgroundcontrol --unittest )
 
 artifacts:
-  - path: QGroundControl-installer.exe
+  - path: CustomQGC-installer.exe
     name: qgcinstaller
   - path: build_windows_install\release\qgroundcontrol.pdb
     name: pdb
