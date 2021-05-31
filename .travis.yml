@@ -227,7 +227,7 @@ script:
 
 
 after_success:
-#  # This is only used to upload android builds to Google Play
+  # This is only used to upload android builds to Google Play
 #  - cd ${TRAVIS_BUILD_DIR}
 #  - if [ "${TRAVIS_TAG}" ]; then
 #        GOOGLE_PLAY_PKG=org.mavlink.qgroundcontrol;
@@ -247,13 +247,14 @@ after_success:
 
 before_deploy:
   # create linux appimage
-  - cd ${TRAVIS_BUILD_DIR}
-  - if [[ "${SPEC}" = "linux-g++-64" && "${CONFIG}" = "installer" ]]; then
-        ./deploy/create_linux_appimage.sh ${TRAVIS_BUILD_DIR} ${SHADOW_BUILD_DIR}/staging ${SHADOW_BUILD_DIR}/package;
-    fi
+ # - cd ${TRAVIS_BUILD_DIR}
+ # - if [[ "${SPEC}" = "linux-g++-64" && "${CONFIG}" = "installer" ]]; then
+ #       ./deploy/create_linux_appimage.sh ${TRAVIS_BUILD_DIR} ${SHADOW_BUILD_DIR}/staging ${SHADOW_BUILD_DIR}/package;
+ #   fi
 
 deploy:
-#  # deploy installers to s3 builds/ if on a branch
+
+  # deploy installers to s3 builds/ if on a branch
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -269,7 +270,7 @@ deploy:
 #      all_branches: true
 #      condition: $CONFIG = installer
 
-#  # deploy tagged installers to s3 latest/
+  # deploy tagged installers to s3 latest/
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -285,7 +286,8 @@ deploy:
 #      tags: true
 #      condition: $CONFIG = installer
 
-#  # deploy tagged installers to s3 version folder
+
+  # deploy tagged installers to s3 version folder
 #  - provider: s3
 #    edge: true # Use V2 provider to work around V1 bug
 #    access_key_id: AKIAIVORNALE7NHD3T6Q
@@ -301,7 +303,8 @@ deploy:
 #      tags: true
 #      condition: $CONFIG = installer
 
-#  # deploy installers to Github releases if on a tag
+
+  # deploy installers to Github releases if on a tag
 #  - provider: releases
 #    edge: true # Use V2 provider to work around V1 bug
 #    api-key:
