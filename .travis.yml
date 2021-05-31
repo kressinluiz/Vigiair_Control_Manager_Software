@@ -302,18 +302,18 @@ deploy:
 #      condition: $CONFIG = installer
 
   # deploy installers to Github releases if on a tag
-  - provider: releases
-    edge: true # Use V2 provider to work around V1 bug
-    api-key:
-      secure: "lq10S4UuJDEA//EyJoPC/gIACDCkBMiXR8KZREJAUHLZUppg7ruMr6s47T1gtzld0LYiQYFEBhb9avf0KTVnPJVYR76Bxwp0psT3+WkQXroCN1Pe5sUYUrZ5WO3CfuX41APhV1UMetbWZkz6x84UBdJjsvH/cwI4A7/b7S7bfTF1rBkZJhByG3I6S4vj5geLjsZUwfsOd90i6WXIcmUbP+tTIpQWf3WtzV4JRFwhhNPkQ+D6H9CTq3ErP4I21r+m3NT5l/Nghb6gJ7PY9ocInwAMeEA0Jd8TWwWp+ywh8GjhnyQqHaFSTdNRnrUhDJZURKQflgBNJjlwLBUC9t7HCr1o6EPdneoIi7gHAssAT1uzPeU9jPXQISOi9mAze3Brt9QvmzYw3fCEOvpQK8vAciVZe2GNLZsly5DnMkgsUCnRBgY26Eg6ZVzRsbGaugExuaSnilxsPfqgmHPf4azAAhRusdpsni1ED0gLibxSoqRw9lXgRp/TDlploP3Kh2i2L6ne5TJ/A+RNHqLSjCZFP4MxqSga2QVBKn74i/QGJAC1P79kWFpv4dbEp+lko6cr0KtSPMRAt515tedNRxQ1cjkJkFC3ERSt62B04ymTBq+2zENQox2A6SOkxvZEUg68uFkZ984AcP5BUbLsbvSqDlY7+HHvcBO2BKGDkra3S34="    file_glob: true
-    file:
-      - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
-      - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
-    skip_cleanup: true
-    on:
-      tags: true
-      condition: $CONFIG = installer
-      condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
+#  - provider: releases
+#    edge: true # Use V2 provider to work around V1 bug
+#    api-key:
+#      secure: "lq10S4UuJDEA//EyJoPC/gIACDCkBMiXR8KZREJAUHLZUppg7ruMr6s47T1gtzld0LYiQYFEBhb9avf0KTVnPJVYR76Bxwp0psT3+WkQXroCN1Pe5sUYUrZ5WO3CfuX41APhV1UMetbWZkz6x84UBdJjsvH/cwI4A7/b7S7bfTF1rBkZJhByG3I6S4vj5geLjsZUwfsOd90i6WXIcmUbP+tTIpQWf3WtzV4JRFwhhNPkQ+D6H9CTq3ErP4I21r+m3NT5l/Nghb6gJ7PY9ocInwAMeEA0Jd8TWwWp+ywh8GjhnyQqHaFSTdNRnrUhDJZURKQflgBNJjlwLBUC9t7HCr1o6EPdneoIi7gHAssAT1uzPeU9jPXQISOi9mAze3Brt9QvmzYw3fCEOvpQK8vAciVZe2GNLZsly5DnMkgsUCnRBgY26Eg6ZVzRsbGaugExuaSnilxsPfqgmHPf4azAAhRusdpsni1ED0gLibxSoqRw9lXgRp/TDlploP3Kh2i2L6ne5TJ/A+RNHqLSjCZFP4MxqSga2QVBKn74i/QGJAC1P79kWFpv4dbEp+lko6cr0KtSPMRAt515tedNRxQ1cjkJkFC3ERSt62B04ymTBq+2zENQox2A6SOkxvZEUg68uFkZ984AcP5BUbLsbvSqDlY7+HHvcBO2BKGDkra3S34="    file_glob: true
+#    file:
+#      - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
+#      - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
+#    skip_cleanup: true
+#    on:
+#      tags: true
+#      condition: $CONFIG = installer
+#      condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
 
 #notifications:
 #  webhooks:
