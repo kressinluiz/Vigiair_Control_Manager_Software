@@ -12,48 +12,48 @@ env:
 jobs:
     fast_finish: true
     include:
-       - stage: "Build"
-         name: "Linux Installer"
-         os: linux
-         dist: bionic
-         env: SPEC=linux-g++-64 CONFIG=installer
-         sudo: required
-       - stage: "Build"
-         name: "Linux Debug"
-         os: linux
-         dist: bionic
-         env: SPEC=linux-g++-64 CONFIG=debug
-         services: xvfb
-         sudo: required
-         - stage: "Build"
-           name: "Android 32 bit"
-           dist: xenial
-           language: android
-           env: SPEC=android-clang CONFIG=installer BITNESS=32 GSTREAMER_NAME=armv7
-           sudo: false
-         - stage: "Build"
-           name: "Android 64 bit"
-           dist: xenial
-           language: android
-           env: SPEC=android-clang CONFIG=installer BITNESS=64 GSTREAMER_NAME=arm64
-           sudo: false
+#        - stage: "Build"
+#          name: "Linux Installer"
+#          os: linux
+#          dist: bionic
+#          env: SPEC=linux-g++-64 CONFIG=installer
+#          sudo: required
+#        - stage: "Build"
+#          name: "Linux Debug"
+#          os: linux
+#          dist: bionic
+#          env: SPEC=linux-g++-64 CONFIG=debug
+#          services: xvfb
+#          sudo: required
         - stage: "Build"
-          name: "OSX Installer"
-          os: osx
-          osx_image: xcode11.3
-          env: SPEC=macx-clang CONFIG=installer
-          sudo: required
+          name: "Android 32 bit"
+          dist: xenial
+          language: android
+          env: SPEC=android-clang CONFIG=installer BITNESS=32 GSTREAMER_NAME=armv7
+          sudo: false
+        - stage: "Build"
+          name: "Android 64 bit"
+          dist: xenial
+          language: android
+          env: SPEC=android-clang CONFIG=installer BITNESS=64 GSTREAMER_NAME=arm64
+          sudo: false
+#        - stage: "Build"
+#          name: "OSX Installer"
+#          os: osx
+#          osx_image: xcode11.3
+#          env: SPEC=macx-clang CONFIG=installer
+#          sudo: required
 #        - stage: "Google Play Upload"
 #          name: "Google Play Upload"
 #          dist: trusty
 #          language: android
 #          env: SPEC=google-play-upload
 #          sudo: false
-          before_install: echo "before install"
-          install: echo "install"
-          before_script: echo "before script"
-          before_deploy: echo "before deploy"
-          after_deploy: echo "after deploy"
+          before_install: skip
+          install: skip
+          before_script: skip
+          before_deploy: skip
+          after_deploy: skip
           script: echo "Google Play Upload"
         
 # iOS build needs updating Qt to > 5.10
@@ -301,20 +301,20 @@ deploy:
 #      tags: true
 #      condition: $CONFIG = installer
 
- # deploy installers to Github releases if on a tag
-  - provider: releases
-    edge: true # Use V2 provider to work around V1 bug
-    api-key:
-      secure: "lq10S4UuJDEA//EyJoPC/gIACDCkBMiXR8KZREJAUHLZUppg7ruMr6s47T1gtzld0LYiQYFEBhb9avf0KTVnPJVYR76Bxwp0psT3+WkQXroCN1Pe5sUYUrZ5WO3CfuX41APhV1UMetbWZkz6x84UBdJjsvH/cwI4A7/b7S7bfTF1rBkZJhByG3I6S4vj5geLjsZUwfsOd90i6WXIcmUbP+tTIpQWf3WtzV4JRFwhhNPkQ+D6H9CTq3ErP4I21r+m3NT5l/Nghb6gJ7PY9ocInwAMeEA0Jd8TWwWp+ywh8GjhnyQqHaFSTdNRnrUhDJZURKQflgBNJjlwLBUC9t7HCr1o6EPdneoIi7gHAssAT1uzPeU9jPXQISOi9mAze3Brt9QvmzYw3fCEOvpQK8vAciVZe2GNLZsly5DnMkgsUCnRBgY26Eg6ZVzRsbGaugExuaSnilxsPfqgmHPf4azAAhRusdpsni1ED0gLibxSoqRw9lXgRp/TDlploP3Kh2i2L6ne5TJ/A+RNHqLSjCZFP4MxqSga2QVBKn74i/QGJAC1P79kWFpv4dbEp+lko6cr0KtSPMRAt515tedNRxQ1cjkJkFC3ERSt62B04ymTBq+2zENQox2A6SOkxvZEUg68uFkZ984AcP5BUbLsbvSqDlY7+HHvcBO2BKGDkra3S34="
-    file_glob: true
-    file:
-      - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
-      - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
-    skip_cleanup: true
-    on:
-      tags: true
-      condition: $CONFIG = installer
-      condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
+#  # deploy installers to Github releases if on a tag
+#  - provider: releases
+#    edge: true # Use V2 provider to work around V1 bug
+#    api-key:
+#      secure: K/Zqr/FCC7QvzFxYvBtCinPkacQq2ubJ2qm982+38Zf/KjibVOF1dEbVdrGZmII6Tg5DaQzNXGYkg5PvYmJgT9xRsqeQjeYIUYqYZpAt+HYWA38AVfMU8jip/1P1wmwqD469nzJOBBa8yfsMs6Ca7tBaNl/zTxCRGnAgEzqtkdQ=
+#    file_glob: true
+#    file:
+#      - ${SHADOW_BUILD_DIR}/qgc-app/package/qgroundcontrol.*
+#      - ${SHADOW_BUILD_DIR}/qgc-app/package/QGroundControl.*
+#    skip_cleanup: true
+#    on:
+#      tags: true
+#      condition: $CONFIG = installer
+#      condition: $SPEC != macx-clang # GitHub OSX deploy broken due to travis problem
 
 #notifications:
 #  webhooks:
