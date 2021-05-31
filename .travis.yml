@@ -52,7 +52,7 @@ jobs:
           before_install: skip
           install: skip
           before_script: skip
-          before_deploy: skip
+          before_deploy: echo "before deploy"
           after_deploy: skip
           script: echo "Google Play Upload"
         
