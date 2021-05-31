@@ -49,11 +49,11 @@ jobs:
 #          language: android
 #          env: SPEC=google-play-upload
 #          sudo: false
-          before_install: skip
-          install: skip
-          before_script: skip
+          before_install: echo "before install"
+          install: echo "install"
+          before_script: echo "before script"
           before_deploy: echo "before deploy"
-          after_deploy: skip
+          after_deploy: echo "after deploy"
           script: echo "Google Play Upload"
         
 # iOS build needs updating Qt to > 5.10
