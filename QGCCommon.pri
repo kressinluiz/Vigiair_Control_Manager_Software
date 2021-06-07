@@ -25,7 +25,6 @@ linux {
         DEFINES += QGC_GST_TAISYNC_ENABLED
         DEFINES += QGC_GST_MICROHARD_ENABLED 
         DEFINES += QGC_ENABLE_MAVLINK_INSPECTOR
-        DEFINES += NO_SERIAL_LINK
         linux-clang {
             message("Linux clang")
             QMAKE_CXXFLAGS += -Qunused-arguments -fcolor-diagnostics
