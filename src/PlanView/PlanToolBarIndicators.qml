@@ -190,7 +190,7 @@ Item {
 
             Item { width: 1; height: 1 }
 
-            QGCLabel { text: qsTr("Maior Distância Controle-Drone:"); font.pointSize: _dataFontSize; }
+            QGCLabel { text: qsTr("Maior Distância Ponto de Decolagem-Drone:"); font.pointSize: _dataFontSize; }
             QGCLabel {
                 text:                   _missionMaxTelemetryText
                 font.pointSize:         _dataFontSize
