@@ -41,11 +41,10 @@ install:
       Write-Host "Installing..."
       cmd /c start /wait msiexec /package $msiPath /passive ADDLOCAL=ALL
       Write-Host "Installed" -ForegroundColor Green
-
 build_script:
   - mkdir %SHADOW_BUILD_DIR% && cd %SHADOW_BUILD_DIR% && %QT_QMAKE_DIR%\qmake -r CONFIG+=%CONFIG% CONFIG+=WarningsAsErrorsOn %APPVEYOR_BUILD_FOLDER%\qgroundcontrol.pro
   - cd %SHADOW_BUILD_DIR% && %QT_JOM_DIR%\jom
-  - if "%CONFIG%" EQU "installer" ( copy %SHADOW_BUILD_DIR%\release\QGroundControl-installer.exe %APPVEYOR_BUILD_FOLDER%\QGroundControl-installer.exe )
+  - if "%CONFIG%" EQU "installer" ( copy %SHADOW_BUILD_DIR%\release\VigiManager-installer.exe %APPVEYOR_BUILD_FOLDER%\VigiManager-installer.exe )
 # Generate the source server information to embed in the PDB
 # Temporarily disabled while we try to figure out where this is located on appveyor image
 #  - '"C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\srctool.exe" -r -u "%SHADOW_BUILD_DIR%\release\qgroundcontrol.pdb" | grep qgroundcontrol | grep -v moc_ | grep -v libs\\mavlink | grep -v build_windows_install | python %APPVEYOR_BUILD_FOLDER%\deploy\genPDBsrcsrv.py > %SHADOW_BUILD_DIR%\release\qgroundcontrol.pdb.srcsrv'
@@ -60,26 +59,26 @@ test_script:
   - if "%CONFIG%" EQU "debug" ( %SHADOW_BUILD_DIR%\debug\qgroundcontrol --unittest )
 
 artifacts:
-  - path: QGroundControl-installer.exe
+  - path: VigiManager-installer.exe
     name: qgcinstaller
   - path: build_windows_install\release\qgroundcontrol.pdb
     name: pdb
 
 deploy:
 # deploy continuous builds to s3
-  - provider: S3
-    access_key_id:
-      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
-    secret_access_key:
-      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
-    bucket: qgroundcontrol
-    region: us-west-2
-    set_public: true
-    folder: builds/$(APPVEYOR_REPO_BRANCH)
-    artifact: qgcinstaller
-    on:
-      CONFIG: installer
-      appveyor_repo_tag: false
+#  - provider: S3
+#    access_key_id:
+#      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
+#    secret_access_key:
+#      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
+#    bucket: qgroundcontrol
+#    region: us-west-2
+#    set_public: true
+#    folder: builds/$(APPVEYOR_REPO_BRANCH)
+#    artifact: qgcinstaller
+#    on:
+#      CONFIG: installer
+#      appveyor_repo_tag: false
 
 # Symbols for daily builds are currently turned off due to AppVeyor artifact storage limits
 # deploy daily build symbols to s3
@@ -115,7 +114,7 @@ deploy:
 # deploy tagged releases to Github releases
   - provider: GitHub
     auth_token:
-      secure: dzWLqd0eTKjrAWC5LgqVnwLemmrNdddGA2ZZn/OthAP37mwCLkP2C1zil7ivmEE8
+      secure: f1XguBIH1PLRV0ZkfL8UBzpdftaAhAzthvpaCO2wqydV523g8aIBjzESr+ZkyGFm
     artifact: qgcinstaller
     draft: false
     prerelease: false
@@ -124,46 +123,46 @@ deploy:
       appveyor_repo_tag: true
 
 # deploy tagged releases to s3 version folder
-  - provider: S3
-    access_key_id:
-      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
-    secret_access_key:
-      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
-    bucket: qgroundcontrol
-    region: us-west-2
-    set_public: true
-    folder: $(APPVEYOR_REPO_TAG_NAME)
-    artifact: qgcinstaller
-    on:
-      CONFIG: installer
-      appveyor_repo_tag: true
+#  - provider: S3
+#    access_key_id:
+#      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
+#    secret_access_key:
+#      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
+#    bucket: qgroundcontrol
+#    region: us-west-2
+#    set_public: true
+#    folder: $(APPVEYOR_REPO_TAG_NAME)
+#    artifact: qgcinstaller
+#    on:
+#      CONFIG: installer
+#      appveyor_repo_tag: true
 
 # deploy tagged releases to s3 latest folder
-  - provider: S3
-    access_key_id:
-      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
-    secret_access_key:
-      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
-    bucket: qgroundcontrol
-    region: us-west-2
-    set_public: true
-    folder: latest
-    artifact: qgcinstaller
-    on:
-      CONFIG: installer
-      appveyor_repo_tag: true
+#  - provider: S3
+#    access_key_id:
+#      secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
+#    secret_access_key:
+#      secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
+#    bucket: qgroundcontrol
+#    region: us-west-2
+#    set_public: true
+#    folder: latest
+#    artifact: qgcinstaller
+#    on:
+#      CONFIG: installer
+#      appveyor_repo_tag: true
 
 # deploy pdb for tagged releases to s3 latest folder
-  - provider: S3
-    access_key_id:
-        secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
-    secret_access_key:
-        secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
-    bucket: qgroundcontrol
-    region: us-west-2
-    set_public: true
-    folder: latest
-    artifact: pdb
-    on:
-       CONFIG: installer
-       appveyor_repo_tag: true
+#  - provider: S3
+#    access_key_id:
+#        secure: IGAojLMqokL+76DbdulmWDA3MTsxEBBi3ReVVSqTy9c=
+#    secret_access_key:
+#        secure: RiYqaR+3T2PMNz2j5ur8LCA6H/Zfd4jTX33CZE5iBxm+zaz4QLs25p0B7prpaoNN
+#    bucket: qgroundcontrol
+#    region: us-west-2
+#    set_public: true
+#    folder: latest
+#    artifact: pdb
+#    on:
+#       CONFIG: installer
+#       appveyor_repo_tag: true

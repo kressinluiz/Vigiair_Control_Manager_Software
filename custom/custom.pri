@@ -35,14 +35,14 @@ CONFIG  += QGC_DISABLE_PX4_PLUGIN_FACTORY
 DEFINES += CUSTOMHEADER=\"\\\"CustomPlugin.h\\\"\"
 DEFINES += CUSTOMCLASS=CustomPlugin
 
-TARGET   = CustomQGC
+TARGET   = VigiManager
 DEFINES += QGC_APPLICATION_NAME=\"\\\"VigiManager\\\"\"
 
 DEFINES += QGC_ORG_NAME=\"\\\"qgroundcontrol.org\\\"\"
 DEFINES += QGC_ORG_DOMAIN=\"\\\"org.qgroundcontrol\\\"\"
 
 QGC_APP_NAME        = "Custom GS"
-QGC_BINARY_NAME     = "CustomQGC"
+QGC_BINARY_NAME     = "VigiManager"
 QGC_ORG_NAME        = "Custom"
 QGC_ORG_DOMAIN      = "org.qgroundcontrol"
 QGC_APP_DESCRIPTION = "Custom QGC Ground Station"
