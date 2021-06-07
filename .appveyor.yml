@@ -45,7 +45,7 @@ install:
 build_script:
   - mkdir %SHADOW_BUILD_DIR% && cd %SHADOW_BUILD_DIR% && %QT_QMAKE_DIR%\qmake -r CONFIG+=%CONFIG% CONFIG+=WarningsAsErrorsOn %APPVEYOR_BUILD_FOLDER%\qgroundcontrol.pro
   - cd %SHADOW_BUILD_DIR% && %QT_JOM_DIR%\jom
-  - if "%CONFIG%" EQU "installer" ( copy %SHADOW_BUILD_DIR%\release\CustomQGC-installer.exe %APPVEYOR_BUILD_FOLDER%\CustomQGC-installer.exe )
+  - if "%CONFIG%" EQU "installer" ( copy %SHADOW_BUILD_DIR%\release\VigiManager-installer.exe %APPVEYOR_BUILD_FOLDER%\VigiManager-installer.exe )
 # Generate the source server information to embed in the PDB
 # Temporarily disabled while we try to figure out where this is located on appveyor image
 #  - '"C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\srctool.exe" -r -u "%SHADOW_BUILD_DIR%\release\qgroundcontrol.pdb" | grep qgroundcontrol | grep -v moc_ | grep -v libs\\mavlink | grep -v build_windows_install | python %APPVEYOR_BUILD_FOLDER%\deploy\genPDBsrcsrv.py > %SHADOW_BUILD_DIR%\release\qgroundcontrol.pdb.srcsrv'
@@ -60,7 +60,7 @@ test_script:
   - if "%CONFIG%" EQU "debug" ( %SHADOW_BUILD_DIR%\debug\qgroundcontrol --unittest )
 
 artifacts:
-  - path: CustomQGC-installer.exe
+  - path: VigiManager-installer.exe
     name: qgcinstaller
   - path: build_windows_install\release\qgroundcontrol.pdb
     name: pdb
