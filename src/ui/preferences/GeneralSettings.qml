@@ -347,7 +347,7 @@ Rectangle {
                                         icon:               StandardIcon.Warning
                                         standardButtons:    StandardButton.Yes | StandardButton.No
                                         title:              qsTr("Clear Settings")
-                                        text:               qsTr("All saved settings will be reset the next time you start %1. Is this really what you want?").arg(QGroundControl.appName)
+                                        text:               qsTr("Todas as configurações salvas serão apagadas na próxima inicialização do %1. É isso mesmo que você deseja?").arg(QGroundControl.appName)
                                         onYes: {
                                             QGroundControl.deleteAllSettingsNextBoot()
                                             clearDialog.visible = false

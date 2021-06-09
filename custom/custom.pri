@@ -41,12 +41,12 @@ DEFINES += QGC_APPLICATION_NAME=\"\\\"VigiManager\\\"\"
 DEFINES += QGC_ORG_NAME=\"\\\"qgroundcontrol.org\\\"\"
 DEFINES += QGC_ORG_DOMAIN=\"\\\"org.qgroundcontrol\\\"\"
 
-QGC_APP_NAME        = "Custom GS"
+QGC_APP_NAME        = "VigiManager"
 QGC_BINARY_NAME     = "VigiManager"
-QGC_ORG_NAME        = "Custom"
+QGC_ORG_NAME        = "Vigiair"
 QGC_ORG_DOMAIN      = "org.qgroundcontrol"
-QGC_APP_DESCRIPTION = "Custom QGC Ground Station"
-QGC_APP_COPYRIGHT   = "Copyright (C) 2019 QGroundControl Development Team. All rights reserved."
+QGC_APP_DESCRIPTION = "Gerenciador de Rotas Vigiair"
+QGC_APP_COPYRIGHT   = "Copyright (C) 2021 Vigiair Development Team. All rights reserved."
 
 # Our own, custom resources
 RESOURCES += \
