@@ -1381,3 +1381,5 @@ contains (CONFIG, QGC_DISABLE_INSTALLER_SETUP) {
 } else {
     include(QGCInstaller.pri)
 }
+
+DISTFILES += \

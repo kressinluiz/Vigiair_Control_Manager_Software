@@ -41,7 +41,7 @@ AnalyzePage {
             anchors.left:       parent.left
             anchors.right:      parent.right
             QGCLabel {
-                text:           qsTr("Inspect real time MAVLink messages.")
+                text:           qsTr("Analise as informações enviadas pelo drone durante o vôo.")
             }
             RowLayout {
                 Layout.alignment:   Qt.AlignRight

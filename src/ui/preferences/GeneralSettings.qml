@@ -174,7 +174,7 @@ Rectangle {
                                 
                                 QGCComboBox {
                                     id:             mapCombo
-                                    property variant mapProviderVigiair: ["Google"]
+                                    property variant mapProviderVigiair: ["Google", "Bing"]
                                     //model:          QGroundControl.mapEngineManager.mapProviderList
                                     model:          mapProviderVigiair
                                     Layout.preferredWidth:  _comboFieldWidth
@@ -207,8 +207,13 @@ Rectangle {
                                             _mapType = "Hybrid"
                                             QGroundControl.settingsManager.flightMapSettings.mapType.value="Hybrid"
                                         }else if(textAt(index) === "Street Map"){
-                                            _mapType = "Street Map"
-                                            QGroundControl.settingsManager.flightMapSettings.mapType.value="Street Map"
+                                            if(_mapProvider == "Google"){
+                                                _mapType = "Street Map"
+                                                QGroundControl.settingsManager.flightMapSettings.mapType.value="Street Map"
+                                            }else{
+                                                _mapType = "Road"
+                                                QGroundControl.settingsManager.flightMapSettings.mapType.value="Road"
+                                            }
                                         }
                                     }
                                     Component.onCompleted: {

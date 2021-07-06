@@ -15,7 +15,10 @@
 
 #include "FirmwarePlugin.h"
 
-class CustomFirmwarePlugin;
+class ArduCopterFirmwarePlugin;
+class ArduPlaneFirmwarePlugin;
+class ArduRoverFirmwarePlugin;
+class ArduSubFirmwarePlugin;
 
 class CustomFirmwarePluginFactory : public FirmwarePluginFactory
 {
@@ -24,8 +27,12 @@ public:
     CustomFirmwarePluginFactory();
     QList<MAV_AUTOPILOT>    supportedFirmwareTypes      () const override;
     FirmwarePlugin*         firmwarePluginForAutopilot  (MAV_AUTOPILOT autopilotType, MAV_TYPE vehicleType) override;
+
 private:
-    CustomFirmwarePlugin*   _pluginInstance;
+    ArduCopterFirmwarePlugin*   _arduCopterPluginInstance;
+    ArduPlaneFirmwarePlugin*    _arduPlanePluginInstance;
+    ArduRoverFirmwarePlugin*    _arduRoverPluginInstance;
+    ArduSubFirmwarePlugin*      _arduSubPluginInstance;
 };
 
-extern CustomFirmwarePluginFactory CustomFirmwarePluginFactoryImp;
+//extern CustomFirmwarePluginFactory CustomFirmwarePluginFactoryImp;

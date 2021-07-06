@@ -607,7 +607,7 @@ Item {
                     buttonVisible:      _isMissionLayer
                 },
                 {
-                    name:               _editingLayer == _layerRallyPoints ? qsTr("Ponto Rally") : qsTr("Parar"),
+                    name:               _editingLayer == _layerRallyPoints ? qsTr("Ponto Rally") : qsTr("Parara"),
                     iconSource:         "/qmlimages/MapAddMission.svg",
                     buttonEnabled:      _isRallyLayer ? true : _missionController.flyThroughCommandsAllowed,
                     buttonVisible:      _isRallyLayer || _isMissionLayer,

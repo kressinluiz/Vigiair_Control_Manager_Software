@@ -43,8 +43,8 @@ Item {
     //-------------------------------------------------------------------------
     //-- Initial State
     Component.onCompleted: {
-        flyButton.checked = true
-        sectionTitle = flyButton.text
+        planButton.checked = true
+        sectionTitle = PlanButton.text
     }
     //-------------------------------------------------------------------------
     //-- Fly/Plan state toggle
@@ -182,10 +182,10 @@ Item {
             CustomToolBarButton {
                 id:                         flyButton
                 spacing:                    1
-                text:                       qsTr("Fly")
+                text:                       qsTr("Mapa do Log")
                 icon.source:                "/qmlimages/PaperPlane.svg"
                 Layout.fillWidth:           true
-                visible: false
+                visible: true
                 onClicked: {
                     checked = true
                     drawer.close()
@@ -218,10 +218,10 @@ Item {
                 color:                      menuSeparatorColor
             }
             CustomToolBarButton {
-                text:                       qsTr("Analyze")
+                text:                       qsTr("Análise")
                 icon.source:                "/qmlimages/Analyze.svg"
                 Layout.fillWidth:           true
-                visible: false
+                visible: true
                 onClicked: {
                     checked = true
                     drawer.close()
