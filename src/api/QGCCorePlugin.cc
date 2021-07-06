@@ -295,13 +295,13 @@ QVariantList& QGCCorePlugin::instrumentPages()
 QVariantList& QGCCorePlugin::analyzePages()
 {
     if (!_p->analyzeList.count()) {
-        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("Log Download"),     QUrl::fromUserInput("qrc:/qml/LogDownloadPage.qml"),      QUrl::fromUserInput("qrc:/qmlimages/LogDownloadIcon"))));
-#if !defined(__mobile__)
-        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("GeoTag Images"),    QUrl::fromUserInput("qrc:/qml/GeoTagPage.qml"),           QUrl::fromUserInput("qrc:/qmlimages/GeoTagIcon"))));
-#endif
-        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("MAVLink Console"),  QUrl::fromUserInput("qrc:/qml/MavlinkConsolePage.qml"),   QUrl::fromUserInput("qrc:/qmlimages/MavlinkConsoleIcon"))));
+        //_p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("Log Download"),     QUrl::fromUserInput("qrc:/qml/LogDownloadPage.qml"),      QUrl::fromUserInput("qrc:/qmlimages/LogDownloadIcon"))));
+//#if !defined(__mobile__)
+//        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("GeoTag Images"),    QUrl::fromUserInput("qrc:/qml/GeoTagPage.qml"),           QUrl::fromUserInput("qrc:/qmlimages/GeoTagIcon"))));
+//#endif
+//        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("MAVLink Console"),  QUrl::fromUserInput("qrc:/qml/MavlinkConsolePage.qml"),   QUrl::fromUserInput("qrc:/qmlimages/MavlinkConsoleIcon"))));
 #if defined(QGC_ENABLE_MAVLINK_INSPECTOR)
-        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("MAVLink Inspector"),QUrl::fromUserInput("qrc:/qml/MAVLinkInspectorPage.qml"), QUrl::fromUserInput("qrc:/qmlimages/MAVLinkInspector"))));
+        _p->analyzeList.append(QVariant::fromValue(new QmlComponentInfo(tr("Logs de Vôo"),QUrl::fromUserInput("qrc:/qml/MAVLinkInspectorPage.qml"), QUrl::fromUserInput("qrc:/qmlimages/MAVLinkInspector"))));
 #endif
     }
     return _p->analyzeList;

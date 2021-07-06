@@ -18,6 +18,7 @@
 #include "CustomPlugin.h"
 #include "CustomQuickInterface.h"
 #include "CustomVideoManager.h"
+#include "QGroundControlQmlGlobal.h"
 
 #include "MultiVehicleManager.h"
 #include "QGCApplication.h"
@@ -240,6 +241,7 @@ CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaData& 
             metaData.setRawDefaultValue(indoorPalette);
             parentResult = true;
         }
+
     }
     return parentResult;
 }

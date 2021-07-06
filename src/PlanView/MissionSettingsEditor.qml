@@ -124,18 +124,18 @@ Rectangle {
                 columns:        2
                 visible:        vehicleInfoSectionHeader.visible && vehicleInfoSectionHeader.checked
 
-                QGCLabel {
-                    text:               _firmwareLabel
-                    Layout.fillWidth:   true
-                    visible:            _multipleFirmware
-                }
-                FactComboBox {
-                    fact:                   QGroundControl.settingsManager.appSettings.offlineEditingFirmwareType
-                    indexModel:             false
-                    Layout.preferredWidth:  _fieldWidth
-                    visible:                _multipleFirmware
-                    enabled:                _enableOfflineVehicleCombos
-                }
+//                QGCLabel {
+//                    text:               _firmwareLabel
+//                    Layout.fillWidth:   true
+//                    visible:            _multipleFirmware
+//                }
+//                FactComboBox {
+//                    fact:                   QGroundControl.settingsManager.appSettings.offlineEditingFirmwareType
+//                    indexModel:             false
+//                    Layout.preferredWidth:  _fieldWidth
+//                    visible:                _multipleFirmware
+//                    enabled:                _enableOfflineVehicleCombos
+//                }
 
                 QGCLabel {
                     text:               _vehicleLabel

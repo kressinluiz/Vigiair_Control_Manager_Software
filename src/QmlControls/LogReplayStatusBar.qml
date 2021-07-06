@@ -27,8 +27,8 @@ Rectangle {
 
     QGCFileDialog {
         id:                 filePicker
-        title:              qsTr("Select Telemetery Log")
-        nameFilters:        [qsTr("Telemetry Logs (*.%1)").arg(_logFileExtension), qsTr("All Files (*)")]
+        title:              qsTr("Selecionar Log do Drone")
+        nameFilters:        [qsTr("Logs (*.%1)").arg(_logFileExtension), qsTr("Todos os Arquivos (*)")]
         fileExtension:      _logFileExtension
         selectExisting:     true
         folder:             QGroundControl.settingsManager.appSettings.telemetrySavePath
@@ -54,7 +54,7 @@ Rectangle {
         anchors.right:      parent.right
 
         QGCButton {
-            text:       controller.isPlaying ? qsTr("Pause") : qsTr("Play")
+            text:       controller.isPlaying ? qsTr("Pausar") : qsTr("Iniciar")
             enabled:    controller.link
             onClicked:  controller.isPlaying = !controller.isPlaying
         }
@@ -102,7 +102,7 @@ Rectangle {
         QGCLabel { text: controller.totalTime }
 
         QGCButton {
-            text:       qsTr("Load Telemetry Log")
+            text:       qsTr("Carregar Log")
             onClicked:  pickLogFile()
             visible:    !controller.link
         }

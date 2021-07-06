@@ -85,7 +85,7 @@ Rectangle {
             QGCLabel {
                 anchors.left:           parent.left
                 anchors.right:          parent.right
-                text:                   qsTr("Analyze")
+                text:                   qsTr("Análise")
                 wrapMode:               Text.WordWrap
                 horizontalAlignment:    Text.AlignHCenter
                 visible:                !ScreenTools.isShortScreen
@@ -170,6 +170,6 @@ Rectangle {
         anchors.right:          parent.right
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        source:                 "LogDownloadPage.qml"
+        source:                 "MAVLinkInspectorPage.qml"
     }
 }

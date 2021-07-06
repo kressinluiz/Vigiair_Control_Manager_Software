@@ -27,7 +27,7 @@
         {
             "id":                   16,
             "rawName":              "MAV_CMD_NAV_WAYPOINT",
-            "friendlyName":         "Parar",
+            "friendlyName":         "Parada",
             "description":          "Voa para uma posição especificada.",
             "specifiesCoordinate":  true,
             "friendlyEdit":         true,

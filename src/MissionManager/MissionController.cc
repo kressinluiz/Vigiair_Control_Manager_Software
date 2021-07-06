@@ -53,10 +53,10 @@ const char* MissionController::_jsonMavAutopilotKey =           "MAV_AUTOPILOT";
 
 const int   MissionController::_missionFileVersion =            2;
 
-const QString MissionController::patternSurveyName          (QT_TRANSLATE_NOOP("MissionController", "Varredura"));
+const QString MissionController::patternSurveyName          (QT_TRANSLATE_NOOP("MissionController", "Inspeção"));
 const QString MissionController::patternFWLandingName       (QT_TRANSLATE_NOOP("MissionController", "Fixed Wing Landing"));
-const QString MissionController::patternStructureScanName   (QT_TRANSLATE_NOOP("MissionController", "Varredura Estrutura"));
-const QString MissionController::patternCorridorScanName    (QT_TRANSLATE_NOOP("MissionController", "Varredura Corredor"));
+const QString MissionController::patternStructureScanName   (QT_TRANSLATE_NOOP("MissionController", "Inspeção Estrutura"));
+const QString MissionController::patternCorridorScanName    (QT_TRANSLATE_NOOP("MissionController", "Inspeção Corredor"));
 
 MissionController::MissionController(PlanMasterController* masterController, QObject *parent)
     : PlanElementController     (masterController, parent)

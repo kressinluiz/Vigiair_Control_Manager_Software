@@ -141,9 +141,9 @@ void AppSettings::_checkSavePathDirectories(void)
     }
     if (savePathDir.exists()) {
         //savePathDir.mkdir(parameterDirectory);
-        //savePathDir.mkdir(telemetryDirectory);
+        savePathDir.mkdir(telemetryDirectory);
         savePathDir.mkdir(missionDirectory);
-        //savePathDir.mkdir(logDirectory);
+        savePathDir.mkdir(logDirectory);
         //savePathDir.mkdir(videoDirectory);
         //savePathDir.mkdir(crashDirectory);
     }
